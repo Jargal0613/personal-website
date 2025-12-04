@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jargal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:," />
+  <style>
+    .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
+    @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col">
+
+  <!-- Navigation (copy to every page) -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+    <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg">
+      <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Home</a>
+      <a href="history.html" class="text-gray-400 hover:text-white transition">History</a>
+      <a href="volunteer.html" class="text-gray-400 hover:text-white transition">Volunteer</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col items-center justify-center px-6 py-32 pt-40">
+    <div class="max-w-3xl mx-auto text-center space-y-12">
+
+      <img src="image1.png" alt="Jargal" 
+           class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-cyan-500 shadow-2xl shadow-cyan-500/20 mx-auto" />
+
+      <h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+        Jargal
+      </h1>
+
+      <p class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+        Hey, I’m Jargal.<br><br>
+        I am just learning how to create website<br><br>
+        Монгол хэл дээр тавтай морилно уу.<br><br>
+        Миний вэбсайтын буланд тавтай морилно уу.
+      </p>
+
+      <div class="flex gap-10 justify-center mt-12">
+        <a href="https://instagram.com/j_rg_l_" target="_blank" class="text-gray-400 hover:text-cyan-400 transition text-4xl">
+          Instagram
+        </a>
+        <a href="mailto:jargal0660@gmail.com" target="_blank" class="text-gray-400 hover:text-cyan-400 transition text-4xl">
+          Email
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (copy to every page) -->
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
+    © 2025 Jargal
+  </footer>
+</body>
+</html>

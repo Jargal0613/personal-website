@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>History • Jargal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:," />
+  <style>
+    .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
+    @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col">
+
+  <!-- Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+    <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg">
+      <a href="/mn/index.html" class="text-gray-400 hover:text-white transition">Home</a>
+      <a href="history.html" class="text-cyan-400 hover:text-white transition font-semibold">History</a>
+      <a href="volunteer.html" class="text-gray-400 hover:text-white transition">Volunteer</a>
+    </nav>
+  </header>
+
+  <main class="pt-32 px-6 max-w-4xl mx-auto py-20">
+
+    <h1 class="text-5xl md:text-7xl font-bold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent mb-12 text-center">
+      My History
+    </h1>
+
+    <div class="space-y-12 text-lg text-gray-300 leading-relaxed">
+      <!-- Just write your story here in paragraphs or timeline style -->
+      <section>
+        <h2 class="text-3xl font-bold text-cyan-400 mb-4">2005 – Born in Khentii, Mongolia</h2>
+        <p>Grew up in between very buetiful place that my parents living in countryside and my grandparent's hous at Khentii</p>
+      </section>
+
+      <section>
+        <h2 class="text-3xl font-bold text-cyan-400 mb-4">2011 – entered primary school Kherlen 4th school in Khentii</h2>
+        <p>Studied until end of 7th class</p>
+      </section>
+
+      <!-- Add as many sections as you want -->
+      <section>
+        <h2 class="text-3xl font-bold text-cyan-400 mb-4">2018 – moved to Baganuur enrolled in Bolovsrol Tsogtsolbor Complex school</h2>
+        <p>Very interested in mathematic</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900 mt-auto">
+    © 2025 Jargal
+  </footer>
+</body>
+</html>
