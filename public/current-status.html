@@ -7,41 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" href="data:," />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: black;
-            color: white;
-        }
-        .status-container {
-            background-color: grey;
-            color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        .status-item {
-            margin: 15px 0;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-        .status-item:last-child {
-            border-bottom: none;
-        }
-        .label {
-            font-weight: bold;
-            color: #555;
-        }
-        .value {
-            color: #333;
-            margin-left: 10px;
-        }
+
     </style>
 </head>
 <body>
@@ -55,19 +21,19 @@
     </nav>
     <a href="/mn/current-status.html" class="text-gray-400 hover:text-white transition text-right">Mn</a>
   </header>
-    <div class="status-container">
-        <h1>Current Status</h1>
-        <div class="status-item">
-            <span class="label">Education:</span>
-            <span class="value">Student at <a href="https://www.gmit.edu.mn/eng/" target="_blank" rel="noopener noreferrer">GMIT</a></span>
+    <div class="grid md:grid-cols-2 gap-8 mt-12">
+        <h1 class="text-2xl font-bold text-cyan-400 mb-3">Current Status</h1>
+        <div class="status-item" class="bg-gray-900/50 border border-gray-800 rounded-xl p-8 hover:border-cyan-500 transition">
+            <span>Боловсрол:</span>
+            <span><a href="https://www.gmit.edu.mn/" target="_blank" rel="noopener noreferrer">GMIT</a>-д 2 курст суралцаж байна</span>
         </div>
         <div class="status-item">
-            <span class="label">Current Role:</span>
-            <span class="value">Add your role here</span>
+            <span>Одоогийн ажил:</span>
+            <span>GMIT-д вэб хөгжүүлэгчийн дадлага хийж байна</span>
         </div>
         <div class="status-item">
-            <span class="label">Focus:</span>
-            <span class="value">Add your current focus/projects</span>
+            <span>Хобби:</span>
+            <span>Влог хийх, аялах, ном унших</span>
         </div>
     </div>
 
