@@ -10,11 +10,16 @@
     <header>
         <nav>
             <a href="index.html">Home</a>
-            <a href="about-me.html">About Me</a>
-            <a href="test.html">Test</a>
         </nav>
     </header>
-    
+    <div class="HamburgerMenu" onclick="toggleFunction()">
+        ☰
+    </div>
+    <div id="list">
+        <a href="index.html">Home</a>
+        <a href="about-me.html">About Me</a>
+        <a href="test.html">Test</a>
+    </div>
     <main>
         <section>
             <h2>Test Content</h2>
@@ -26,5 +31,11 @@
     <footer>
         <p>&copy; 2025 Jargal. All rights reserved.</p>
     </footer>
+    <script>
+        function toggleFunction() {
+            var menu = document.getElementById("list");
+            menu.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
