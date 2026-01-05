@@ -11,6 +11,12 @@
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
   </style>
+  <script>
+    function toggleFunction() {
+      var menuu = document.getElementById("menu");
+      menuu.classList.toggle("active");
+    }
+  </script>
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
 
@@ -19,6 +25,7 @@
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg" id="mobileNav">
       <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Home</a>
       <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
+      <div class="hamburgerMenu" id="menu" onclick="toggleFunction()">☰</div>
     </nav>
     <div class="overlay" id="overlay"></div>
 
