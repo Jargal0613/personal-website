@@ -8,21 +8,49 @@
     <style>
         .hamburgerMenu {
             display: none;
-            font-size: 30px;
-            cursor: pointer;
+            flex-direction: column;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: white;
+            border: 1px solid black;
+            min-width: 150px;
+            z-index: 10;
         }
 
         .hamburgerMenu.active {
-            display: list-item;
+            display: flex;
         }
+
+        .hamburgerMenu a {
+            padding: 12px 16px;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .hamburgerMenu a:hover {
+            background-color: #f1f1f1;
+        }
+
         .hamburgerButton {
             margin-top: 10px;
             margin-bottom: 10px;
-            border:  2px solid black;
-            padding: auto;
+            border: 2px solid black;
+            padding: 8px 12px;
             font-size: 30px;
             cursor: pointer;
-            display: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 4px;
+        }
+
+        .hamburgerButton:hover {
+            background-color: #f1f1f1;
         }
     </style>
 </head>
