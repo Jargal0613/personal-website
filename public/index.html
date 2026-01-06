@@ -12,16 +12,24 @@
 
     .hamburgerButton {
             display: flex;
-            width: 100%;
+            margin: 0;
+            padding: 8px 12px;
+            font-size: 24px;
+            cursor: pointer;
             align-items: center;
-            flex-direction: column;
-            position: static;
-            background-color: white;
-            min-width: 150px;
+            justify-content: center;
+            background-color: transparent;
+            width: 45px;
+            height: 45px;
+            color: #06b6d4;
+            border: 2px solid #06b6d4;
+            border-radius: 4px;
+            transition: all 0.3s ease;
             z-index: 10;
-            margin-top: 8px;
-            font: bold 16px Arial, sans-serif;
-            color: red;
+    }
+    .hamburgerButton:hover {
+        background-color: #06b6d4;
+        color: black;
     }
     .hamburgerButton.hidden {
         display: none;
@@ -29,16 +37,24 @@
 
     .cross {
             display: none;
-            width: 100%;
+            margin: 0;
+            padding: 8px 12px;
+            font-size: 20px;
+            cursor: pointer;
             align-items: center;
-            flex-direction: column;
-            position: static;
-            background-color: white;
-            min-width: 150px;
+            justify-content: center;
+            background-color: transparent;
+            width: 45px;
+            height: 45px;
+            color: #06b6d4;
+            border: 2px solid #06b6d4;
+            border-radius: 4px;
+            transition: all 0.3s ease;
             z-index: 10;
-            margin-top: 8px;
-            font: bold 16px Arial, sans-serif;
-            color: red;
+    }
+    .cross:hover {
+        background-color: #06b6d4;
+        color: black;
     }
     .cross.shown {
         display: flex;
@@ -74,7 +90,7 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <!-- Navigation (copy to every page) -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 flex items-center justify-between px-6 py-4">
 
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()">
       ☰
