@@ -113,8 +113,11 @@
          <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()">
             ☰
          </div>
-         <div class="cross" id="cross" onclick="toggleFunction()">
-            x
+         <div class="cross" id="cross" onclick="toggleFunction()" aria-hidden="false" aria-label="Close menu" role="button">
+             <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                 <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+                 <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+             </svg>
          </div>
          <div id="list" class="hamburgerMenu">
              <a href="index.html">Home</a>
