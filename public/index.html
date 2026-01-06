@@ -10,6 +10,9 @@
     .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
+    header {
+      align-items: flex-end;
+    }
     .hamburgerButton {
         display: flex;
         margin: 0;
@@ -129,7 +132,7 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <!-- Navigation (copy to every page) -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 flex items-right justify-between px-6 py-4">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 flex justify-between px-6 py-4">
 
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       ☰
