@@ -10,12 +10,82 @@
     .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
+    .hamburgerButton {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+            position: static;
+            background-color: white;
+            min-width: 150px;
+            z-index: 10;
+            margin-top: 8px;
+            font: bold 16px Arial, sans-serif;
+    }
+    .hamburgerButton.hidden {
+        display: none;
+    }
+
+    .cross {
+            display: none;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+            position: static;
+            background-color: white;
+            min-width: 150px;
+            z-index: 10;
+            margin-top: 8px;
+            font: bold 16px Arial, sans-serif;
+    }
+    .cross.shown {
+        display: flex;
+    }
+
+    nav .mobileNav {
+        display: none;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        position: static;
+        background-color: white;
+        min-width: 150px;
+        z-index: 10;
+        margin-top: 8px;
+        font: bold 16px Arial, sans-serif;
+    }
+    .mobileNav.shown {
+        display: flex;
+      }
+
   </style>
+  <script>
+    function toggleFunction() {
+      var menu = document.getElementById("mobileNav");
+      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
+      var crossSwitch = document.getElementById("cross");
+      menu.classList.toggle("shown");
+      hamburgerButtonSwitch.classList.toggle("hidden");
+      crossSwitch.classList.toggle("shown");
+    }
+  </script>
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <!-- Navigation (copy to every page) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+
+    <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()">
+      ☰
+    </div>
+
+    <div class="cross" id="cross" onclick="toggleFunction()">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      </svg>
+    </div>
+
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
       <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Home</a>
       <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
