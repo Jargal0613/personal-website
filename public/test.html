@@ -13,7 +13,11 @@
         }
 
         .hamburgerMenu.active {
-            display: block;
+            display: list-item;
+        }
+        .hamburgerButton {
+            font-size: 30px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -23,7 +27,7 @@
             <a href="index.html">Home</a>
         </nav>
     </header>
-    <div class="HamburgerMenu" onclick="toggleFunction()">
+    <div class="hamburgerButton" onclick="toggleFunction()">
         ☰
     </div>
     <div id="list" class="hamburgerMenu">
