@@ -136,6 +136,21 @@
 
 
     </style>
+
+    <script>
+        function toggleFunction() {
+            var menu = document.getElementById("list");
+            var menuChange = document.getElementById("hamburgerButton");
+            var crossChange = document.getElementById("cross");
+            menuChange.classList.toggle("active");
+            crossChange.classList.toggle("active");
+            var isOpen = menu.classList.toggle("active");
+            // keep simple: menu is in-flow so no header padding manipulation needed
+            // update aria attribute for accessibility
+            var btn = document.querySelector('.hamburgerButton');
+            if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        }
+    </script>
 </head>
 
 
@@ -168,19 +183,5 @@
     <footer>
         <p>&copy; 2025 Jargal. All rights reserved.</p>
     </footer>
-    <script>
-        function toggleFunction() {
-            var menu = document.getElementById("list");
-            var menuChange = document.getElementById("hamburgerButton");
-            var crossChange = document.getElementById("cross");
-            menuChange.classList.toggle("active");
-            crossChange.classList.toggle("active");
-            var isOpen = menu.classList.toggle("active");
-            // keep simple: menu is in-flow so no header padding manipulation needed
-            // update aria attribute for accessibility
-            var btn = document.querySelector('.hamburgerButton');
-            if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
-    </script>
 </body>
 </html>
