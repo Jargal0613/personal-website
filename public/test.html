@@ -103,6 +103,27 @@
             text-align: center;
         }
 
+        /* Large screens: show links inline and hide hamburger */
+        @media (min-width: 768px) {
+            header { flex-direction: row; align-items: center; justify-content: space-between; }
+            .hamburgerButton, .cross { display: none !important; }
+            .hamburgerMenu {
+                display: flex !important;
+                flex-direction: row;
+                position: static;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                width: auto;
+                margin: 0;
+            }
+            .hamburgerMenu a {
+                padding: 8px 12px;
+                border-bottom: none;
+                color: inherit;
+            }
+        }
+
 
     </style>
 </head>
