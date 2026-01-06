@@ -98,23 +98,11 @@
       padding: 12px 18px;
     }
 
-    .overlay { display: none; }
-    .overlay.shown {
-      display: block;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.55);
-      z-index: 50;
-      backdrop-filter: blur(4px);
-      transition: opacity 220ms ease;
-    }
-
     /* Desktop: show nav links and hide hamburger controls */
     @media (min-width: 768px) {
       .hamburgerButton, .cross { display: none !important; }
       nav.mobileNav { display: flex !important; flex-direction: row !important; position: static !important; background: transparent !important; }
       nav.mobileNav a { display: inline-block !important; padding: 8px 12px; color: inherit !important; }
-      .overlay { display: none !important; }
     }
 
   </style>
@@ -123,11 +111,9 @@
       var menu = document.getElementById("mobileNav");
       var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
       var crossSwitch = document.getElementById("cross");
-      var overlay = document.getElementById("overlay");
       var isShown = menu.classList.toggle("shown");
       hamburgerButtonSwitch.classList.toggle("hidden");
       crossSwitch.classList.toggle("shown");
-      if (overlay) overlay.classList.toggle("shown");
       if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
     }
   </script>
@@ -153,7 +139,6 @@
       <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
       <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
     </nav>
-    <div class="overlay" id="overlay" onclick="toggleFunction()" aria-hidden="true"></div>
 
   </header>
 
