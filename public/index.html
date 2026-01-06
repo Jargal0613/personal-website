@@ -61,6 +61,13 @@
         display: flex;
       }
 
+    /* Desktop: show nav links and hide hamburger controls */
+    @media (min-width: 768px) {
+      .hamburgerButton, .cross { display: none !important; }
+      nav.mobileNav { display: flex !important; flex-direction: row !important; }
+      nav.mobileNav a { display: inline-block !important; padding: 8px 12px; }
+    }
+
   </style>
   <script>
     function toggleFunction() {
