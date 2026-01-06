@@ -73,12 +73,21 @@
             background-color: #f1f1f1;
         }
 
+
+        .cross {
+        }
+        .cross.active {
+            display: flex;
+        }
+
+
         footer { 
             padding: 12px 16px; 
             background: transparent; 
             border-top: 1px solid #ccc;
             text-align: center;
         }
+
 
     </style>
 </head>
@@ -87,7 +96,10 @@
 <body>
     <header>
          <div class="hamburgerButton" onclick="toggleFunction()">
-        ☰
+            ☰
+         </div>
+         <div class="cross" onclick="toggleFunction()">
+            x
          </div>
          <div id="list" class="hamburgerMenu">
              <a href="index.html">Home</a>
