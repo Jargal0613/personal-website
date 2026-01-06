@@ -11,72 +11,104 @@
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
     .hamburgerButton {
-            display: flex;
-            margin: 0;
-            padding: 8px 12px;
-            font-size: 24px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            background-color: transparent;
-            width: 45px;
-            height: 45px;
-            color: #06b6d4;
-            border: 2px solid #06b6d4;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            z-index: 10;
+        display: flex;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 24px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        width: 45px;
+        height: 45px;
+        color: #06b6d4;
+        border: 2px solid #06b6d4;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        z-index: 70;
     }
     .hamburgerButton:hover {
-        background-color: #06b6d4;
-        color: black;
+      background-color: #06b6d4;
+      color: black;
     }
     .hamburgerButton.hidden {
-        display: none;
+      display: none;
     }
 
     .cross {
-            display: none;
-            margin: 0;
-            padding: 8px 12px;
-            font-size: 20px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            background-color: transparent;
-            width: 45px;
-            height: 45px;
-            color: #06b6d4;
-            border: 2px solid #06b6d4;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            z-index: 10;
+        display: none;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        background-color: transparent;
+        width: 45px;
+        height: 45px;
+        color: #06b6d4;
+        border: 2px solid #06b6d4;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        z-index: 70;
     }
     .cross:hover {
-        background-color: #06b6d4;
-        color: black;
+      background-color: #06b6d4;
+      color: black;
     }
     .cross.shown {
-        display: flex;
+      display: flex;
     }
 
     .mobileNav {
-            display: none;
-
+        display: none;
     }
 
     nav a {
-        display: none;
+      display: none;
     }
+
+    /* Mobile: visible full-screen panel when shown */
     .mobileNav.shown {
-        display: flex;
-      }
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(2,6,23,0.92);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      padding-top: 6rem;
+      transition: opacity 220ms ease, transform 220ms ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobileNav.shown a {
+      display: block;
+      font-size: 1.25rem;
+      color: #9feaf7;
+      padding: 12px 18px;
+    }
+
+    .overlay { display: none; }
+    .overlay.shown {
+      display: block;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 50;
+      backdrop-filter: blur(4px);
+      transition: opacity 220ms ease;
+    }
 
     /* Desktop: show nav links and hide hamburger controls */
     @media (min-width: 768px) {
       .hamburgerButton, .cross { display: none !important; }
-      nav.mobileNav { display: flex !important; flex-direction: row !important; }
-      nav.mobileNav a { display: inline-block !important; padding: 8px 12px; }
+      nav.mobileNav { display: flex !important; flex-direction: row !important; position: static !important; background: transparent !important; }
+      nav.mobileNav a { display: inline-block !important; padding: 8px 12px; color: inherit !important; }
+      .overlay { display: none !important; }
     }
 
   </style>
@@ -85,9 +117,12 @@
       var menu = document.getElementById("mobileNav");
       var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
       var crossSwitch = document.getElementById("cross");
-      menu.classList.toggle("shown");
+      var overlay = document.getElementById("overlay");
+      var isShown = menu.classList.toggle("shown");
       hamburgerButtonSwitch.classList.toggle("hidden");
       crossSwitch.classList.toggle("shown");
+      if (overlay) overlay.classList.toggle("shown");
+      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
     }
   </script>
 </head>
@@ -96,11 +131,11 @@
   <!-- Navigation (copy to every page) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 flex items-center justify-between px-6 py-4">
 
-    <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()">
+    <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       ☰
     </div>
 
-    <div class="cross" id="cross" onclick="toggleFunction()">
+    <div class="cross" id="cross" onclick="toggleFunction()" role="button" tabindex="0" aria-label="Close menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -112,7 +147,7 @@
       <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
       <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
     </nav>
-    <div class="overlay" id="overlay"></div>
+    <div class="overlay" id="overlay" onclick="toggleFunction()" aria-hidden="true"></div>
 
   </header>
 
