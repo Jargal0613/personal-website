@@ -5,62 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Personal Website</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .hamburgerMenu {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 50px;
-            right: 10px;
-            background-color: white;
-            border: 1px solid black;
-            min-width: 150px;
-            z-index: 10;
-        }
+   
+            <style>
+                header {
+                    position: relative;
+                    border-bottom: 1px solid #ccc;
+                    background: white;
+                }
 
-        .hamburgerMenu.active {
-            display: flex;
-        }
+                /* dropdown menu positioned relative to header */
+                .hamburgerMenu {
+                    display: none;
+                    flex-direction: column;
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background-color: white;
+                    border: 1px solid black;
+                    min-width: 150px;
+                    z-index: 10;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+                }
 
-        .hamburgerMenu a {
-            padding: 12px 16px;
-            text-decoration: none;
-            color: black;
-            border-bottom: 1px solid #ddd;
-        }
+                .hamburgerMenu.active {
+                    display: flex;
+                }
 
-        .hamburgerMenu a:hover {
-            background-color: #f1f1f1;
-        }
+                .hamburgerMenu a {
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    color: black;
+                    border-bottom: 1px solid #ddd;
+                    background: white;
+                }
 
-        .hamburgerButton {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            border: 2px solid black;
-            padding: 8px 12px;
-            font-size: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 4px;
-            right: 10px;
-            position: absolute;
-        }
+                .hamburgerMenu a:hover {
+                    background-color: #f1f1f1;
+                }
 
-        .hamburgerButton:hover {
-            background-color: #f1f1f1;
-        }
+                .hamburgerButton {
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    border: 2px solid black;
+                    padding: 8px 12px;
+                    font-size: 30px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: white;
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 4px;
+                }
 
-        header {
-            position: relative;
-            display: block;
-            border-bottom: 1px solid black;
-        }
-    </style>
+                .hamburgerButton:hover {
+                    background-color: #f1f1f1;
+                }
+            </style>
 </head>
 <body>
     <header>
@@ -88,7 +90,18 @@
     <script>
         function toggleFunction() {
             var menu = document.getElementById("list");
-            menu.classList.toggle("active");
+            var header = document.querySelector('header');
+            var isOpen = menu.classList.toggle("active");
+            if (isOpen) {
+                // ensure header expands to include the dropdown so its border sits below
+                // measure menu height and apply as bottom padding on header
+                var height = menu.offsetHeight;
+                header.style.paddingBottom = height + 'px';
+                header.classList.add('menu-open');
+            } else {
+                header.style.paddingBottom = '';
+                header.classList.remove('menu-open');
+            }
         }
     </script>
 </body>
