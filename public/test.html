@@ -11,20 +11,24 @@
                     position: relative;
                     border-bottom: 1px solid #ccc;
                     background: white;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-end;
+                    padding: 10px 16px;
                 }
 
-                /* dropdown menu positioned relative to header */
+                /* keep the menu in-flow so the header border sits below it */
                 .hamburgerMenu {
                     display: none;
                     flex-direction: column;
-                    position: absolute;
-                    top: 100%;
-                    right: 0;
+                    position: static;
+                    align-self: flex-end;
                     background-color: white;
                     border: 1px solid black;
                     min-width: 150px;
                     z-index: 10;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+                    margin-top: 8px;
                 }
 
                 .hamburgerMenu.active {
@@ -35,17 +39,17 @@
                     padding: 12px 16px;
                     text-decoration: none;
                     color: black;
-                    border-bottom: 1px solid #ddd;
+                    border-bottom: 1px solid #eee;
                     background: white;
+                    white-space: nowrap;
                 }
 
                 .hamburgerMenu a:hover {
-                    background-color: #f1f1f1;
+                    background-color: #f9f9f9;
                 }
 
                 .hamburgerButton {
-                    margin-top: 10px;
-                    margin-bottom: 10px;
+                    margin: 0;
                     border: 2px solid black;
                     padding: 8px 12px;
                     font-size: 30px;
@@ -90,18 +94,11 @@
     <script>
         function toggleFunction() {
             var menu = document.getElementById("list");
-            var header = document.querySelector('header');
             var isOpen = menu.classList.toggle("active");
-            if (isOpen) {
-                // ensure header expands to include the dropdown so its border sits below
-                // measure menu height and apply as bottom padding on header
-                var height = menu.offsetHeight;
-                header.style.paddingBottom = height + 'px';
-                header.classList.add('menu-open');
-            } else {
-                header.style.paddingBottom = '';
-                header.classList.remove('menu-open');
-            }
+            // keep simple: menu is in-flow so no header padding manipulation needed
+            // update aria attribute for accessibility
+            var btn = document.querySelector('.hamburgerButton');
+            if (btn) btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
     </script>
 </body>
