@@ -10,18 +10,18 @@
     .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
 
-    header {
-      align-items: flex-end;
-    }
     .hamburgerButton {
         display: flex;
         margin: 0;
         padding: 8px 12px;
-        font-size: 24px;
+        font-size: 20px;
         cursor: pointer;
-        align-items: right;
+        align-items: center;
         justify-content: center;
-        background-color: transparent;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
         width: 45px;
         height: 45px;
         color: #06b6d4;
@@ -46,7 +46,10 @@
         cursor: pointer;
         align-items: center;
         justify-content: center;
-        background-color: transparent;
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
         width: 45px;
         height: 45px;
         color: #06b6d4;
