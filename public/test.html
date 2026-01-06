@@ -68,6 +68,9 @@
             width: 45px;
             height: 45px;
         }
+        .hamburgerButton.active {
+            display: none;
+        }
 
         .hamburgerButton:hover {
             background-color: #f1f1f1;
@@ -75,6 +78,7 @@
 
 
         .cross {
+            display: none;
         }
         .cross.active {
             display: flex;
@@ -95,10 +99,10 @@
 
 <body>
     <header>
-         <div class="hamburgerButton" onclick="toggleFunction()">
+         <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()">
             ☰
          </div>
-         <div class="cross" onclick="toggleFunction()">
+         <div class="cross" id="cross" onclick="toggleFunction()">
             x
          </div>
          <div id="list" class="hamburgerMenu">
@@ -122,6 +126,10 @@
     <script>
         function toggleFunction() {
             var menu = document.getElementById("list");
+            var menuChange = document.getElementById("hamburgerButton");
+            var crossChange = document.getElementById("cross");
+            menuChange.classList.toggle("active");
+            crossChange.classList.toggle("acitve");
             var isOpen = menu.classList.toggle("active");
             // keep simple: menu is in-flow so no header padding manipulation needed
             // update aria attribute for accessibility
