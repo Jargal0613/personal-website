@@ -11,7 +11,6 @@
         /* layout so footer stays at bottom */
         html, body { height: 100%; }
         body { 
-            width: 100%;
             min-height: 100vh; 
             display: flex; 
             flex-direction: column; 
@@ -112,10 +111,9 @@
         /* Large screens: show links inline and hide hamburger */
         @media (min-width: 768px) {
             header { 
-                width: 100%;
                 flex-direction: row; 
                 align-items: center; 
-                justify-content: space-between; 
+                justify-content: center; 
             }
             .hamburgerButton, .cross { display: none !important; }
             .hamburgerMenu {
@@ -127,7 +125,7 @@
                 box-shadow: none;
                 width: auto;
                 margin: 0;
-                align-items: center;
+                gap: 12px;
             }
             .hamburgerMenu a {
                 padding: 8px 12px;
