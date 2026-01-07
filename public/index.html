@@ -114,9 +114,21 @@
     @media (max-width: 767px) {
       /* Ensure header keeps the same visual height as desktop so the
         border-bottom sits at the same vertical position on mobile. */
-      header { min-height: 70px; }
+      header { min-height: 69px; }
 
     }
+
+    .boxForSpacing {
+      height: 300px;
+      margin-top: 20px;
+    }
+
+    .boxForSpacing.1 { background-color: #1e1e1e; }
+    .boxForSpacing.2 { background-color: #2e2e2e; }
+    .boxForSpacing.3 { background-color: #3e3e3e; }
+    .boxForSpacing.4 { background-color: #4e4e4e; }
+    .boxForSpacing.5 { background-color: #5e5e5e; }
+    .boxForSpacing.6 { background-color: #6e6e6e; }
 
   </style>
   <script>
@@ -175,6 +187,16 @@
         I’m currently learning web development<br><br>
       </p>
 
+      <h2 class="text-2xl md:text-3xl text-gray-300">I am required to add more content to this page because I have to check what happens when scrolling down</h2>
+      <p>Developing website is actually interesting and challenging.</p>
+      <p>I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.</p>
+      <p>Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.</p>
+      <div class="boxForSpacing 1"></div>
+      <div class="boxForSpacing 2"></div>
+      <div class="boxForSpacing 3"></div>
+      <div class="boxForSpacing 4"></div>
+      <div class="boxForSpacing 5"></div>
+      <div class="boxForSpacing 6"></div>
       <div class="flex gap-10 justify-center mt-12">
         <a href="https://instagram.com/j_rg_l_" target="_blank" class="text-gray-400 hover:text-cyan-400 transition text-4xl">
           Instagram
