@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings — Jargal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:," />
+  <style>
+    html { overflow-y: scroll; }
+    .hamburgerButton{display:flex;margin:0;padding:8px 12px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;position:absolute;right:1rem;top:35px;transform:translateY(-50%);width:45px;height:45px;color:#06b6d4;transition:all 0.3s ease;z-index:70}
+    .cross{display:none;margin:0;padding:8px 12px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;position:absolute;right:1rem;top:35px;transform:translateY(-50%);width:45px;height:45px;color:#06b6d4;transition:all 0.3s ease;z-index:70}
+    .cross.shown{display:flex}
+    .mobileNav{display:none}
+    nav a{display:none}
+    .mobileNav.shown{display:flex;inset:0;z-index:60;background:transparent;width:100%;flex-direction:column;align-items:left;justify-content:center;gap:1.25rem;padding-top:6rem;transition:opacity 220ms ease, transform 220ms ease;opacity:1;transform:translateY(0)}
+    .mobileNav.shown a{display:block;padding:12px 18px}
+    @media(min-width:768px){.hamburgerButton,.cross{display:none!important}nav.mobileNav{display:flex!important;flex-direction:row!important;background:transparent!important}nav.mobileNav a{display:inline-block!important;padding-left:12px;padding-right:12px}}
+    body{background: #000;color:#fff}
+    .card{max-width:880px;margin:4rem auto;padding:2rem;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+  </style>
+</head>
+<body class="bg-black text-white min-h-screen flex flex-col">
+
+  <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+
+    <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <div class="cross" id="cross" onclick="toggleFunction()" role="button" tabindex="0" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-6 text-lg mobileNav" id="mobileNav">
+      <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Home</a>
+      <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
+      <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
+      <a href="settings.html" class="text-gray-400 hover:text-white transition">Settings</a>
+    </nav>
+
+  </header>
+
+  <main class="flex-1 px-6">
+    <div class="card">
+      <h1 class="text-3xl font-bold mb-4">Settings</h1>
+
+      <section class="mb-6">
+        <label class="flex items-center gap-3">
+          <input id="darkToggle" type="checkbox" class="w-5 h-5" />
+          <span>Enable dark mode</span>
+        </label>
+      </section>
+
+      <section class="mb-6">
+        <label class="block mb-2">Language</label>
+        <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded">
+          <option value="en">English</option>
+          <option value="mn">Mongolian</option>
+        </select>
+      </section>
+
+      <div class="flex gap-3">
+        <button id="saveSettings" class="px-4 py-2 bg-cyan-500 text-black rounded">Save</button>
+        <button id="resetSettings" class="px-4 py-2 bg-gray-700 text-white rounded">Reset</button>
+      </div>
+
+      <p id="status" class="mt-4 text-sm text-gray-400"></p>
+    </div>
+  </main>
+
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
+    © 2025 Jargal. All rights reserved.
+  </footer>
+
+  <script>
+    function toggleFunction() {
+      var menu = document.getElementById("mobileNav");
+      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
+      var crossSwitch = document.getElementById("cross");
+      var isShown = menu.classList.toggle("shown");
+      hamburgerButtonSwitch && hamburgerButtonSwitch.classList.toggle("hidden");
+      crossSwitch && crossSwitch.classList.toggle("shown");
+      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+    }
+
+    (function(){
+      const KEY = 'siteSettings';
+      function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
+      function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
+      function apply(s){ if(s.darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); if(s.language) document.documentElement.lang = s.language }
+
+      document.addEventListener('DOMContentLoaded', ()=>{
+        const data = Object.assign({language:'en', darkMode:false}, load());
+        document.getElementById('darkToggle').checked = !!data.darkMode;
+        document.getElementById('langSelect').value = data.language || 'en';
+        apply(data);
+
+        document.getElementById('darkToggle').addEventListener('change', (e)=>{
+          const next = {language: document.getElementById('langSelect').value, darkMode: e.target.checked};
+          save(next); apply(next);
+          document.getElementById('status').textContent = 'Dark mode ' + (next.darkMode ? 'enabled' : 'disabled');
+        });
+
+        document.getElementById('langSelect').addEventListener('change', (e)=>{
+          const next = {language: e.target.value, darkMode: document.getElementById('darkToggle').checked};
+          save(next); apply(next);
+          document.getElementById('status').textContent = 'Language set to ' + next.language;
+        });
+
+        document.getElementById('saveSettings').addEventListener('click', ()=>{
+          const next = {language: document.getElementById('langSelect').value, darkMode: document.getElementById('darkToggle').checked};
+          save(next); apply(next); document.getElementById('status').textContent = 'Settings saved';
+        });
+
+        document.getElementById('resetSettings').addEventListener('click', ()=>{
+          localStorage.removeItem(KEY); document.getElementById('darkToggle').checked = false; document.getElementById('langSelect').value='en'; apply({language:'en',darkMode:false}); document.getElementById('status').textContent='Settings reset';
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
