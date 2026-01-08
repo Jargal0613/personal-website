@@ -30,7 +30,7 @@ const translations = {
   mn: {
     home: 'Нүүр',
     aboutMe: 'Надаар',
-    test: 'Тест',
+    test: 'Туршилт',
     settings: 'Тохиргоо',
     jargal: 'Жаргал',
     intro: "Сайн байна, би Жаргал.",
