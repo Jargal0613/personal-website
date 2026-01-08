@@ -6,6 +6,7 @@
   <title>Jargal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:," />
+  <script src="translations.js"></script>
   <style>
     html { overflow-y: scroll; }
     
@@ -163,10 +164,10 @@
     </div>
 
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
-      <a href="index.html" class="text-cyan-400 hover:text-white transition">Home</a>
-      <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
-      <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
-      <a href="settings.html" class="text-gray-400 hover:text-white transition">Settings</a>
+      <a href="index.html" class="text-cyan-400 hover:text-white transition" data-i18n="home">Home</a>
+      <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
+      <a href="test.html" class="text-gray-400 hover:text-white transition" data-i18n="test">Test</a>
+      <a href="settings.html" class="text-gray-400 hover:text-white transition" data-i18n="settings">Settings</a>
     </nav>
   </header>
 
@@ -177,19 +178,19 @@
       <img src="/images/image1.png" alt="Jargal" 
            class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-500 shadow-2xl shadow-cyan-500/20 mx-auto" />
 
-      <h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient">
+      <h1 class="text-6xl md:text-8xl font-bold bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 bg-clip-text text-transparent animate-gradient" data-i18n="jargal">
         Jargal
       </h1>
 
       <p class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
-        Hey, I’m Jargal.<br><br>
-        I’m currently learning web development<br><br>
+        <span data-i18n="intro">Hey, I'm Jargal.</span><br><br>
+        <span data-i18n="learning">I'm currently learning web development</span><br><br>
       </p>
 
-      <h2 class="text-2xl md:text-3xl text-gray-300">I am required to add more content to this page because I have to check what happens when scrolling down</h2>
-      <p>Developing website is actually interesting and challenging.</p>
-      <p>I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.</p>
-      <p>Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.</p>
+      <h2 class="text-2xl md:text-3xl text-gray-300" data-i18n="requiredContent">I am required to add more content to this page because I have to check what happens when scrolling down</h2>
+      <p data-i18n="developing">Developing website is actually interesting and challenging.</p>
+      <p data-i18n="learned">I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.</p>
+      <p data-i18n="building">Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.</p>
       <div class="boxForSpacing box1"></div>
       <div class="boxForSpacing box2"></div>
       <div class="boxForSpacing box3"></div>
@@ -208,7 +209,7 @@
   </main>
 
   <!-- Footer (copy to every page) -->
-  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900" data-i18n="copyright">
     © 2025 Jargal. All rights reserved.
   </footer>
 </body>

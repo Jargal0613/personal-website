@@ -6,6 +6,7 @@
   <title>Settings — Jargal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:," />
+  <script src="translations.js"></script>
   <style>
     html { overflow-y: scroll; }
     .hamburgerButton{display:flex;margin:0;padding:8px 12px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;position:absolute;right:1rem;top:35px;transform:translateY(-50%);width:45px;height:45px;color:#06b6d4;transition:all 0.3s ease;z-index:70}
@@ -47,10 +48,15 @@
     </div>
 
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
-      <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
-      <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
-      <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
-      <a href="settings.html" class="text-cyan-400 hover:text-white transition">Settings</a>
+      <a href="index.html" class="text-gray-400 hover:text-white transition" data-i18n="home">Home</a>
+      <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
+      <a href="test.html" class="text-gray-400 hover:text-white transition" data-i18n="test">Test</a>
+      <a href="settings.html" class="text-cyan-400 hover:text-white transition inline-flex items-center justify-center w-6 h-6">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24M19.78 19.78l-4.24-4.24m-5.08-5.08l-4.24-4.24" />
+        </svg>
+      </a>
     </nav>
 
   </header>
@@ -83,7 +89,7 @@
     </div>
   </main>
 
-  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900" data-i18n="copyright">
     © 2025 Jargal. All rights reserved.
   </footer>
 
