@@ -71,12 +71,13 @@ function initializeLanguage() {
 // Apply a named theme by setting CSS variables used for gradients.
 function applyTheme(name) {
   const themes = {
-    cyan: ['#06b6d4', '#8b5cf6', '#ec4899'],
-    purple: ['#7c3aed', '#6d28d9', '#a78bfa'],
-    green: ['#10b981', '#34d399', '#86efac'],
-    orange: ['#f97316', '#fb923c', '#fca5a5']
+    cyan: { colors: ['#06b6d4', '#8b5cf6', '#ec4899'], bg: '#0a1f24' },
+    purple: { colors: ['#7c3aed', '#6d28d9', '#a78bfa'], bg: '#1f0a2e' },
+    green: { colors: ['#10b981', '#34d399', '#86efac'], bg: '#0a1f15' },
+    orange: { colors: ['#f97316', '#fb923c', '#fca5a5'], bg: '#2a1810' }
   };
-  const colors = themes[name] || themes['cyan'];
+  const theme = themes[name] || themes['cyan'];
+  const colors = theme.colors;
   const root = document.documentElement;
   root.style.setProperty('--theme-from', colors[0]);
   root.style.setProperty('--theme-via', colors[1]);
@@ -88,12 +89,15 @@ function applyTheme(name) {
   // 20% alpha for shadow using 8-digit hex
   root.style.setProperty('--accent-shadow', colors[2] + '33');
   root.style.setProperty('--border', colors[1]);
+  root.style.setProperty('--bg-theme', theme.bg);
   ensureThemeStyles();
 }
 
 function ensureThemeStyles() {
   if (document.getElementById('theme-vars-styles')) return;
   const css = `
+    :root { --bg-theme: #000; }
+    body { background-color: var(--bg-theme) !important; transition: background-color 0.3s ease; }
     .theme-accent { color: var(--accent) !important; }
     .theme-bg-accent { background-color: var(--accent) !important; }
     .theme-border { border-color: var(--border) !important; }
