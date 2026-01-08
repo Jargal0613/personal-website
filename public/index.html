@@ -79,7 +79,11 @@
     /* Mobile: visible full-screen panel when shown */
     .mobileNav.shown {
       display: flex;
-      inset: 0;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 60;
       background: transparent;
       width: 100%;
@@ -87,7 +91,7 @@
       align-items: left;
       justify-content: center;
       gap: 1.25rem;
-      padding-top: 6rem;
+      padding-top: 2rem;
       transition: opacity 220ms ease, transform 220ms ease;
       opacity: 1;
       transform: translateY(0);
