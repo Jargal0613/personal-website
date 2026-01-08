@@ -113,7 +113,7 @@ function ensureThemeStyles() {
     .mobile-lang-toggle { display: none; }
     @media (max-width: 767px) {
       #langToggle { display: none !important; }
-      .mobile-lang-toggle { display: block !important; padding: 12px 18px; }
+      .mobile-lang-toggle { display: block; padding: 12px 18px; }
       nav.mobileNav { padding-top: 3.5rem; }
     }
   `;

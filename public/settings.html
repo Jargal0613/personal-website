@@ -16,7 +16,12 @@
     nav a{display:none}
     .mobileNav.shown{display:flex;inset:0;z-index:60;background:transparent;width:100%;flex-direction:column;align-items:left;justify-content:center;gap:1.25rem;padding-top:6rem;transition:opacity 220ms ease, transform 220ms ease;opacity:1;transform:translateY(0)}
     .mobileNav.shown a{display:block;padding:12px 18px}
-    @media(min-width:768px){.hamburgerButton,.cross{display:none!important}nav.mobileNav{display:flex!important;flex-direction:row!important;background:transparent!important}nav.mobileNav a{display:inline-block!important;padding-left:12px;padding-right:12px}}
+    @media(min-width:768px){
+      .hamburgerButton,.cross{display:none!important}
+      nav.mobileNav{display:flex!important;flex-direction:row!important;background:transparent!important}
+      nav.mobileNav a{display:inline-block!important;padding-left:12px;padding-right:12px}
+      .mobileLangToggle{display:none!important}
+    }
     body{background: #000;color:#fff}
     .card{max-width:880px;margin:4rem auto;padding:2rem;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
 
@@ -31,7 +36,7 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
-
+<!-- hamburger and cross buttons -->
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -46,12 +51,13 @@
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
       </svg>
     </div>
-
+<!--end of hamburger and cross buttons-->
+<!-- mobile navigation -->
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
       <a href="index.html" class="text-gray-400 hover:text-white transition" data-i18n="home">Home</a>
       <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
       <a href="test.html" class="text-gray-400 hover:text-white transition" data-i18n="test">Test</a>
-      <a href="settings.html" class="text-cyan-400 hover:text-white transition inline-flex items-center justify-center w-6 h-6">
+      <a href="settings.html" class="text-cyan-400 hover:text-white transition">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="3" />
           <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24M19.78 19.78l-4.24-4.24m-5.08-5.08l-4.24-4.24" />
