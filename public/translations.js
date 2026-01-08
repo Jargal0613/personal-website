@@ -13,6 +13,7 @@ const translations = {
     learned: 'I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.',
     building: 'Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.',
     copyright: '© 2025 Jargal. All rights reserved.',
+    sophomore: 'I am a sophomore mechatronics student at GMIT. I started learning coding because I believe this skill is essential for reaching my goals. This website is my first coding project, and I created it to practice, learn, and share my journey.',
   },
   mn: {
     home: 'Нүүр',
@@ -27,6 +28,7 @@ const translations = {
     learned: 'HTML, CSS-ийн талаар маш их суралцсан. Гол зүйл бол кодлогыг бүрэн хайрлаж сурах явдал юм.',
     building: 'Вэб хөгжүүлэлт сурч байхад өөрийн вэбсайтыг хөгжүүлэх нь үнэхээр сайн санаа байсан. Би энд хүрсэнд маш сайн сэтгэл санаатай.',
     copyright: '© 2025 Жаргал. Бүх эрх хуулиар хамгаалагдсан.',
+    sophomore: 'Би GMIT-ийн хоёрдугаар курсын мехатроникс оюутан. Би кодлохыг сурахыг эхэлсэн нь энэ ур чадвар нь миний зорилгод хүрэхэд чухал гэж итгэдэг учраас юм. Энэ вэбсайт бол миний анхны кодлох төсөл бөгөөд би үүнийг дадлага хийх, сурах, аялалаа хуваалцах зорилгоор бүтээсэн.',
   }
 };
 
