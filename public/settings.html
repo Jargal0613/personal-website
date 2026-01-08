@@ -66,17 +66,20 @@
       <h1 class="text-3xl font-bold mb-4" data-i18n="settingsHeader">Settings</h1>
 
       <section class="mb-6">
-        <label class="flex items-center gap-3">
-          <input id="darkToggle" type="checkbox" class="w-5 h-5" />
-          <span data-i18n="enableDarkMode">Enable dark mode</span>
-        </label>
-      </section>
-
-      <section class="mb-6">
         <label class="block mb-2" data-i18n="languageLabel">Language</label>
         <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded">
           <option value="en">English</option>
           <option value="mn">Mongolian</option>
+        </select>
+      </section>
+
+      <section class="mb-6">
+        <label class="block mb-2">Theme</label>
+        <select id="themeSelect" class="p-2 bg-black/60 border border-white/10 rounded">
+          <option value="cyan">Cyan</option>
+          <option value="purple">Purple</option>
+          <option value="green">Green</option>
+          <option value="orange">Orange</option>
         </select>
       </section>
 
@@ -111,31 +114,31 @@
       function apply(s){ if(s.language) document.documentElement.lang = s.language; if(typeof window.applyTheme === 'function') window.applyTheme(!!s.darkMode); }
 
       document.addEventListener('DOMContentLoaded', ()=>{
-        const data = Object.assign({language:'en', darkMode:false}, load());
-        document.getElementById('darkToggle').checked = !!data.darkMode;
+        const data = Object.assign({language:'en', theme:'cyan'}, load());
         document.getElementById('langSelect').value = data.language || 'en';
+        document.getElementById('themeSelect').value = data.theme || 'cyan';
         apply(data);
 
-        document.getElementById('darkToggle').addEventListener('change', (e)=>{
-          const next = {language: document.getElementById('langSelect').value, darkMode: e.target.checked};
+        document.getElementById('themeSelect').addEventListener('change', (e)=>{
+          const next = {language: document.getElementById('langSelect').value, theme: e.target.value};
           save(next); apply(next); applyTranslations(next.language);
-          document.getElementById('status').textContent = translations[next.language][next.darkMode ? 'darkModeEnabled' : 'darkModeDisabled'] || ('Dark mode ' + (next.darkMode ? 'enabled' : 'disabled'));
+          document.getElementById('status').textContent = 'Theme set to ' + next.theme;
         });
 
         document.getElementById('langSelect').addEventListener('change', (e)=>{
-          const next = {language: e.target.value, darkMode: document.getElementById('darkToggle').checked};
+          const next = {language: e.target.value, theme: document.getElementById('themeSelect').value};
           save(next); apply(next); applyTranslations(next.language);
           document.getElementById('status').textContent = (translations[next.language].languageSet || 'Language set to') + ' ' + next.language;
         });
 
         document.getElementById('saveSettings').addEventListener('click', ()=>{
-          const next = {language: document.getElementById('langSelect').value, darkMode: document.getElementById('darkToggle').checked};
+          const next = {language: document.getElementById('langSelect').value, theme: document.getElementById('themeSelect').value};
           save(next); apply(next); applyTranslations(next.language);
           document.getElementById('status').textContent = translations[next.language].settingsSaved || 'Settings saved';
         });
 
         document.getElementById('resetSettings').addEventListener('click', ()=>{
-          localStorage.removeItem(KEY); document.getElementById('darkToggle').checked = false; document.getElementById('langSelect').value='en'; apply({language:'en',darkMode:false}); applyTranslations('en'); document.getElementById('status').textContent = translations['en'].settingsReset || 'Settings reset';
+          localStorage.removeItem(KEY); document.getElementById('langSelect').value='en'; document.getElementById('themeSelect').value='cyan'; apply({language:'en',theme:'cyan'}); applyTranslations('en'); document.getElementById('status').textContent = translations['en'].settingsReset || 'Settings reset';
         });
       });
     })();

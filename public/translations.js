@@ -65,23 +65,22 @@ function initializeLanguage() {
   document.documentElement.lang = language;
   applyTranslations(language);
   // apply saved theme preference if present
-  if (typeof data.darkMode !== 'undefined') applyTheme(!!data.darkMode);
+  if (data.theme) applyTheme(data.theme);
 }
 
-// Apply a simple theme by changing the page background and text color.
-// This is intentionally minimal so it works across pages without changing markup.
-function applyTheme(isDark) {
-  try {
-    if (isDark) {
-      document.body.style.backgroundColor = '#000';
-      document.body.style.color = '#fff';
-    } else {
-      document.body.style.backgroundColor = '#fff';
-      document.body.style.color = '#000';
-    }
-  } catch (e) {
-    // ignore if body not available yet
-  }
+// Apply a named theme by setting CSS variables used for gradients.
+function applyTheme(name) {
+  const themes = {
+    cyan: ['#06b6d4', '#8b5cf6', '#ec4899'],
+    purple: ['#7c3aed', '#6d28d9', '#a78bfa'],
+    green: ['#10b981', '#34d399', '#86efac'],
+    orange: ['#f97316', '#fb923c', '#fca5a5']
+  };
+  const colors = themes[name] || themes['cyan'];
+  const root = document.documentElement;
+  root.style.setProperty('--theme-from', colors[0]);
+  root.style.setProperty('--theme-via', colors[1]);
+  root.style.setProperty('--theme-to', colors[2]);
 }
 
 // Apply translations to all elements with data-i18n attribute
