@@ -131,3 +131,20 @@ document.addEventListener('DOMContentLoaded', initializeLanguage);
 // expose for other scripts
 window.applyTranslations = applyTranslations;
 window.applyTheme = applyTheme;
+
+// Helper function to switch language and save preference
+window.switchLanguage = function(lang) {
+  const KEY = 'siteSettings';
+  const current = JSON.parse(localStorage.getItem(KEY) || '{}');
+  const updated = { ...current, language: lang };
+  localStorage.setItem(KEY, JSON.stringify(updated));
+  document.documentElement.lang = lang;
+  applyTranslations(lang);
+  // Update lang toggle UI if it exists
+  const langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.innerHTML = lang === 'en' 
+      ? '<span class="text-cyan-400">En</span> | Mn' 
+      : 'En | <span class="text-cyan-400">Mn</span>';
+  }
+};
