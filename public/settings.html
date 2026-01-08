@@ -18,6 +18,13 @@
     @media(min-width:768px){.hamburgerButton,.cross{display:none!important}nav.mobileNav{display:flex!important;flex-direction:row!important;background:transparent!important}nav.mobileNav a{display:inline-block!important;padding-left:12px;padding-right:12px}}
     body{background: #000;color:#fff}
     .card{max-width:880px;margin:4rem auto;padding:2rem;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+
+    @media (max-width: 767px) {
+      /* Ensure header keeps the same visual height as desktop so the
+        border-bottom sits at the same vertical position on mobile. */
+      header { min-height: 69px; }
+
+    }
   </style>
 </head>
 <body class="bg-black text-white min-h-screen flex flex-col">
@@ -40,10 +47,10 @@
     </div>
 
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-6 text-lg mobileNav" id="mobileNav">
-      <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Home</a>
+      <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
       <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
       <a href="test.html" class="text-gray-400 hover:text-white transition">Test</a>
-      <a href="settings.html" class="text-gray-400 hover:text-white transition">Settings</a>
+      <a href="settings.html" class="text-cyan-400 hover:text-white transition font-semibold">Settings</a>
     </nav>
 
   </header>
