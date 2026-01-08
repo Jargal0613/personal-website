@@ -116,6 +116,9 @@ function ensureThemeStyles() {
       nav.mobileNav.shown .mobile-lang-toggle { display: block; padding: 12px 18px; }
       nav.mobileNav { padding-top: 3.5rem; }
     }
+    @media (min-width: 768px) {
+          .mobile-lang-toggle{display:none!important}
+    }
   `;
   const el = document.createElement('style');
   el.id = 'theme-vars-styles';
