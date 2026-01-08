@@ -108,6 +108,14 @@ function ensureThemeStyles() {
     header.theme-border { border-bottom: 1px solid var(--border) !important; }
     footer { border-top-color: var(--border) !important; }
     .status-item:hover { border-color: var(--accent) !important; }
+    /* Responsive: hide header lang toggle on small screens and show mobile toggle inside nav */
+    #langToggle { display: inline-flex; }
+    .mobile-lang-toggle { display: none; }
+    @media (max-width: 767px) {
+      #langToggle { display: none !important; }
+      .mobile-lang-toggle { display: block !important; padding: 12px 18px; }
+      nav.mobileNav { padding-top: 3.5rem; }
+    }
   `;
   const el = document.createElement('style');
   el.id = 'theme-vars-styles';
