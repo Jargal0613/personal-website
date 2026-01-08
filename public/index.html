@@ -146,7 +146,7 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <!-- Navigation (copy to every page) -->
-  <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
+  <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
 
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
@@ -164,7 +164,7 @@
     </div>
 
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
-      <a href="index.html" class="text-cyan-400 hover:text-white transition" data-i18n="home">Home</a>
+      <a href="index.html" class="text-cyan-400 theme-accent hover:text-white transition" data-i18n="home">Home</a>
       <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
       <a href="test.html" class="text-gray-400 hover:text-white transition" data-i18n="test">Test</a>
       <a href="settings.html" class="text-gray-400 hover:text-white transition" data-i18n="settings">Settings</a>
@@ -175,8 +175,8 @@
   <main class="flex-1 flex flex-col items-center justify-center px-6 py-32 pt-40">
     <div class="max-w-3xl mx-auto text-center space-y-12">
 
-      <img src="/images/image1.png" alt="Jargal" 
-           class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-500 shadow-2xl shadow-cyan-500/20 mx-auto" />
+       <img src="/images/image1.png" alt="Jargal" 
+         class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-500 shadow-2xl mx-auto theme-shadow" />
 
       <h1 class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent animate-gradient" data-i18n="jargal" style="background-image: linear-gradient(90deg, var(--theme-from), var(--theme-via), var(--theme-to));">
         Jargal
@@ -198,10 +198,10 @@
       <div class="boxForSpacing box5"></div>
       <div class="boxForSpacing box6"></div>
       <div class="flex gap-10 justify-center mt-12">
-        <a href="https://instagram.com/j_rg_l_" target="_blank" class="text-gray-400 hover:text-cyan-400 transition text-4xl">
+        <a href="https://instagram.com/j_rg_l_" target="_blank" class="text-gray-400 theme-accent transition text-4xl">
           Instagram
         </a>
-        <a href="mailto:jargal0660@gmail.com" target="_blank" class="text-gray-400 hover:text-cyan-400 transition text-4xl">
+        <a href="mailto:jargal0660@gmail.com" target="_blank" class="text-gray-400 theme-accent transition text-4xl">
           Email
         </a>
       </div>

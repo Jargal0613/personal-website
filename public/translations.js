@@ -81,6 +81,34 @@ function applyTheme(name) {
   root.style.setProperty('--theme-from', colors[0]);
   root.style.setProperty('--theme-via', colors[1]);
   root.style.setProperty('--theme-to', colors[2]);
+  // additional accent vars
+  root.style.setProperty('--accent', colors[0]);
+  root.style.setProperty('--accent-2', colors[1]);
+  root.style.setProperty('--accent-3', colors[2]);
+  // 20% alpha for shadow using 8-digit hex
+  root.style.setProperty('--accent-shadow', colors[2] + '33');
+  root.style.setProperty('--border', colors[1]);
+  ensureThemeStyles();
+}
+
+function ensureThemeStyles() {
+  if (document.getElementById('theme-vars-styles')) return;
+  const css = `
+    .theme-accent { color: var(--accent) !important; }
+    .theme-bg-accent { background-color: var(--accent) !important; }
+    .theme-border { border-color: var(--border) !important; }
+    .theme-shadow { box-shadow: 0 20px 40px var(--accent-shadow) !important; }
+    nav.mobileNav a:hover { color: var(--accent) !important; }
+    .hamburgerButton, .cross { color: var(--accent) !important; }
+    .hamburgerButton:hover, .cross:hover { background-color: var(--accent) !important; color: black !important; }
+    header.theme-border { border-bottom: 1px solid var(--border) !important; }
+    footer { border-top-color: var(--border) !important; }
+    .status-item:hover { border-color: var(--accent) !important; }
+  `;
+  const el = document.createElement('style');
+  el.id = 'theme-vars-styles';
+  el.appendChild(document.createTextNode(css));
+  document.head.appendChild(el);
 }
 
 // Apply translations to all elements with data-i18n attribute
