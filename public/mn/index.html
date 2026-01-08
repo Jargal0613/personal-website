@@ -6,6 +6,7 @@
   <title>Jargal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:," />
+  <script src="../translations.js"></script>
   <style>
     .animate-gradient{background-size:200% 200%;animation:gradient 8s ease infinite}
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
@@ -16,10 +17,10 @@
   <!-- Navigation (copy to every page) -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900">
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg">
-      <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold">Нүүр</a>
-      <a href="my-journey.html" class="text-gray-400 hover:text-white transition">Миний аялал</a>
+      <a href="index.html" class="text-cyan-400 hover:text-white transition font-semibold" data-i18n="home">Нүүр</a>
+      <a href="my-journey.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">Миний аялал</a>
     </nav>
-    <a href="/index.html" class="text-gray-400 hover:text-white transition text-right">En</a>
+    <a href="/index.html" class="text-gray-400 hover:text-white transition text-right" data-i18n="settings">En</a>
   </header>
 
   <!-- Main Content -->

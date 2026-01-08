@@ -63,17 +63,17 @@
 
   <main class="flex-1 px-6">
     <div class="card">
-      <h1 class="text-3xl font-bold mb-4">Settings</h1>
+      <h1 class="text-3xl font-bold mb-4" data-i18n="settingsHeader">Settings</h1>
 
       <section class="mb-6">
         <label class="flex items-center gap-3">
           <input id="darkToggle" type="checkbox" class="w-5 h-5" />
-          <span>Enable dark mode</span>
+          <span data-i18n="enableDarkMode">Enable dark mode</span>
         </label>
       </section>
 
       <section class="mb-6">
-        <label class="block mb-2">Language</label>
+        <label class="block mb-2" data-i18n="languageLabel">Language</label>
         <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded">
           <option value="en">English</option>
           <option value="mn">Mongolian</option>
@@ -81,8 +81,8 @@
       </section>
 
       <div class="flex gap-3">
-        <button id="saveSettings" class="px-4 py-2 bg-cyan-500 text-black rounded">Save</button>
-        <button id="resetSettings" class="px-4 py-2 bg-gray-700 text-white rounded">Reset</button>
+        <button id="saveSettings" class="px-4 py-2 bg-cyan-500 text-black rounded" data-i18n="save">Save</button>
+        <button id="resetSettings" class="px-4 py-2 bg-gray-700 text-white rounded" data-i18n="reset">Reset</button>
       </div>
 
       <p id="status" class="mt-4 text-sm text-gray-400"></p>
@@ -118,23 +118,24 @@
 
         document.getElementById('darkToggle').addEventListener('change', (e)=>{
           const next = {language: document.getElementById('langSelect').value, darkMode: e.target.checked};
-          save(next); apply(next);
-          document.getElementById('status').textContent = 'Dark mode ' + (next.darkMode ? 'enabled' : 'disabled');
+          save(next); apply(next); applyTranslations(next.language);
+          document.getElementById('status').textContent = translations[next.language][next.darkMode ? 'darkModeEnabled' : 'darkModeDisabled'] || ('Dark mode ' + (next.darkMode ? 'enabled' : 'disabled'));
         });
 
         document.getElementById('langSelect').addEventListener('change', (e)=>{
           const next = {language: e.target.value, darkMode: document.getElementById('darkToggle').checked};
-          save(next); apply(next);
-          document.getElementById('status').textContent = 'Language set to ' + next.language;
+          save(next); apply(next); applyTranslations(next.language);
+          document.getElementById('status').textContent = (translations[next.language].languageSet || 'Language set to') + ' ' + next.language;
         });
 
         document.getElementById('saveSettings').addEventListener('click', ()=>{
           const next = {language: document.getElementById('langSelect').value, darkMode: document.getElementById('darkToggle').checked};
-          save(next); apply(next); document.getElementById('status').textContent = 'Settings saved';
+          save(next); apply(next); applyTranslations(next.language);
+          document.getElementById('status').textContent = translations[next.language].settingsSaved || 'Settings saved';
         });
 
         document.getElementById('resetSettings').addEventListener('click', ()=>{
-          localStorage.removeItem(KEY); document.getElementById('darkToggle').checked = false; document.getElementById('langSelect').value='en'; apply({language:'en',darkMode:false}); document.getElementById('status').textContent='Settings reset';
+          localStorage.removeItem(KEY); document.getElementById('darkToggle').checked = false; document.getElementById('langSelect').value='en'; apply({language:'en',darkMode:false}); applyTranslations('en'); document.getElementById('status').textContent = translations['en'].settingsReset || 'Settings reset';
         });
       });
     })();

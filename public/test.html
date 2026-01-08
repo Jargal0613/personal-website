@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Personal Website</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="translations.js"></script>
    
             
     <style>
@@ -166,22 +167,22 @@
              </svg>
          </div>
          <div id="list" class="hamburgerMenu">
-             <a href="index.html">Home</a>
-             <a href="about-me.html">About Me</a>
-             <a href="test.html">Test</a>
+             <a href="index.html" data-i18n="home">Home</a>
+             <a href="about-me.html" data-i18n="aboutMe">About Me</a>
+             <a href="test.html" data-i18n="test">Test</a>
          </div>
     </header>
 
     <main>
         <section>
-            <h2>Test Content</h2>
-            <p>This is a test page to experiment something new. I am adding some text because my new changes did'nt work as expected. test 2 it is been few hours</p>
+            <h2 data-i18n="testTitle">Test Content</h2>
+            <p data-i18n="testContent">This is a test page to experiment something new. I am adding some text because my new changes did'nt work as expected. test 2 it is been few hours</p>
         </section>
      
     </main>
     
     <footer>
-        <p>&copy; 2025 Jargal. All rights reserved.</p>
+        <p data-i18n="copyright">&copy; 2025 Jargal. All rights reserved.</p>
     </footer>
 </body>
 </html>

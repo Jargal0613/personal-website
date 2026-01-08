@@ -14,6 +14,18 @@ const translations = {
     building: 'Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.',
     copyright: '© 2025 Jargal. All rights reserved.',
     sophomore: 'I am a sophomore mechatronics student at GMIT. I started learning coding because I believe this skill is essential for reaching my goals. This website is my first coding project, and I created it to practice, learn, and share my journey.',
+    settingsHeader: 'Settings',
+    enableDarkMode: 'Enable dark mode',
+    languageLabel: 'Language',
+    save: 'Save',
+    reset: 'Reset',
+    darkModeEnabled: 'Dark mode enabled',
+    darkModeDisabled: 'Dark mode disabled',
+    languageSet: 'Language set to',
+    settingsSaved: 'Settings saved',
+    settingsReset: 'Settings reset',
+    testTitle: 'Test Content',
+    testContent: "This is a test page to experiment something new. I am adding some text because my new changes didn't work as expected."
   },
   mn: {
     home: 'Нүүр',
@@ -29,6 +41,18 @@ const translations = {
     building: 'Вэб хөгжүүлэлт сурч байхад өөрийн вэбсайтыг хөгжүүлэх нь үнэхээр сайн санаа байсан. Би энд хүрсэнд маш сайн сэтгэл санаатай.',
     copyright: '© 2025 Жаргал. Бүх эрх хуулиар хамгаалагдсан.',
     sophomore: 'Би GMIT-ийн хоёрдугаар курсын мехатроникс оюутан. Би кодлохыг сурахыг эхэлсэн нь энэ ур чадвар нь миний зорилгод хүрэхэд чухал гэж итгэдэг учраас юм. Энэ вэбсайт бол миний анхны кодлох төсөл бөгөөд би үүнийг дадлага хийх, сурах, аялалаа хуваалцах зорилгоор бүтээсэн.',
+    settingsHeader: 'Тохиргоо',
+    enableDarkMode: 'Харанхуй горимыг идэвхжүүлэх',
+    languageLabel: 'Хэл',
+    save: 'Хадгалах',
+    reset: 'Сэргээх',
+    darkModeEnabled: 'Харанхуй горим идэвхжлээ',
+    darkModeDisabled: 'Харанхуй горимын идэвхжил цуцлагдлаа',
+    languageSet: 'Хэл тохирууллаа',
+    settingsSaved: 'Тохиргоо хадгалагдсан',
+    settingsReset: 'Тохиргоо анхны байдалд сэргээгдсэн',
+    testTitle: 'Туршилтын агуулга',
+    testContent: 'Энэ нь шинэ зүйлс турших туршилтын хуудас юм. Шинэ өөрчлөлтүүдээ ажиллахгүй байсан болохоор хэдэн мөр текст нэмлээ.'
   }
 };
 
