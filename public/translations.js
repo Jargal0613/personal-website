@@ -113,8 +113,13 @@ function ensureThemeStyles() {
     .mobile-lang-toggle { display: none; }
     @media (max-width: 767px) {
       #langToggle { display: none !important; }
-      nav.mobileNav.shown .mobile-lang-toggle { display: block; padding: 12px 18px; }
+      /* show mobile toggle only when mobile nav is opened */
+      nav.mobileNav.shown .mobile-lang-toggle { display: block !important; padding: 12px 18px; }
       nav.mobileNav { padding-top: 3.5rem; }
+    }
+    /* Ensure mobile-only toggle is hidden on larger screens even if nav links are forced visible */
+    @media (min-width: 768px) {
+      nav.mobileNav a.mobile-lang-toggle { display: none !important; }
     }
   `;
   const el = document.createElement('style');
