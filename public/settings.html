@@ -108,7 +108,7 @@
       const KEY = 'siteSettings';
       function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
       function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
-      function apply(s){ if(s.darkMode) document.documentElement.classList.add('dark'); else document.documentElement.classList.remove('dark'); if(s.language) document.documentElement.lang = s.language }
+      function apply(s){ if(s.language) document.documentElement.lang = s.language; if(typeof window.applyTheme === 'function') window.applyTheme(!!s.darkMode); }
 
       document.addEventListener('DOMContentLoaded', ()=>{
         const data = Object.assign({language:'en', darkMode:false}, load());

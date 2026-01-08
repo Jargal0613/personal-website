@@ -64,6 +64,24 @@ function initializeLanguage() {
   
   document.documentElement.lang = language;
   applyTranslations(language);
+  // apply saved theme preference if present
+  if (typeof data.darkMode !== 'undefined') applyTheme(!!data.darkMode);
+}
+
+// Apply a simple theme by changing the page background and text color.
+// This is intentionally minimal so it works across pages without changing markup.
+function applyTheme(isDark) {
+  try {
+    if (isDark) {
+      document.body.style.backgroundColor = '#000';
+      document.body.style.color = '#fff';
+    } else {
+      document.body.style.backgroundColor = '#fff';
+      document.body.style.color = '#000';
+    }
+  } catch (e) {
+    // ignore if body not available yet
+  }
 }
 
 // Apply translations to all elements with data-i18n attribute
@@ -78,3 +96,7 @@ function applyTranslations(language) {
 
 // Run on page load
 document.addEventListener('DOMContentLoaded', initializeLanguage);
+
+// expose for other scripts
+window.applyTranslations = applyTranslations;
+window.applyTheme = applyTheme;
