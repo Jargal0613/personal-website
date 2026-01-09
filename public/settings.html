@@ -102,17 +102,66 @@
     }
   </style>
 
-  <script>
-    function toggleFunction() {
-      var menu = document.getElementById("mobileNav");
-      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
-      var crossSwitch = document.getElementById("cross");
-      var isShown = menu.classList.toggle("shown");
-      hamburgerButtonSwitch.classList.toggle("hidden");
-      crossSwitch.classList.toggle("shown");
-      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+<script>
+  function toggleFunction() {
+    var menu = document.getElementById("mobileNav");
+    var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
+    var crossSwitch = document.getElementById("cross");
+    var isShown = menu.classList.toggle("shown");
+    hamburgerButtonSwitch && hamburgerButtonSwitch.classList.toggle("hidden");
+    crossSwitch && crossSwitch.classList.toggle("shown");
+    if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+  }
+
+  (function(){
+    const KEY = 'siteSettings';
+    function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
+    function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
+    
+    // Fixed apply function - properly call applyTheme with theme name
+    function apply(s){ 
+      if(s.language) {
+        document.documentElement.lang = s.language; 
+        if(typeof window.applyTranslations === 'function') {
+          window.applyTranslations(s.language);
+        }
+      }
+      if(s.theme && typeof window.applyTheme === 'function') {
+        window.applyTheme(s.theme);  // Pass the theme name, not a boolean!
+      }
     }
-  </script>
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const data = Object.assign({language:'en', theme:'cyan'}, load());
+      document.getElementById('langSelect').value = data.language || 'en';
+      document.getElementById('themeSelect').value = data.theme || 'cyan';
+      
+      // Apply the saved settings
+      apply(data);
+
+      // Theme change handler
+      document.getElementById('themeSelect').addEventListener('change', (e)=>{
+        const next = {language: document.getElementById('langSelect').value, theme: e.target.value};
+        save(next); 
+        apply(next);
+        document.getElementById('status').textContent = 'Theme set to ' + next.theme;
+      });
+
+      // Language change handler
+      document.getElementById('langSelect').addEventListener('change', (e)=>{
+        const next = {language: e.target.value, theme: document.getElementById('themeSelect').value};
+        save(next); 
+        apply(next);
+        const msg = translations[next.language] && translations[next.language].languageSet 
+          ? translations[next.language].languageSet + ' ' + next.language 
+          : 'Language set to ' + next.language;
+        document.getElementById('status').textContent = msg;
+      });
+
+      // REMOVED the save and reset button listeners since those buttons don't exist
+    });
+  })();
+</script>
 
 </head>
 
