@@ -15,7 +15,7 @@
       animation:gradient 8s ease infinite
     }
     @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-
+    
     .hamburgerButton {
         display: flex;
         margin: 0;
@@ -34,13 +34,8 @@
         transition: all 0.3s ease;
         z-index: 70;
     }
-    .hamburgerButton:hover {
-      background-color: #06b6d4;
-      color: black;
-    }
-    .hamburgerButton.hidden {
-      display: none;
-    }
+    .hamburgerButton:hover { background-color: #06b6d4; color: black; }
+    .hamburgerButton.hidden { display: none; }
 
     .cross {
         display: none;
@@ -60,30 +55,16 @@
         transition: all 0.3s ease;
         z-index: 70;
     }
-    .cross:hover {
-      background-color: #06b6d4;
-      color: black;
-    }
-    .cross.shown {
-      display: flex;
-    }
+    .cross:hover { background-color: #06b6d4; color: black; }
+    .cross.shown { display: flex; }
 
-    .mobileNav {
-        display: none;
-    }
+    .mobileNav { display: none; }
 
-    nav a {
-      display: none;
-    }
+    nav a { display: none; }
 
-    /* Mobile: visible full-screen panel when shown */
     .mobileNav.shown {
       display: flex;
-      position: fixed;
-      top: 60px;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       z-index: 60;
       background: transparent;
       width: 100%;
@@ -91,47 +72,27 @@
       align-items: left;
       justify-content: center;
       gap: 1.25rem;
-      padding-top: 2rem;
+      padding-top: 6rem;
       transition: opacity 220ms ease, transform 220ms ease;
       opacity: 1;
       transform: translateY(0);
     }
 
-    .mobileNav.shown a {
-      display: block;
-      padding: 12px 18px;
-    }
-    /* Desktop: show nav links and hide hamburger controls */
+    .mobileNav.shown a { display: block; padding: 12px 18px; }
+
     @media (min-width: 768px) {
       .hamburgerButton, .cross { display: none !important; }
       nav.mobileNav { display: flex !important; flex-direction: row !important; background: transparent !important; }
       nav.mobileNav a { display: inline-block !important; padding-left: 12px; padding-right: 12px; }
     }
     @media (max-width: 767px) {
-      /* Ensure header keeps the same visual height as desktop so the
-        border-bottom sits at the same vertical position on mobile. */
-      header { min-height: 60px; }
-
+      header { min-height: 69px; }
     }
-
-    .boxForSpacing {
-      height: 300px;
-      margin-top: 20px;
-    }
-
-    .boxForSpacing.box1 { background-color: red; }
-    .boxForSpacing.box2 { background-color: blue; }
-    .boxForSpacing.box3 { background-color: green; }
-    .boxForSpacing.box4 { background-color: yellow; }
-    .boxForSpacing.box5 { background-color: grey; }
-    .boxForSpacing.box6 { background-color: brown; }
 
     h1 {
       padding-bottom: 20px;
     }
-
   </style>
-
 
   <script>
     function toggleFunction() {
@@ -144,13 +105,14 @@
       if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
     }
   </script>
+
 </head>
 
 
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <!-- Navigation (copy to every page) -->
-  <header class="relative z-[100] bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
+  <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
 
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
@@ -177,6 +139,7 @@
     <div class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" id="langToggle" onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en')" role="button" tabindex="0" aria-label="Switch language">
       <span class="text-cyan-400 theme-accent">En</span> | Mn
     </div>
+
   </header>
 
   <!-- Main Content -->
