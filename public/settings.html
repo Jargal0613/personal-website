@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jargal</title>
+  <title>Jargal - Settings</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:," />
-  <script src="translations.js"></script>
   <style>
     html { overflow-y: scroll; }
     
@@ -100,68 +99,63 @@
       max-width: 600px;
       margin: 40px auto;
     }
+
+    /* Theme styles injected inline to ensure they load first */
+    :root { --bg-theme: #0a1f24; --theme-from: #06b6d4; --theme-via: #8b5cf6; --theme-to: #ec4899; --accent: #06b6d4; --accent-2: #8b5cf6; --accent-3: #ec4899; --accent-shadow: #ec489933; --border: #8b5cf6; }
+    body { background-color: var(--bg-theme) !important; transition: background-color 0.3s ease; }
+    .theme-accent { color: var(--accent) !important; }
+    .theme-bg-accent { background-color: var(--accent) !important; }
+    .theme-border { border-color: var(--border) !important; }
+    .theme-shadow { box-shadow: 0 20px 40px var(--accent-shadow) !important; }
+    nav.mobileNav a:hover { color: var(--accent) !important; }
+    .hamburgerButton, .cross { color: var(--accent) !important; }
+    .hamburgerButton:hover, .cross:hover { background-color: var(--accent) !important; color: black !important; }
+    header.theme-border { border-bottom: 1px solid var(--border) !important; }
+    footer { border-top-color: var(--border) !important; }
   </style>
 
-<script>
-  function toggleFunction() {
-    var menu = document.getElementById("mobileNav");
-    var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
-    var crossSwitch = document.getElementById("cross");
-    var isShown = menu.classList.toggle("shown");
-    hamburgerButtonSwitch && hamburgerButtonSwitch.classList.toggle("hidden");
-    crossSwitch && crossSwitch.classList.toggle("shown");
-    if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
-  }
-
-  (function(){
-    const KEY = 'siteSettings';
-    function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
-    function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
-    
-    // Fixed apply function - properly call applyTheme with theme name
-    function apply(s){ 
-      if(s.language) {
-        document.documentElement.lang = s.language; 
-        if(typeof window.applyTranslations === 'function') {
-          window.applyTranslations(s.language);
-        }
-      }
-      if(s.theme && typeof window.applyTheme === 'function') {
-        window.applyTheme(s.theme);  // Pass the theme name, not a boolean!
-      }
+  <script>
+    function toggleFunction() {
+      var menu = document.getElementById("mobileNav");
+      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
+      var crossSwitch = document.getElementById("cross");
+      var isShown = menu.classList.toggle("shown");
+      hamburgerButtonSwitch.classList.toggle("hidden");
+      crossSwitch.classList.toggle("shown");
+      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
     }
 
-    document.addEventListener('DOMContentLoaded', ()=>{
-      const data = Object.assign({language:'en', theme:'cyan'}, load());
-      document.getElementById('langSelect').value = data.language || 'en';
-      document.getElementById('themeSelect').value = data.theme || 'cyan';
-      
-      // Apply the saved settings
-      apply(data);
+    // Define applyTheme directly here to ensure it's available
+    function applyTheme(name) {
+      const themes = {
+        cyan: { colors: ['#06b6d4', '#8b5cf6', '#ec4899'], bg: '#0a1f24' },
+        purple: { colors: ['#7c3aed', '#6d28d9', '#a78bfa'], bg: '#1f0a2e' },
+        green: { colors: ['#10b981', '#34d399', '#86efac'], bg: '#0a1f15' },
+        orange: { colors: ['#f97316', '#fb923c', '#fca5a5'], bg: '#2a1810' }
+      };
+      const theme = themes[name] || themes['cyan'];
+      const colors = theme.colors;
+      const root = document.documentElement;
+      root.style.setProperty('--theme-from', colors[0]);
+      root.style.setProperty('--theme-via', colors[1]);
+      root.style.setProperty('--theme-to', colors[2]);
+      root.style.setProperty('--accent', colors[0]);
+      root.style.setProperty('--accent-2', colors[1]);
+      root.style.setProperty('--accent-3', colors[2]);
+      root.style.setProperty('--accent-shadow', colors[2] + '33');
+      root.style.setProperty('--border', colors[1]);
+      root.style.setProperty('--bg-theme', theme.bg);
+    }
 
-      // Theme change handler
-      document.getElementById('themeSelect').addEventListener('change', (e)=>{
-        const next = {language: document.getElementById('langSelect').value, theme: e.target.value};
-        save(next); 
-        apply(next);
-        document.getElementById('status').textContent = 'Theme set to ' + next.theme;
-      });
-
-      // Language change handler
-      document.getElementById('langSelect').addEventListener('change', (e)=>{
-        const next = {language: e.target.value, theme: document.getElementById('themeSelect').value};
-        save(next); 
-        apply(next);
-        const msg = translations[next.language] && translations[next.language].languageSet 
-          ? translations[next.language].languageSet + ' ' + next.language 
-          : 'Language set to ' + next.language;
-        document.getElementById('status').textContent = msg;
-      });
-
-      // REMOVED the save and reset button listeners since those buttons don't exist
-    });
-  })();
-</script>
+    // Load saved theme immediately
+    (function() {
+      const KEY = 'siteSettings';
+      const data = JSON.parse(localStorage.getItem(KEY) || '{}');
+      if (data.theme) {
+        applyTheme(data.theme);
+      }
+    })();
+  </script>
 
 </head>
 
@@ -169,7 +163,6 @@
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
-<!-- hamburger and cross buttons -->
     <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -184,35 +177,26 @@
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
       </svg>
     </div>
-<!--end of hamburger and cross buttons-->
-<!-- mobile navigation -->
+
     <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
-      <a href="index.html" class="text-gray-400 hover:text-white transition" data-i18n="home">Home</a>
-      <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
+      <a href="index.html" class="text-gray-400 hover:text-white transition">Home</a>
+      <a href="about-me.html" class="text-gray-400 hover:text-white transition">About Me</a>
       <a href="settings.html" class="text-cyan-400 hover:text-white transition">
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="3" />
           <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24M19.78 19.78l-4.24-4.24m-5.08-5.08l-4.24-4.24" />
         </svg>
       </a>
-      <a href="#" class="mobile-lang-toggle text-gray-400 hover:text-white transition" onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en'); return false;">En | Mn</a>
     </nav>
-
-    <div class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" id="langToggle" onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en')" role="button" tabindex="0" aria-label="Switch language">
-      <span class="text-cyan-400 theme-accent">En</span> | Mn
-    </div>
-
   </header>
 
-
-  <!--main content-->
   <main class="flex-1 px-6">
     <div class="card">
-      <h1 class="text-3xl font-bold mb-4" data-i18n="settingsHeader">Settings</h1>
+      <h1 class="text-3xl font-bold mb-4">Settings</h1>
 
       <section class="mb-6">
-        <label class="block mb-2" data-i18n="languageLabel">Language</label>
-        <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded">
+        <label class="block mb-2">Language</label>
+        <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded text-white">
           <option value="en">English</option>
           <option value="mn">Mongolian</option>
         </select>
@@ -220,7 +204,7 @@
 
       <section class="mb-6">
         <label class="block mb-2">Theme</label>
-        <select id="themeSelect" class="p-2 bg-black/60 border border-white/10 rounded">
+        <select id="themeSelect" class="p-2 bg-black/60 border border-white/10 rounded text-white">
           <option value="cyan">Cyan</option>
           <option value="purple">Purple</option>
           <option value="green">Green</option>
@@ -232,53 +216,46 @@
     </div>
   </main>
 
-  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900" data-i18n="copyright">
+  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
     © 2025 Jargal. All rights reserved.
   </footer>
 
   <script>
-    function toggleFunction() {
-      var menu = document.getElementById("mobileNav");
-      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
-      var crossSwitch = document.getElementById("cross");
-      var isShown = menu.classList.toggle("shown");
-      hamburgerButtonSwitch && hamburgerButtonSwitch.classList.toggle("hidden");
-      crossSwitch && crossSwitch.classList.toggle("shown");
-      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
-    }
-
     (function(){
       const KEY = 'siteSettings';
       function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
       function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
-      function apply(s){ if(s.language) document.documentElement.lang = s.language; if(typeof window.applyTheme === 'function') window.applyTheme(!!s.darkMode); }
 
       document.addEventListener('DOMContentLoaded', ()=>{
         const data = Object.assign({language:'en', theme:'cyan'}, load());
+        
+        // Set the dropdown values
         document.getElementById('langSelect').value = data.language || 'en';
         document.getElementById('themeSelect').value = data.theme || 'cyan';
-        apply(data);
+        
+        // Apply the saved theme
+        applyTheme(data.theme || 'cyan');
 
+        // Theme change handler
         document.getElementById('themeSelect').addEventListener('change', (e)=>{
-          const next = {language: document.getElementById('langSelect').value, theme: e.target.value};
-          save(next); apply(next); applyTranslations(next.language);
-          document.getElementById('status').textContent = 'Theme set to ' + next.theme;
+          const selectedTheme = e.target.value;
+          const next = {
+            language: document.getElementById('langSelect').value, 
+            theme: selectedTheme
+          };
+          save(next);
+          applyTheme(selectedTheme); // Apply immediately
+          document.getElementById('status').textContent = 'Theme set to ' + selectedTheme;
         });
 
+        // Language change handler
         document.getElementById('langSelect').addEventListener('change', (e)=>{
-          const next = {language: e.target.value, theme: document.getElementById('themeSelect').value};
-          save(next); apply(next); applyTranslations(next.language);
-          document.getElementById('status').textContent = (translations[next.language].languageSet || 'Language set to') + ' ' + next.language;
-        });
-
-        document.getElementById('saveSettings').addEventListener('click', ()=>{
-          const next = {language: document.getElementById('langSelect').value, theme: document.getElementById('themeSelect').value};
-          save(next); apply(next); applyTranslations(next.language);
-          document.getElementById('status').textContent = translations[next.language].settingsSaved || 'Settings saved';
-        });
-
-        document.getElementById('resetSettings').addEventListener('click', ()=>{
-          localStorage.removeItem(KEY); document.getElementById('langSelect').value='en'; document.getElementById('themeSelect').value='cyan'; apply({language:'en',theme:'cyan'}); applyTranslations('en'); document.getElementById('status').textContent = translations['en'].settingsReset || 'Settings reset';
+          const next = {
+            language: e.target.value, 
+            theme: document.getElementById('themeSelect').value
+          };
+          save(next);
+          document.getElementById('status').textContent = 'Language set to ' + next.language;
         });
       });
     })();
