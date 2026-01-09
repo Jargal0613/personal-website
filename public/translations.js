@@ -57,6 +57,7 @@ const translations = {
 };
 
 // Load language preference and apply translations
+// Load language preference and apply translations
 function initializeLanguage() {
   const KEY = 'siteSettings';
   const data = JSON.parse(localStorage.getItem(KEY) || '{}');
@@ -64,10 +65,20 @@ function initializeLanguage() {
   
   document.documentElement.lang = language;
   applyTranslations(language);
-  // apply saved theme preference if present
-  if (data.theme) applyTheme(data.theme);
+  
+  // Apply saved theme preference if present
+  // Use requestAnimationFrame to ensure DOM is ready
+  if (data.theme) {
+    requestAnimationFrame(() => {
+      applyTheme(data.theme);
+    });
+  } else {
+    // Apply default theme if none saved
+    requestAnimationFrame(() => {
+      applyTheme('cyan');
+    });
+  }
 }
-
 // Apply a named theme by setting CSS variables used for gradients.
 function applyTheme(name) {
   const themes = {
