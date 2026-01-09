@@ -1,4 +1,16 @@
 // Translation data
+
+// Inject theme styles immediately before anything else
+(function() {
+  ensureThemeStyles();
+  const KEY = 'siteSettings';
+  const data = JSON.parse(localStorage.getItem(KEY) || '{}');
+  if (data.theme) {
+    applyTheme(data.theme);
+  }
+})();
+
+
 const translations = {
   en: {
     home: 'Home',
