@@ -3,35 +3,112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Settings — Jargal</title>
+  <title>Jargal</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" href="data:," />
   <script src="translations.js"></script>
   <style>
     html { overflow-y: scroll; }
-    .hamburgerButton{display:flex;margin:0;padding:8px 12px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;position:absolute;right:1rem;top:35px;transform:translateY(-50%);width:45px;height:45px;color:#06b6d4;transition:all 0.3s ease;z-index:70}
-    .cross{display:none;margin:0;padding:8px 12px;font-size:20px;cursor:pointer;align-items:center;justify-content:center;position:absolute;right:1rem;top:35px;transform:translateY(-50%);width:45px;height:45px;color:#06b6d4;transition:all 0.3s ease;z-index:70}
-    .cross.shown{display:flex}
-    .mobileNav{display:none}
-    nav a{display:none}
-    .mobileNav.shown{display:flex;inset:0;z-index:60;background:transparent;width:100%;flex-direction:column;align-items:left;justify-content:center;gap:1.25rem;padding-top:6rem;transition:opacity 220ms ease, transform 220ms ease;opacity:1;transform:translateY(0)}
-    .mobileNav.shown a{display:block;padding:12px 18px}
-    @media(min-width:768px){
-      .hamburgerButton,.cross{display:none!important}
-      nav.mobileNav{display:flex!important;flex-direction:row!important;background:transparent!important}
-      nav.mobileNav a{display:inline-block!important;padding-left:12px;padding-right:12px}
+    
+    .animate-gradient{
+      background-size:200% 200%;
+      animation:gradient 8s ease infinite
     }
-    body{background: #000;color:#fff}
-    .card{max-width:880px;margin:4rem auto;padding:2rem;background:rgba(255,255,255,0.02);border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+    @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+    
+    .hamburgerButton {
+        display: flex;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 1rem;
+        top: 35px;
+        transform: translateY(-50%);
+        width: 45px;
+        height: 45px;
+        color: #06b6d4;
+        transition: all 0.3s ease;
+        z-index: 70;
+    }
+    .hamburgerButton:hover { background-color: #06b6d4; color: black; }
+    .hamburgerButton.hidden { display: none; }
 
+    .cross {
+        display: none;
+        margin: 0;
+        padding: 8px 12px;
+        font-size: 20px;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 1rem;
+        top: 35px;
+        transform: translateY(-50%);
+        width: 45px;
+        height: 45px;
+        color: #06b6d4;
+        transition: all 0.3s ease;
+        z-index: 70;
+    }
+    .cross:hover { background-color: #06b6d4; color: black; }
+    .cross.shown { display: flex; }
+
+    .mobileNav { display: none; }
+
+    nav a { display: none; }
+
+    .mobileNav.shown {
+      display: flex;
+      inset: 0;
+      z-index: 60;
+      background: transparent;
+      width: 100%;
+      flex-direction: column;
+      align-items: left;
+      justify-content: center;
+      gap: 1.25rem;
+      padding-top: 6rem;
+      transition: opacity 220ms ease, transform 220ms ease;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .mobileNav.shown a { display: block; padding: 12px 18px; }
+
+    @media (min-width: 768px) {
+      .hamburgerButton, .cross { display: none !important; }
+      nav.mobileNav { display: flex !important; flex-direction: row !important; background: transparent !important; }
+      nav.mobileNav a { display: inline-block !important; padding-left: 12px; padding-right: 12px; }
+    }
     @media (max-width: 767px) {
-      /* Ensure header keeps the same visual height as desktop so the
-        border-bottom sits at the same vertical position on mobile. */
       header { min-height: 69px; }
+    }
 
+    h1 {
+      padding-bottom: 20px;
     }
   </style>
+
+  <script>
+    function toggleFunction() {
+      var menu = document.getElementById("mobileNav");
+      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
+      var crossSwitch = document.getElementById("cross");
+      var isShown = menu.classList.toggle("shown");
+      hamburgerButtonSwitch.classList.toggle("hidden");
+      crossSwitch.classList.toggle("shown");
+      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+    }
+  </script>
+
 </head>
+
+
 <body class="bg-black text-white min-h-screen flex flex-col">
 
   <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
