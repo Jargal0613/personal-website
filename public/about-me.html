@@ -111,19 +111,18 @@
 
     .mobileNav.shown {
       display: flex;
+      inset: 0;
+      z-index: 60;
+      background: transparent;
+      width: 100%;
       flex-direction: column;
       align-items: left;
       justify-content: center;
-      position: fixed;
-      inset: 0;
-      width: 100%;
       gap: 1.25rem;
       padding-top: 6rem;
-      background: transparent;
+      transition: opacity 220ms ease, transform 220ms ease;
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 220ms ease, transform 220ms ease;
-      z-index: 60;
     }
 
     .mobileNav.shown a { 
@@ -139,6 +138,10 @@
       .hamburgerButton, 
       .cross { 
         display: none !important; 
+      }
+
+      nav.mobileNav .mobile-lang-toggle {
+        display: none !important;
       }
       
       nav.mobileNav { 
@@ -158,6 +161,10 @@
     @media (max-width: 767px) {
       header { 
         min-height: 69px; 
+      }
+
+      #langToggle {
+        display: none;
       }
     }
 
