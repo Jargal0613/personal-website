@@ -1,105 +1,181 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+  <!-- Meta Information -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Settings page - Customize language and theme preferences"/>
+  <meta name="author" content="Jargal"/>
   <title>Jargal - Settings</title>
+  
+  <!-- External Resources -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="translations.js"></script>
   <link rel="icon" href="data:," />
+  
+  <!-- Critical Styles -->
   <style>
-    html { overflow-y: scroll; }
-    
-    .animate-gradient{
-      background-size:200% 200%;
-      animation:gradient 8s ease infinite
+    /* =================================================================
+       BASE STYLES
+       ================================================================= */
+    html { 
+      overflow-y: scroll; 
     }
-    @keyframes gradient{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
     
+    /* =================================================================
+       ANIMATIONS
+       ================================================================= */
+    .animate-gradient {
+      background-size: 200% 200%;
+      animation: gradient 8s ease infinite;
+    }
+    
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* =================================================================
+       MOBILE NAVIGATION
+       ================================================================= */
+    /* Hamburger Menu Button */
     .hamburgerButton {
-        display: flex;
-        margin: 0;
-        padding: 8px 12px;
-        font-size: 20px;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: 1rem;
-        top: 35px;
-        transform: translateY(-50%);
-        width: 45px;
-        height: 45px;
-        color: #06b6d4;
-        transition: all 0.3s ease;
-        z-index: 70;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 1rem;
+      top: 35px;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 20px;
+      color: #06b6d4;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 70;
     }
-    .hamburgerButton:hover { background-color: #06b6d4; color: black; }
-    .hamburgerButton.hidden { display: none; }
+    
+    .hamburgerButton:hover { 
+      background-color: #06b6d4; 
+      color: black; 
+    }
+    
+    .hamburgerButton.hidden { 
+      display: none; 
+    }
 
+    /* Close Button */
     .cross {
-        display: none;
-        margin: 0;
-        padding: 8px 12px;
-        font-size: 20px;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: 1rem;
-        top: 35px;
-        transform: translateY(-50%);
-        width: 45px;
-        height: 45px;
-        color: #06b6d4;
-        transition: all 0.3s ease;
-        z-index: 70;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 1rem;
+      top: 35px;
+      transform: translateY(-50%);
+      width: 45px;
+      height: 45px;
+      margin: 0;
+      padding: 8px 12px;
+      font-size: 20px;
+      color: #06b6d4;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 70;
     }
-    .cross:hover { background-color: #06b6d4; color: black; }
-    .cross.shown { display: flex; }
+    
+    .cross:hover { 
+      background-color: #06b6d4; 
+      color: black; 
+    }
+    
+    .cross.shown { 
+      display: flex; 
+    }
 
-    .mobileNav { display: none; }
+    /* Mobile Navigation Container */
+    .mobileNav { 
+      display: none; 
+    }
 
-    nav a { display: none; }
+    .mobileNav a { 
+      display: none; 
+    }
 
     .mobileNav.shown {
       display: flex;
-      inset: 0;
-      z-index: 60;
-      background: transparent;
-      width: 100%;
       flex-direction: column;
       align-items: left;
       justify-content: center;
+      position: fixed;
+      inset: 0;
+      width: 100%;
       gap: 1.25rem;
       padding-top: 6rem;
-      transition: opacity 220ms ease, transform 220ms ease;
+      background: transparent;
       opacity: 1;
       transform: translateY(0);
+      transition: opacity 220ms ease, transform 220ms ease;
+      z-index: 60;
     }
 
-    .mobileNav.shown a { display: block; padding: 12px 18px; }
+    .mobileNav.shown a { 
+      display: block; 
+      padding: 12px 18px; 
+    }
 
+    /* =================================================================
+       RESPONSIVE BREAKPOINTS
+       ================================================================= */
+    /* Desktop Navigation */
     @media (min-width: 768px) {
-      .hamburgerButton, .cross { display: none !important; }
+      .hamburgerButton, 
+      .cross { 
+        display: none !important; 
+      }
+      
+      nav.mobileNav { 
+        display: flex !important; 
+        flex-direction: row !important; 
+        background: transparent !important; 
+      }
+      
+      nav.mobileNav a { 
+        display: inline-block !important; 
+        padding-left: 12px; 
+        padding-right: 12px; 
+      }
 
       nav.mobileNav .mobile-lang-toggle {
         display: none !important;
       }
-
-      nav.mobileNav { display: flex !important; flex-direction: row !important; background: transparent !important; }
-      nav.mobileNav a { display: inline-block !important; padding-left: 12px; padding-right: 12px; }
     }
+    
+    /* Mobile Header Adjustments */
     @media (max-width: 767px) {
-      header { min-height: 69px; }
+      header { 
+        min-height: 69px; 
+      }
 
       #langToggle {
         display: none;
       }
     }
 
+    /* =================================================================
+       COMPONENT STYLES
+       ================================================================= */
     h1 {
       padding-bottom: 20px;
     }
+
     .card {
       background-color: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -109,32 +185,89 @@
       margin: 40px auto;
     }
 
-    /* Theme styles injected inline to ensure they load first */
-    :root { --bg-theme: #0a1f24; --theme-from: #06b6d4; --theme-via: #8b5cf6; --theme-to: #ec4899; --accent: #06b6d4; --accent-2: #8b5cf6; --accent-3: #ec4899; --accent-shadow: #ec489933; --border: #8b5cf6; }
-    body { background-color: var(--bg-theme) !important; transition: background-color 0.3s ease; }
-    .theme-accent { color: var(--accent) !important; }
-    .theme-bg-accent { background-color: var(--accent) !important; }
-    .theme-border { border-color: var(--border) !important; }
-    .theme-shadow { box-shadow: 0 20px 40px var(--accent-shadow) !important; }
-    nav.mobileNav a:hover { color: var(--accent) !important; }
-    .hamburgerButton, .cross { color: var(--accent) !important; }
-    .hamburgerButton:hover, .cross:hover { background-color: var(--accent) !important; color: black !important; }
-    header.theme-border { border-bottom: 1px solid var(--border) !important; }
-    footer { border-top-color: var(--border) !important; }
+    /* Theme Integration Styles */
+    :root { 
+      --bg-theme: #0a1f24; 
+      --theme-from: #06b6d4; 
+      --theme-via: #8b5cf6; 
+      --theme-to: #ec4899; 
+      --accent: #06b6d4; 
+      --accent-2: #8b5cf6; 
+      --accent-3: #ec4899; 
+      --accent-shadow: #ec489933; 
+      --border: #8b5cf6; 
+    }
+    
+    body { 
+      background-color: var(--bg-theme) !important; 
+      transition: background-color 0.3s ease; 
+    }
+    
+    .theme-accent { 
+      color: var(--accent) !important; 
+    }
+    
+    .theme-bg-accent { 
+      background-color: var(--accent) !important; 
+    }
+    
+    .theme-border { 
+      border-color: var(--border) !important; 
+    }
+    
+    .theme-shadow { 
+      box-shadow: 0 20px 40px var(--accent-shadow) !important; 
+    }
+    
+    nav.mobileNav a:hover { 
+      color: var(--accent) !important; 
+    }
+    
+    .hamburgerButton, 
+    .cross { 
+      color: var(--accent) !important; 
+    }
+    
+    .hamburgerButton:hover, 
+    .cross:hover { 
+      background-color: var(--accent) !important; 
+      color: black !important; 
+    }
+    
+    header.theme-border { 
+      border-bottom: 1px solid var(--border) !important; 
+    }
+    
+    footer { 
+      border-top-color: var(--border) !important; 
+    }
   </style>
 
+  <!-- JavaScript Functions -->
   <script>
+    /**
+     * Toggle mobile navigation menu
+     * Shows/hides mobile navigation and switches between hamburger and close icons
+     */
     function toggleFunction() {
-      var menu = document.getElementById("mobileNav");
-      var hamburgerButtonSwitch = document.getElementById("hamburgerButton");
-      var crossSwitch = document.getElementById("cross");
-      var isShown = menu.classList.toggle("shown");
-      hamburgerButtonSwitch.classList.toggle("hidden");
-      crossSwitch.classList.toggle("shown");
-      if (hamburgerButtonSwitch) hamburgerButtonSwitch.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+      const menu = document.getElementById("mobileNav");
+      const hamburgerButton = document.getElementById("hamburgerButton");
+      const crossButton = document.getElementById("cross");
+      
+      const isShown = menu.classList.toggle("shown");
+      hamburgerButton.classList.toggle("hidden");
+      crossButton.classList.toggle("shown");
+      
+      // Update ARIA attributes for accessibility
+      if (hamburgerButton) {
+        hamburgerButton.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+      }
     }
 
-    // Define applyTheme directly here to ensure it's available
+    /**
+     * Apply theme immediately on page load
+     * Prevents flash of unstyled content
+     */
     function applyTheme(name) {
       const themes = {
         cyan: { colors: ['#06b6d4', '#8b5cf6', '#ec4899'], bg: '#0a1f24' },
@@ -142,9 +275,12 @@
         green: { colors: ['#10b981', '#34d399', '#86efac'], bg: '#0a1f15' },
         orange: { colors: ['#f97316', '#fb923c', '#fca5a5'], bg: '#2a1810' }
       };
+      
       const theme = themes[name] || themes['cyan'];
       const colors = theme.colors;
       const root = document.documentElement;
+      
+      // Set CSS custom properties
       root.style.setProperty('--theme-from', colors[0]);
       root.style.setProperty('--theme-via', colors[1]);
       root.style.setProperty('--theme-to', colors[2]);
@@ -156,7 +292,7 @@
       root.style.setProperty('--bg-theme', theme.bg);
     }
 
-    // Load saved theme immediately
+    // Load saved theme before page renders
     (function() {
       const KEY = 'siteSettings';
       const data = JSON.parse(localStorage.getItem(KEY) || '{}');
@@ -165,34 +301,53 @@
       }
     })();
   </script>
-
 </head>
-
 
 <body class="bg-black text-white min-h-screen flex flex-col">
 
+  <!-- =================================================================
+       HEADER / NAVIGATION
+       ================================================================= -->
   <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
-    <div class="hamburgerButton" id="hamburgerButton" onclick="toggleFunction()" role="button" tabindex="0" aria-controls="mobileNav" aria-expanded="false" aria-label="Open menu">
+    
+    <!-- Mobile Menu Toggle Buttons -->
+    <button 
+      class="hamburgerButton" 
+      id="hamburgerButton" 
+      onclick="toggleFunction()" 
+      aria-controls="mobileNav" 
+      aria-expanded="false" 
+      aria-label="Open navigation menu"
+    >
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
       </svg>
-    </div>
+    </button>
 
-    <div class="cross" id="cross" onclick="toggleFunction()" role="button" tabindex="0" aria-label="Close menu">
+    <button 
+      class="cross" 
+      id="cross" 
+      onclick="toggleFunction()" 
+      aria-label="Close navigation menu"
+    >
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
       </svg>
-    </div>
+    </button>
 
-    <nav class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav">
+    <!-- Main Navigation -->
+    <nav 
+      class="max-w-5xl mx-auto px-6 py-5 flex justify-center gap-10 text-lg mobileNav" 
+      id="mobileNav"
+      aria-label="Main navigation"
+    >
       <a 
         href="index.html" 
-        class="text-cyan-400 theme-accent hover:text-white transition" 
+        class="text-gray-400 hover:text-white transition" 
         data-i18n="home"
-        aria-current="page"
       >
         Home
       </a>
@@ -203,7 +358,12 @@
       >
         About Me
       </a>
-      <a href="settings.html" class="text-cyan-400 hover:text-white transition">
+      <a 
+        href="settings.html" 
+        class="text-cyan-400 theme-accent hover:text-white transition"
+        aria-label="Settings"
+        aria-current="page"
+      >
         <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="12" cy="12" r="3" />
           <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24M19.78 19.78l-4.24-4.24m-5.08-5.08l-4.24-4.24" />
@@ -217,20 +377,37 @@
         En | Mn
       </a>
     </nav>
+
+    <!-- Language Toggle (Desktop) -->
+    <div 
+      class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" 
+      id="langToggle" 
+      onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en')" 
+      role="button" 
+      tabindex="0" 
+      aria-label="Switch language"
+    >
+      <span class="text-cyan-400 theme-accent">En</span> | Mn
+    </div>
   </header>
 
+  <!-- =================================================================
+       MAIN CONTENT
+       ================================================================= -->
   <main class="flex-1 px-6">
     <div class="card">
-      <h1 class="text-3xl font-bold mb-4">Settings</h1>
+      <h1 class="text-3xl font-bold mb-4" data-i18n="settingsHeader">Settings</h1>
 
+      <!-- Language Selection -->
       <section class="mb-6">
-        <label class="block mb-2">Language</label>
+        <label class="block mb-2" data-i18n="languageLabel">Language</label>
         <select id="langSelect" class="p-2 bg-black/60 border border-white/10 rounded text-white">
           <option value="en">English</option>
           <option value="mn">Mongolian</option>
         </select>
       </section>
 
+      <!-- Theme Selection -->
       <section class="mb-6">
         <label class="block mb-2">Theme</label>
         <select id="themeSelect" class="p-2 bg-black/60 border border-white/10 rounded text-white">
@@ -241,24 +418,46 @@
         </select>
       </section>
 
+      <!-- Status Message -->
       <p id="status" class="mt-4 text-sm text-gray-400"></p>
     </div>
   </main>
 
-  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
-    © 2025 Jargal. All rights reserved.
+  <!-- =================================================================
+       FOOTER
+       ================================================================= -->
+  <footer class="py-10 text-center text-gray-500 text-sm border-t border-gray-900">
+    <div class="max-w-5xl mx-auto px-6" data-i18n="copyright">
+      © 2025 Jargal. All rights reserved.
+    </div>
   </footer>
 
+  <!-- Settings Page JavaScript -->
   <script>
     (function(){
       const KEY = 'siteSettings';
-      function load(){return JSON.parse(localStorage.getItem(KEY) || '{}')}
-      function save(s){localStorage.setItem(KEY, JSON.stringify(s))}
+      
+      /**
+       * Load settings from localStorage
+       * @returns {Object} Settings object with language and theme
+       */
+      function load() {
+        return JSON.parse(localStorage.getItem(KEY) || '{}');
+      }
+      
+      /**
+       * Save settings to localStorage
+       * @param {Object} settings - Settings object to save
+       */
+      function save(settings) {
+        localStorage.setItem(KEY, JSON.stringify(settings));
+      }
 
-      document.addEventListener('DOMContentLoaded', ()=>{
-        const data = Object.assign({language:'en', theme:'cyan'}, load());
+      document.addEventListener('DOMContentLoaded', () => {
+        // Load saved settings with defaults
+        const data = Object.assign({language: 'en', theme: 'cyan'}, load());
         
-        // Set the dropdown values
+        // Set the dropdown values to saved settings
         document.getElementById('langSelect').value = data.language || 'en';
         document.getElementById('themeSelect').value = data.theme || 'cyan';
         
@@ -266,28 +465,41 @@
         applyTheme(data.theme || 'cyan');
 
         // Theme change handler
-        document.getElementById('themeSelect').addEventListener('change', (e)=>{
+        document.getElementById('themeSelect').addEventListener('change', (e) => {
           const selectedTheme = e.target.value;
           const next = {
             language: document.getElementById('langSelect').value, 
             theme: selectedTheme
           };
           save(next);
-          applyTheme(selectedTheme); // Apply immediately
+          applyTheme(selectedTheme);
           document.getElementById('status').textContent = 'Theme set to ' + selectedTheme;
         });
 
         // Language change handler
-        document.getElementById('langSelect').addEventListener('change', (e)=>{
+        document.getElementById('langSelect').addEventListener('change', (e) => {
+          const selectedLanguage = e.target.value;
           const next = {
-            language: e.target.value, 
+            language: selectedLanguage, 
             theme: document.getElementById('themeSelect').value
           };
           save(next);
-          document.getElementById('status').textContent = 'Language set to ' + next.language;
+          
+          // Apply translations if function is available
+          if (typeof window.applyTranslations === 'function') {
+            window.applyTranslations(selectedLanguage);
+          }
+          
+          // Update document language attribute
+          document.documentElement.lang = selectedLanguage;
+          
+          // Show status message
+          const langName = selectedLanguage === 'en' ? 'English' : 'Mongolian';
+          document.getElementById('status').textContent = 'Language set to ' + langName;
         });
       });
     })();
   </script>
+
 </body>
 </html>
