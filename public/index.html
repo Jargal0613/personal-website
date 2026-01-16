@@ -176,6 +176,12 @@
       padding-bottom: 20px;
     }
 
+    /* Typography Styles */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      letter-spacing: -0.5px;
+    }
+
     /* Theme Integration Styles */
     :root { 
       --bg-theme: #0a1f24; 
@@ -402,7 +408,7 @@
       </h1>
 
       <!-- Introduction Text -->
-      <div class="text-xl md:text-2xl text-gray-300 leading-relaxed max-w-2xl">
+      <div class="text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl">
         <p>
           <span data-i18n="intro">Hey, I'm Jargal.</span>
         </p>
@@ -412,20 +418,20 @@
       </div>
 
       <!-- Additional Content Section -->
-      <section class="space-y-6 text-gray-300 flex justify-center">
-        <h2 class="text-2xl md:text-3xl" data-i18n="requiredContent">
+      <section class="space-y-6 text-gray-300">
+        <h2 class="text-xl md:text-2xl font-semibold" data-i18n="requiredContent">
           I am required to add more content to this page because I have to check what happens when scrolling down
         </h2>
         
-        <p data-i18n="developing">
+        <p class="text-base md:text-lg leading-relaxed" data-i18n="developing">
           Developing website is actually interesting and challenging.
         </p>
         
-        <p data-i18n="learned">
+        <p class="text-base md:text-lg leading-relaxed" data-i18n="learned">
           I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.
         </p>
         
-        <p data-i18n="building">
+        <p class="text-base md:text-lg leading-relaxed" data-i18n="building">
           Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.
         </p>
       </section>
@@ -445,7 +451,7 @@
           href="https://instagram.com/j_rg_l_" 
           target="_blank" 
           rel="noopener noreferrer"
-          class="text-gray-400 theme-accent transition text-4xl hover:opacity-80"
+          class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80"
         >
           Instagram
         </a>
@@ -453,7 +459,7 @@
           href="mailto:jargal0660@gmail.com" 
           target="_blank"
           rel="noopener noreferrer" 
-          class="text-gray-400 theme-accent transition text-4xl hover:opacity-80"
+          class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80"
         >
           Email
         </a>
