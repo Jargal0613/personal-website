@@ -40,7 +40,7 @@ const translations = {
   mn: {
     // Navigation
     home: 'Нүүр',
-    aboutMe: 'Надаар',
+    aboutMe: 'Миний тухай',
     settings: 'Тохиргоо',
     
     // Homepage
