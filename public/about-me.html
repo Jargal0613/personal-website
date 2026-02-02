@@ -250,6 +250,42 @@
     .box6 {
       background-color: #7c3aed;
     }
+
+    /* =================================================================
+       IMAGE STYLES 🔧
+       ================================================================= */
+    .image-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    img.gallery {
+      width: calc(33% - 1rem);
+      max-width: 340px;
+      height: auto;
+      display: block;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 12px 30px var(--accent-shadow);
+      transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+    }
+
+    img.gallery:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 22px 44px var(--accent-shadow);
+      filter: brightness(1.02);
+    }
+
+    @media (max-width: 640px) {
+      img.gallery { width: calc(50% - 1rem); max-width: 100%; }
+    }
+
+    @media (max-width: 420px) {
+      img.gallery { width: 100%; }
+    }
   </style>
 
   <!-- JavaScript Functions -->
@@ -438,9 +474,11 @@
           4th kindergarten of Khentii province.
         </p>
       </article>
-      <img src="/images/IMG_6919.jpeg" />
-      <img src="/images/IMG_6923.jpeg" />
-      <img src="/images/IMG_6924.jpeg" />
+      <div class="image-row">
+        <img class="gallery" src="/images/IMG_6919.jpeg" alt="Kindergarten photo 1" loading="lazy" />
+        <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" />
+        <img class="gallery" src="/images/IMG_6924.jpeg" alt="Kindergarten photo 3" loading="lazy" />
+      </div>
       </div>
 
       <div class="boxForSpacing box3">
@@ -456,7 +494,9 @@
           Kherlen 4th school in Khentii province.
         </p>
       </article>
-      <img src="/images/IMG_6925.jpeg" />
+      <div class="image-row">
+        <img class="gallery" src="/images/IMG_6925.jpeg" alt="School photo 2011" loading="lazy" />
+      </div>
       </div>
 
       <div class="boxForSpacing box4">
@@ -472,8 +512,10 @@
           I am a sophomore mechatronics student at GMIT. I started learning coding because I believe this skill is essential for reaching my goals. This website is my first coding project, and I created it to practice, learn, and share my journey.
         </p>
       </article>
-      <img src="/images/IMG_6935.jpeg" />
-      <img src="/images/IMG_6936.jpeg" />
+      <div class="image-row">
+        <img class="gallery" src="/images/IMG_6935.jpeg" alt="Moved to Baganuur photo 1" loading="lazy" />
+        <img class="gallery" src="/images/IMG_6936.jpeg" alt="Moved to Baganuur photo 2" loading="lazy" />
+      </div>
       </div>
     </div>
 
