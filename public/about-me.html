@@ -22,6 +22,12 @@
       overflow-y: scroll; 
     }
     
+    /* Picture element responsive optimization */
+    picture {
+      display: block;
+      width: 100%;
+    }
+    
     /* =================================================================
        ANIMATIONS
        ================================================================= */
@@ -256,35 +262,35 @@
        ================================================================= */
     .image-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 1px;
       margin-top: 2rem;
-      max-width: 1200px;
+      max-width: 1400px;
     }
 
     img.gallery {
       width: 100%;
-      aspect-ratio: 1;
-      object-fit: cover;
+      height: auto;
       display: block;
       border-radius: 0;
       cursor: pointer;
+      image-rendering: high-quality;
+      -webkit-font-smoothing: antialiased;
     }
 
     img.gallery:hover {
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .image-row {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 0.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       }
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 480px) {
       .image-row {
         grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
+        gap: 1px;
       }
     }
   </style>
@@ -462,12 +468,30 @@
           </p>
         </article>
       <div class="image-row">
-        <img class="gallery" src="/images/IMG_6919.jpeg" alt="Kindergarten photo 1" loading="lazy" />
-        <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" />
-        <img class="gallery" src="/images/IMG_6924.jpeg" alt="Kindergarten photo 3" loading="lazy" />
-        <img class="gallery" src="/images/IMG_6925.jpeg" alt="School photo 2011" loading="lazy" />
-        <img class="gallery" src="/images/IMG_6935.jpeg" alt="Moved to Baganuur photo 1" loading="lazy" />
-        <img class="gallery" src="/images/IMG_6936.jpeg" alt="Moved to Baganuur photo 2" loading="lazy" />
+        <picture>
+          <source srcset="/images/IMG_6919.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6919.jpeg" alt="Kindergarten photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
+        <picture>
+          <source srcset="/images/IMG_6923.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
+        <picture>
+          <source srcset="/images/IMG_6924.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6924.jpeg" alt="Kindergarten photo 3" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
+        <picture>
+          <source srcset="/images/IMG_6925.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6925.jpeg" alt="School photo 2011" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
+        <picture>
+          <source srcset="/images/IMG_6935.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6935.jpeg" alt="Moved to Baganuur photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
+        <picture>
+          <source srcset="/images/IMG_6936.jpeg" type="image/jpeg" />
+          <img class="gallery" src="/images/IMG_6936.jpeg" alt="Moved to Baganuur photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+        </picture>
       </div>
       </div>
 
