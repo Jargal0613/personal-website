@@ -257,7 +257,7 @@
     .image-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.75rem;
+      gap: 1px;
       margin-top: 2rem;
       max-width: 1200px;
     }
@@ -267,15 +267,11 @@
       aspect-ratio: 1;
       object-fit: cover;
       display: block;
-      border-radius: 6px;
+      border-radius: 0;
       cursor: pointer;
-      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), 
-                  filter 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     img.gallery:hover {
-      transform: scale(1.05);
-      filter: brightness(0.95);
     }
 
     @media (max-width: 640px) {
