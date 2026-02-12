@@ -252,39 +252,44 @@
     }
 
     /* =================================================================
-       IMAGE STYLES 🔧
+       IMAGE STYLES - INSTAGRAM STYLE 🔧
        ================================================================= */
     .image-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.75rem;
+      margin-top: 2rem;
+      max-width: 1200px;
     }
 
     img.gallery {
-      width: calc(33% - 1rem);
-      max-width: 340px;
-      height: auto;
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
       display: block;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.04);
-      box-shadow: 0 12px 30px var(--accent-shadow);
-      transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1), 
+                  filter 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     img.gallery:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 22px 44px var(--accent-shadow);
-      filter: brightness(1.02);
+      transform: scale(1.05);
+      filter: brightness(0.95);
     }
 
     @media (max-width: 640px) {
-      img.gallery { width: calc(50% - 1rem); max-width: 100%; }
+      .image-row {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.5rem;
+      }
     }
 
     @media (max-width: 420px) {
-      img.gallery { width: 100%; }
+      .image-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
     }
   </style>
 

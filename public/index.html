@@ -211,6 +211,20 @@
     .theme-border { 
       border-color: var(--border) !important; 
     }
+
+    /* =================================================================
+       INSTAGRAM-STYLE PROFILE IMAGE
+       ================================================================= */
+    .profile-image {
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                  filter 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    .profile-image:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
     
     nav.mobileNav a:hover { 
       color: var(--accent) !important; 
@@ -394,7 +408,7 @@
       <img 
         src="/images/image1.png" 
         alt="Jargal - Profile Picture" 
-        class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-4 border-gray-500 shadow-2xl mx-auto theme-shadow"
+        class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-2 border-gray-400 mx-auto profile-image"
         loading="lazy"
       />
 
