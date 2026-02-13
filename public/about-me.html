@@ -29,17 +29,8 @@
     }
     
     /* =================================================================
-       ANIMATIONS
+       ANIMATIONS (removed)
        ================================================================= */
-    .animate-gradient {
-      background-size: 200% 200%;
-      animation: gradient 8s ease infinite;
-    }
-    
-    @keyframes gradient {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
     
     /* =================================================================
        MOBILE NAVIGATION
@@ -181,30 +172,19 @@
       padding-bottom: 20px;
     }
 
-    /* Theme Integration Styles */
+    /* Theme Integration Styles (static) */
     :root { 
-      --bg-theme: #0a1f24; 
-      --theme-from: #06b6d4; 
-      --theme-via: #8b5cf6; 
-      --theme-to: #ec4899; 
+      --bg-theme: #000000; 
       --accent: #06b6d4; 
-      --accent-2: #8b5cf6; 
-      --accent-3: #ec4899; 
-      --accent-shadow: #ec489933; 
-      --border: #8b5cf6; 
+      --border: #06b6d4; 
     }
     
     body { 
       background-color: var(--bg-theme) !important; 
-      transition: background-color 0.3s ease; 
     }
     
     .theme-accent { 
       color: var(--accent) !important; 
-    }
-    
-    .theme-shadow { 
-      box-shadow: 0 20px 40px var(--accent-shadow) !important; 
     }
     
     .theme-border { 
@@ -315,43 +295,7 @@
         hamburgerButton.setAttribute('aria-expanded', isShown ? 'true' : 'false');
       }
     }
-
-    /**
-     * Apply theme immediately on page load
-     * Prevents flash of unstyled content
-     */
-    function applyTheme(name) {
-      const themes = {
-        cyan: { colors: ['#06b6d4', '#8b5cf6', '#ec4899'], bg: '#0a1f24' },
-        purple: { colors: ['#7c3aed', '#6d28d9', '#a78bfa'], bg: '#1f0a2e' },
-        green: { colors: ['#10b981', '#34d399', '#86efac'], bg: '#0a1f15' },
-        orange: { colors: ['#f97316', '#fb923c', '#fca5a5'], bg: '#2a1810' }
-      };
-      
-      const theme = themes[name] || themes['cyan'];
-      const colors = theme.colors;
-      const root = document.documentElement;
-      
-      // Set CSS custom properties
-      root.style.setProperty('--theme-from', colors[0]);
-      root.style.setProperty('--theme-via', colors[1]);
-      root.style.setProperty('--theme-to', colors[2]);
-      root.style.setProperty('--accent', colors[0]);
-      root.style.setProperty('--accent-2', colors[1]);
-      root.style.setProperty('--accent-3', colors[2]);
-      root.style.setProperty('--accent-shadow', colors[2] + '33');
-      root.style.setProperty('--border', colors[1]);
-      root.style.setProperty('--bg-theme', theme.bg);
-    }
-
-    // Load saved theme before page renders
-    (function() {
-      const KEY = 'siteSettings';
-      const data = JSON.parse(localStorage.getItem(KEY) || '{}');
-      if (data.theme) {
-        applyTheme(data.theme);
-      }
-    })();
+    // Theme switching removed; background is static black now.
   </script>
 </head>
 
@@ -411,16 +355,7 @@
       >
         About Me
       </a>
-      <a 
-        href="settings.html" 
-        class="text-gray-400 hover:text-white transition"
-        aria-label="Settings"
-      >
-        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="3" />
-          <path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m5.08 5.08l4.24 4.24M1 12h6m6 0h6M4.22 19.78l4.24-4.24m5.08-5.08l4.24-4.24M19.78 19.78l-4.24-4.24m-5.08-5.08l-4.24-4.24" />
-        </svg>
-      </a>
+      <!-- settings link removed; language toggle kept -->
       <a 
         href="#" 
         class="mobile-lang-toggle text-gray-400 hover:text-white transition" 
@@ -452,18 +387,16 @@
       <!-- Page Title -->
       <div class="boxForSpacing box1">
         <h1 
-          class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent animate-gradient" 
-          data-i18n="hi" 
-          style="background-image: linear-gradient(90deg, var(--theme-from), var(--theme-via), var(--theme-to));"
+          class="text-6xl md:text-8xl font-bold text-white" 
+            data-i18n="hi"
+        >
+          2005.06.13
+        <h1 
+          class="text-6xl md:text-8xl font-bold text-white" 
+          data-i18n="hi"
         >
           2005.06.13
         </h1>
-
-        <!-- About Content -->
-        <article class="text-xl text-gray-300 leading-relaxed space-y-6">
-        
-          <p>
-          Born in Khentii province, Mongolia.</p>
           I am countryside child and grown up in the nature for every holiday from school.
           </p>
         </article>
@@ -496,28 +429,11 @@
       </div>
 
       <div class="boxForSpacing box1">
-      <h1 
-        class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent animate-gradient" 
-        data-i18n="hi" 
-        style="background-image: linear-gradient(90deg, var(--theme-from), var(--theme-via), var(--theme-to));"
-      >
-        2009  
-      </h1>
-      <article class="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto space-y-6">
-        <p>
-          Entered 4th kindergarten of Khentii province.
-        </p>
-      </article>
-      </div>
+      <h1 class="text-6xl md:text-8xl font-bold text-white" data-i18n="hi">2009</h1>
+      <h1 class="text-6xl md:text-8xl font-bold text-white" data-i18n="hi">About</h1>
 
       <div class="boxForSpacing box1">
-      <h1 
-        class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent animate-gradient" 
-        data-i18n="hi" 
-        style="background-image: linear-gradient(90deg, var(--theme-from), var(--theme-via), var(--theme-to));"
-      >
-        2011 
-      </h1>
+      <h1 class="text-6xl md:text-8xl font-bold text-white" data-i18n="hi">2011</h1>
       <article class="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto space-y-6">
         <p>
           Entered Kherlen 4th school in Khentii province.
@@ -526,13 +442,7 @@
       </div>
 
       <div class="boxForSpacing box1">
-      <h1 
-        class="text-6xl md:text-8xl font-bold bg-clip-text text-transparent animate-gradient" 
-        data-i18n="hi" 
-        style="background-image: linear-gradient(90deg, var(--theme-from), var(--theme-via), var(--theme-to));"
-      >
-        2018  
-      </h1>
+      <h1 class="text-6xl md:text-8xl font-bold text-white" data-i18n="hi">2018</h1>
       <article class="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto space-y-6">
         <p data-i18n="">
           Moved to Baganuur, Ulaanbaatar.</p>
