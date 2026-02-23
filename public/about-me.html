@@ -253,6 +253,37 @@
         gap: 1px;
       }
     }
+
+    /* Timeline heading: left-aligned year with continuing dashed line */
+    .boxForSpacing h3 {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .boxForSpacing h3::after {
+      content: '';
+      display: block;
+      flex: 1 1 auto;
+      height: 1px;
+      margin-left: 0.75rem;
+      /* dashed look using repeating-linear-gradient so it appears like repeated '-' characters */
+      background-image: repeating-linear-gradient(to right, currentColor 0 6px, transparent 6px 12px);
+      background-position: center left;
+      background-repeat: repeat-x;
+      background-size: 12px 1px;
+      opacity: 0.8;
+    }
+
+    /* Slightly reduce gap on very small screens */
+    @media (max-width: 480px) {
+      .boxForSpacing h3 { font-size: 2.5rem; }
+      .boxForSpacing h3::after { margin-left: 0.5rem; }
+    }
   </style>
 
   <!-- JavaScript Functions -->
@@ -370,7 +401,7 @@
           2005.06.13
         </h1>
         <p>
-          I am countryside child and grown up in the nature for every holiday from school.
+          My name is Jargal, and I was born on June 13, 2005. I grew up in the countryside, where I spent most of my childhood enjoying nature, especially during holidays.
         </p>
       <div class="image-row">
         <picture>
@@ -380,14 +411,6 @@
         <picture>
           <source srcset="/images/IMG_6923.jpeg" type="image/jpeg" />
           <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/IMG_6924.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6924.jpeg" alt="Kindergarten photo 3" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/IMG_6925.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6925.jpeg" alt="School photo 2011" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
         </picture>
         <picture>
           <source srcset="/images/IMG_6935.jpeg" type="image/jpeg" />
@@ -402,9 +425,9 @@
 
 
       <div class="boxForSpacing box1">
-        <h1  class="text-6xl md:text-8xl font-bold text-white">
-          2009
-        </h1>
+        <h3  class="text-6xl md:text-8xl font-bold text-white">
+          2009----------
+        </h3>
         <p>
           Entered Kherlen 4th kindergarden in Khentii province.
         </p>
@@ -413,19 +436,19 @@
 
 
       <div class="boxForSpacing box1">
-        <h1  class="text-6xl md:text-8xl font-bold text-white">
+        <h3  class="text-6xl md:text-8xl font-bold text-white">
           2011
-        </h1>
-        <p>
+        </h3>
+        <p> 
           Entered Kherlen 4th school in Khentii province.
         </p>
       </div>
 
 
       <div class="boxForSpacing box1">
-        <h1  class="text-6xl md:text-8xl font-bold text-white">
+        <h3  class="text-6xl md:text-8xl font-bold text-white">
           2018
-        </h1>
+        </h3>
         <p>
           Moved to Baganuur, Ulaanbaatar.</p>
           Entered Bolovsrol Complex school in Baganuur.
@@ -434,9 +457,9 @@
 
 
       <div class="boxForSpacing box1">
-        <h1  class="text-6xl md:text-8xl font-bold text-white">
+        <h3  class="text-6xl md:text-8xl font-bold text-white">
           2023
-        </h1>
+        </h3>
         <p>
           Entered GMIT university
         </p>
