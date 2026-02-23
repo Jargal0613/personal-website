@@ -254,35 +254,36 @@
       }
     }
 
-    /* Timeline heading: left-aligned year with continuing dashed line */
+    /* Timeline heading: left-aligned year with continuing line */
     .boxForSpacing h3 {
       display: flex;
       align-items: center;
       justify-content: flex-start;
-      gap: 0.75rem;
+      gap: 1rem;
       width: 100%;
       text-align: left;
       white-space: nowrap;
+      font-size: 1.875rem; /* smaller than default h3, similar to text-3xl */
+      font-weight: bold;
     }
 
     .boxForSpacing h3::after {
       content: '';
       display: block;
       flex: 1 1 auto;
-      height: 1px;
-      margin-left: 0.75rem;
-      /* dashed look using repeating-linear-gradient so it appears like repeated '-' characters */
-      background-image: repeating-linear-gradient(to right, currentColor 0 6px, transparent 6px 12px);
-      background-position: center left;
-      background-repeat: repeat-x;
-      background-size: 12px 1px;
+      height: 2px;
+      background-color: currentColor;
+      margin-left: 0.5rem;
       opacity: 0.8;
     }
 
-    /* Slightly reduce gap on very small screens */
+    /* Responsive sizing for smaller screens */
+    @media (max-width: 768px) {
+      .boxForSpacing h3 { font-size: 1.5rem; }
+    }
+
     @media (max-width: 480px) {
-      .boxForSpacing h3 { font-size: 2.5rem; }
-      .boxForSpacing h3::after { margin-left: 0.5rem; }
+      .boxForSpacing h3 { font-size: 1.25rem; }
     }
   </style>
 
@@ -426,7 +427,7 @@
 
       <div class="boxForSpacing box1">
         <h3  class="text-6xl md:text-8xl font-bold text-white">
-          2009----------
+          2009
         </h3>
         <p>
           Entered Kherlen 4th kindergarden in Khentii province.
