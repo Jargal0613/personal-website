@@ -1,0 +1,277 @@
+/*
+ * styles.css
+ *
+ * Central stylesheet for Jargal's personal website.
+ * This file consolidates all critical and utility styles previously
+ * embedded inline in the individual HTML files. It follows a logical
+ * sectioning order (Base → Layout → Components → Utilities → Responsive)
+ * to make the cascade easier to reason about and maintain.
+ *
+ * The goal is to reduce duplication, improve performance and maintainability,
+ * and provide a single source of truth for styling. Any page-specific overrides
+ * should be added as a modifier class on the <body> element.
+ */
+
+/* ==========================================================================
+   BASE STYLES
+   ========================================================================== */
+html {
+  overflow-y: scroll; /* always show scrollbar to prevent layout shift */
+}
+
+body {
+  background-color: var(--bg-theme) !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  letter-spacing: -0.5px;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+picture {
+  display: block;
+  width: 100%;
+}
+
+/* theme variables */
+:root {
+  --bg-theme: #000000;
+  --accent: #06b6d4;
+  --border: #ffffff; /* changed to white per design decision */
+}
+
+/* ==========================================================================
+   LAYOUT
+   ========================================================================== */
+header {
+  position: relative;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-blur: md;
+  border-bottom: 1px solid var(--border);
+}
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem 2rem;
+}
+
+footer {
+  padding: 2.5rem 0;
+  text-align: center;
+  color: #9ca3af; /* gray-400 */
+  font-size: 0.875rem;
+  border-top: 1px solid var(--border);
+}
+
+/* helper boxes used on about-me page */
+.boxForSpacing {
+  width: 100%;
+  display: block;
+}
+
+.box1 {
+  background-color: #2b2f36;
+}
+
+.box2 {
+  background-color: #3f444b;
+  padding: 1.5rem 1.25rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  margin-top: 1rem;
+}
+
+/* instagram-style gallery layout */
+.image-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1px;
+  margin-top: 2rem;
+  max-width: 1400px;
+}
+
+img.gallery {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 0;
+  cursor: pointer;
+  image-rendering: high-quality;
+  -webkit-font-smoothing: antialiased;
+}
+
+.profile-image {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* timeline headings line effect */
+.timeline h2 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  font-size: 1.875rem;
+  font-weight: bold;
+}
+
+.timeline h2::after {
+  content: '';
+  display: block;
+  flex: 1 1 auto;
+  height: 2px;
+  background-color: currentColor;
+  margin-left: 0.5rem;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   COMPONENTS
+   ========================================================================== */
+
+/* navigation controls */
+.hamburgerButton,
+.cross {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1rem;
+  top: 35px;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 70;
+  color: var(--accent) !important;
+}
+
+.hamburgerButton:hover,
+.cross:hover {
+  background-color: var(--accent) !important;
+  color: black !important;
+}
+
+.hamburgerButton.hidden,
+.cross.hidden {
+  display: none !important;
+}
+
+.cross.shown {
+  display: flex !important;
+}
+
+/* mobile navigation container */
+.mobileNav {
+  display: none;
+}
+
+.mobileNav a {
+  display: none;
+}
+
+.mobileNav.shown {
+  display: flex;
+  inset: 0;
+  z-index: 60;
+  background: transparent;
+  width: 100%;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 1.25rem;
+  padding-top: 6rem;
+  transition: opacity 220ms ease, transform 220ms ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobileNav.shown a {
+  display: block;
+  padding: 12px 18px;
+}
+
+/* theme helpers */
+.theme-accent {
+  color: var(--accent) !important;
+}
+
+.theme-border {
+  border-color: var(--border) !important;
+}
+
+/* utilities (could be expanded in future) */
+.text-center {
+  text-align: center;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+@media (min-width: 768px) {
+  .hamburgerButton,
+  .cross {
+    display: none !important;
+  }
+
+  nav.mobileNav .mobile-lang-toggle {
+    display: none !important;
+  }
+
+  nav.mobileNav {
+    display: flex !important;
+    flex-direction: row !important;
+    background: transparent !important;
+  }
+
+  nav.mobileNav a {
+    display: inline-block !important;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  /* timeline sizing adjustments */
+  .timeline h2 {
+    font-size: 2rem;
+  }
+
+  .image-row {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    min-height: 69px;
+  }
+
+  #langToggle {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+  }
+
+  .timeline h2 {
+    font-size: 1.25rem;
+  }
+}

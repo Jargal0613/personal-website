@@ -1,271 +1,37 @@
 <!DOCTYPE html>
+<!--
+  index.html
+  
+  Home page for Jargal's personal website. Contains introduction,
+  profile picture, and links to other sections. Styling and behavior are
+  pulled into external files (`styles.css`, `translations.js`, `scripts.js`)
+  to maintain separation of concerns.
+-->
 <html lang="en" class="scroll-smooth">
 <head>
   <!-- Meta Information -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Jargal's personal website - Mechatronics student learning web development and coding"/>
-  <meta name="author" content="Jargal"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jargal's personal website - Mechatronics student learning web development and coding" />
+  <meta name="author" content="Jargal" />
   <title>Jargal - Home</title>
-  
-  <!-- External Resources -->
+
+  <!-- External resources -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="translations.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="translations.js"></script>
+  <script defer src="scripts.js"></script>
   <link rel="icon" href="data:," />
-  
-  <!-- Critical Styles -->
-  <style>
-    /* =================================================================
-       BASE STYLES
-       ================================================================= */
-    html { 
-      overflow-y: scroll; 
-    }
-    
-    /* =================================================================
-       ANIMATIONS (removed)
-       ================================================================= */
-    
-    /* =================================================================
-       MOBILE NAVIGATION
-       ================================================================= */
-    /* Hamburger Menu Button */
-    .hamburgerButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 1rem;
-      top: 35px;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      margin: 0;
-      padding: 8px 12px;
-      font-size: 20px;
-      color: #06b6d4;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 70;
-    }
-    
-    .hamburgerButton:hover { 
-      background-color: #06b6d4; 
-      color: black; 
-    }
-    
-    .hamburgerButton.hidden { 
-      display: none; 
-    }
-
-    /* Close Button */
-    .cross {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 1rem;
-      top: 35px;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      margin: 0;
-      padding: 8px 12px;
-      font-size: 20px;
-      color: #06b6d4;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 70;
-    }
-    
-    .cross:hover { 
-      background-color: #06b6d4; 
-      color: black; 
-    }
-    
-    .cross.shown { 
-      display: flex; 
-    }
-
-    /* Mobile Navigation Container */
-    .mobileNav { 
-      display: none; 
-    }
-
-    .mobileNav a { 
-      display: none; 
-    }
-
-    .mobileNav.shown {
-      display: flex;
-      inset: 0;
-      z-index: 60;
-      background: transparent;
-      width: 100%;
-      flex-direction: column;
-      align-items: left;
-      justify-content: center;
-      gap: 1.25rem;
-      padding-top: 6rem;
-      transition: opacity 220ms ease, transform 220ms ease;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .mobileNav.shown a { 
-      display: block; 
-      padding: 12px 18px; 
-    }
-
-    /* =================================================================
-       RESPONSIVE BREAKPOINTS
-       ================================================================= */
-    /* Desktop Navigation */
-    @media (min-width: 768px) {
-      .hamburgerButton, 
-      .cross { 
-        display: none !important; 
-      }
-
-      nav.mobileNav .mobile-lang-toggle {
-        display: none !important;
-      }
-      
-      nav.mobileNav { 
-        display: flex !important; 
-        flex-direction: row !important; 
-        background: transparent !important; 
-      }
-      
-      nav.mobileNav a { 
-        display: inline-block !important; 
-        padding-left: 12px; 
-        padding-right: 12px; 
-      }
-    }
-    
-    /* Mobile Header Adjustments */
-    @media (max-width: 767px) {
-      header { 
-        min-height: 69px; 
-      }
-
-      #langToggle {
-        display: none;
-      }
-
-    }
-
-    /* =================================================================
-       COMPONENT STYLES
-       ================================================================= */
-    h1 {
-      padding-bottom: 20px;
-    }
-
-    /* Typography Styles */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      letter-spacing: -0.5px;
-    }
-
-    /* Theme Integration Styles (static) */
-    :root { 
-      --bg-theme: #000000; 
-      --accent: #06b6d4; 
-      --border: #06b6d4; 
-    }
-    
-    body { 
-      background-color: var(--bg-theme) !important; 
-    }
-    
-    .theme-accent { 
-      color: var(--accent) !important; 
-    }
-    
-    .theme-border { 
-      border-color: var(--border) !important; 
-    }
-
-    /* =================================================================
-       INSTAGRAM-STYLE PROFILE IMAGE
-       ================================================================= */
-    .profile-image {
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    }
-
-    .profile-image:hover {
-    }
-    
-    nav.mobileNav a:hover { 
-      color: var(--accent) !important; 
-    }
-    
-    .hamburgerButton, 
-    .cross { 
-      color: var(--accent) !important; 
-    }
-    
-    .hamburgerButton:hover, 
-    .cross:hover { 
-      background-color: var(--accent) !important; 
-      color: black !important; 
-    }
-    
-    header.theme-border { 
-      border-bottom: 1px solid var(--border) !important; 
-    }
-    
-    footer { 
-      border-top-color: var(--border) !important; 
-    }
-  </style>
-
-  <!-- JavaScript Functions -->
-  <script>
-    /**
-     * Toggle mobile navigation menu
-     * Shows/hides mobile navigation and switches between hamburger and close icons
-     */
-    function toggleFunction() {
-      const menu = document.getElementById("mobileNav");
-      const hamburgerButton = document.getElementById("hamburgerButton");
-      const crossButton = document.getElementById("cross");
-      
-      const isShown = menu.classList.toggle("shown");
-      hamburgerButton.classList.toggle("hidden");
-      crossButton.classList.toggle("shown");
-      
-      // Update ARIA attributes for accessibility
-      if (hamburgerButton) {
-        hamburgerButton.setAttribute('aria-expanded', isShown ? 'true' : 'false');
-      }
-    }
-    // Theme switching removed; background is static black now.
-  </script>
+  <!-- TODO: replace favicon with an actual file -->
 </head>
-
 <body class="bg-black text-white min-h-screen flex flex-col">
-  
+
   <!-- =================================================================
        HEADER / NAVIGATION
        ================================================================= -->
-  <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-cyan-900 theme-border">
-    
-    <!-- Mobile Menu Toggle Buttons -->
-    <button 
-      class="hamburgerButton" 
-      id="hamburgerButton" 
-      onclick="toggleFunction()" 
-      aria-controls="mobileNav" 
-      aria-expanded="false" 
-      aria-label="Open navigation menu"
-    >
+  <header role="banner" class="relative z-50">
+    <!-- Toggle buttons (mobile) -->
+    <button id="hamburgerButton" class="hamburgerButton" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -273,58 +39,20 @@
       </svg>
     </button>
 
-    <button 
-      class="cross" 
-      id="cross" 
-      onclick="toggleFunction()" 
-      aria-label="Close navigation menu"
-    >
+    <button id="cross" class="cross" aria-label="Close navigation menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
       </svg>
     </button>
 
-    <!-- Main Navigation -->
-    <nav 
-      class="px-6 py-5 flex justify-center gap-10 text-lg mobileNav" 
-      id="mobileNav"
-      aria-label="Main navigation"
-    >
-      <a 
-        href="index.html" 
-        class="text-cyan-400 theme-accent hover:text-white transition" 
-        data-i18n="home"
-        aria-current="page"
-      >
-        Home
-      </a>
-      <a 
-        href="about-me.html" 
-        class="text-gray-400 hover:text-white transition" 
-        data-i18n="aboutMe"
-      >
-        About Me
-      </a>
-      <!-- settings link removed; language toggle retained -->
-      <a 
-        href="#" 
-        class="mobile-lang-toggle text-gray-400 hover:text-white transition" 
-        onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en'); return false;"
-      >
-        En | Mn
-      </a>
+    <nav id="mobileNav" class="mobileNav px-6 py-5 flex justify-center gap-10 text-lg" aria-label="Main navigation">
+      <a href="index.html" class="text-cyan-400 theme-accent hover:text-white transition" data-i18n="home" aria-current="page">Home</a>
+      <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
+      <a href="#" class="mobile-lang-toggle text-gray-400 hover:text-white transition" data-i18n="languageLabel">En | Mn</a>
     </nav>
 
-    <!-- Language Toggle (Desktop) -->
-    <div 
-      class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" 
-      id="langToggle" 
-      onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en')" 
-      role="button" 
-      tabindex="0" 
-      aria-label="Switch language"
-    >
+    <div id="langToggle" class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" role="button" tabindex="0" aria-label="Switch language">
       <span class="text-cyan-400 theme-accent">En</span> | Mn
     </div>
   </header>
@@ -332,54 +60,27 @@
   <!-- =================================================================
        MAIN CONTENT
        ================================================================= -->
-  <main class="flex-1 flex flex-col items-center justify-center px-6 py-32 pt-40">
+  <main role="main" class="flex-1 flex flex-col items-center justify-center px-6 py-32 pt-40">
     <div class="text-center space-y-12">
-      
-      <!-- Profile Image -->
-      <img 
-        src="/images/image1.png" 
-        alt="Jargal - Profile Picture" 
-        class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-2 border-gray-400 mx-auto profile-image"
-        loading="lazy"
-        sizes="(max-width: 768px) 16rem, 20rem"
-      />
+      <img src="/images/image1.png" alt="Portrait of Jargal" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-2 border-gray-400 mx-auto profile-image" loading="lazy" sizes="(max-width: 768px) 16rem, 20rem" />
 
-      <!-- Hero Title -->
-      <h1 
-        class="text-6xl md:text-8xl font-bold text-white" 
-        data-i18n="hi"
-      >
-        Hi I am Jargal Boldbaatar.
-      </h1>
+      <h1 class="text-6xl md:text-8xl font-bold text-white" data-i18n="hi">Hi I am Jargal Boldbaatar.</h1>
 
-      <!-- Introduction Text -->
-
-      <!-- Additional Content Section -->
       <section class="space-y-6 text-gray-300">
-        
+        <h2 class="sr-only">Introduction</h2>
         <p class="text-base md:text-lg leading-relaxed" data-i18n="welcome">
-          I'm an engineering student at GMIT University with an interest in automation, robotics, and entrepreneurship. </p>
+          I'm an engineering student at GMIT University with an interest in automation, robotics, and entrepreneurship.
+        </p>
+        <p>
           This website showcases my projects, skills, and learning journey. I built this website while learning web development and coding.
         </p>
-        
       </section>
 
-      <!-- Social Links -->
       <nav class="flex gap-10 justify-center mt-12" aria-label="Social media links">
-        <a 
-          href="https://instagram.com/j_rg_l_" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80"
-        >
+        <a href="https://instagram.com/j_rg_l_" target="_blank" rel="noopener noreferrer" class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80">
           Instagram
         </a>
-        <a 
-          href="mailto:jargal0660@gmail.com" 
-          target="_blank"
-          rel="noopener noreferrer" 
-          class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80"
-        >
+        <a href="mailto:jargal0660@gmail.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80">
           Email
         </a>
       </nav>
@@ -389,10 +90,8 @@
   <!-- =================================================================
        FOOTER
        ================================================================= -->
-  <footer class="py-10 text-left text-gray-500 text-sm border-t border-gray-900">
-    <div class="flex justify-center gap-4 hover:text-cyan-400 transition" data-i18n="copyright">
-      © 2025 Jargal. All rights reserved.
-    </div>
+  <footer class="py-10 text-left text-gray-500 text-sm">
+    <p data-i18n="copyright">© 2025 Jargal. All rights reserved.</p>
   </footer>
 
 </body>
