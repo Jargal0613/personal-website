@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<!--
+  about-me.html
+
+-->
 <html lang="en" class="scroll-smooth">
 <head>
   <!-- Meta Information -->
@@ -10,312 +15,11 @@
   
   <!-- External Resources -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="translations.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="translations.js"></script>
+  <script defer src="scripts.js"></script>
   <link rel="icon" href="data:," />
-  
-  <!-- Critical Styles -->
-  <style>
-    /* =================================================================
-       BASE STYLES
-       ================================================================= */
-    html { 
-      overflow-y: scroll; 
-    }
-    
-    /* Picture element responsive optimization */
-    picture {
-      display: block;
-      width: 100%;
-    }
-    
-    /* =================================================================
-       MOBILE NAVIGATION
-       ================================================================= */
-    /* Hamburger Menu Button */
-    .hamburgerButton {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 1rem;
-      top: 35px;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      margin: 0;
-      padding: 8px 12px;
-      font-size: 20px;
-      color: #06b6d4;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 70;
-    }
-    
-    .hamburgerButton:hover { 
-      background-color: #06b6d4; 
-      color: black; 
-    }
-    
-    .hamburgerButton.hidden { 
-      display: none; 
-    }
-
-    /* Close Button */
-    .cross {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      right: 1rem;
-      top: 35px;
-      transform: translateY(-50%);
-      width: 45px;
-      height: 45px;
-      margin: 0;
-      padding: 8px 12px;
-      font-size: 20px;
-      color: #06b6d4;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 70;
-    }
-    
-    .cross:hover { 
-      background-color: #06b6d4; 
-      color: black; 
-    }
-    
-    .cross.shown { 
-      display: flex; 
-    }
-
-    /* Mobile Navigation Container */
-    .mobileNav { 
-      display: none; 
-    }
-
-    .mobileNav a { 
-      display: none; 
-    }
-
-    .mobileNav.shown {
-      display: flex;
-      inset: 0;
-      z-index: 60;
-      background: transparent;
-      width: 100%;
-      flex-direction: column;
-      align-items: left;
-      justify-content: center;
-      gap: 1.25rem;
-      padding-top: 6rem;
-      transition: opacity 220ms ease, transform 220ms ease;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .mobileNav.shown a { 
-      display: block; 
-      padding: 12px 18px; 
-    }
-
-    /* =================================================================
-       RESPONSIVE BREAKPOINTS
-       ================================================================= */
-    /* Desktop Navigation */
-    @media (min-width: 768px) {
-      .hamburgerButton, 
-      .cross { 
-        display: none !important; 
-      }
-
-      nav.mobileNav .mobile-lang-toggle {
-        display: none !important;
-      }
-      
-      nav.mobileNav { 
-        display: flex !important; 
-        flex-direction: row !important; 
-        background: transparent !important; 
-      }
-      
-      nav.mobileNav a { 
-        display: inline-block !important; 
-        padding-left: 12px; 
-        padding-right: 12px; 
-      }
-    }
-    
-    /* Mobile Header Adjustments */
-    @media (max-width: 767px) {
-      header { 
-        min-height: 69px; 
-      }
-
-      #langToggle {
-        display: none;
-      }
-    }
-
-    /* =================================================================
-       COMPONENT STYLES
-       ================================================================= */
-    h1 {
-      padding-bottom: 20px;
-    }
-
-    /* Theme Integration Styles (static) */
-    :root { 
-      --bg-theme: #000000; 
-      --accent: #06b6d4; 
-      --border: #ffffff; /* borders are now white */ 
-    }
-    
-    body { 
-      background-color: var(--bg-theme) !important; 
-    }
-    
-    .theme-accent { 
-      color: var(--accent) !important; 
-    }
-    
-    .theme-border { 
-      border-color: var(--border) !important; 
-    }
-    
-    nav.mobileNav a:hover { 
-      color: var(--accent) !important; 
-    }
-    
-    .hamburgerButton, 
-    .cross { 
-      color: var(--accent) !important; 
-    }
-    
-    .hamburgerButton:hover, 
-    .cross:hover { 
-      background-color: var(--accent) !important; 
-      color: black !important; 
-    }
-    
-    header.theme-border { 
-      border-bottom: 1px solid var(--border) !important; 
-    }
-    
-    footer { 
-      border-top-color: var(--border) !important; 
-    }
-
-    .boxForSpacing {
-      width: 100%;
-      display: block;
-    }
-    .box1 {
-      background-color: #2b2f36;
-    }
-    .box2 {
-      background-color: #3f444b; /* alternate grey */
-      padding: 1.5rem 1.25rem;
-      border-radius: 0.5rem;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
-      margin-top: 1rem;
-    }
-    /* =================================================================
-       IMAGE STYLES - INSTAGRAM STYLE 🔧
-       ================================================================= */
-    .image-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1px;
-      margin-top: 2rem;
-      max-width: 1400px;
-    }
-
-    img.gallery {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 0;
-      cursor: pointer;
-      image-rendering: high-quality;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img.gallery:hover {
-    }
-
-    @media (max-width: 768px) {
-      .image-row {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-    }
-
-    @media (max-width: 480px) {
-      .image-row {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1px;
-      }
-    }
-
-    /* Timeline heading: left-aligned year with continuing line */
-    .boxForSpacing h3 {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 1rem;
-      width: 100%;
-      text-align: left;
-      white-space: nowrap;
-      font-size: 1.875rem; /* smaller than default h3, similar to text-3xl */
-      font-weight: bold;
-    }
-
-    .boxForSpacing h3::after {
-      content: '';
-      display: block;
-      flex: 1 1 auto;
-      height: 2px;
-      background-color: currentColor;
-      margin-left: 0.5rem;
-      opacity: 0.8;
-    }
-
-    /* Responsive sizing for smaller screens */
-    @media (max-width: 768px) {
-      .boxForSpacing h3 { font-size: 1.5rem; }
-    }
-
-    @media (max-width: 480px) {
-      .boxForSpacing h3 { font-size: 1.25rem; }
-    }
-  </style>
-
-  <!-- JavaScript Functions -->
-  <script>
-    /**
-     * Toggle mobile navigation menu
-     * Shows/hides mobile navigation and switches between hamburger and close icons
-     */
-    function toggleFunction() {
-      const menu = document.getElementById("mobileNav");
-      const hamburgerButton = document.getElementById("hamburgerButton");
-      const crossButton = document.getElementById("cross");
-      
-      const isShown = menu.classList.toggle("shown");
-      hamburgerButton.classList.toggle("hidden");
-      crossButton.classList.toggle("shown");
-      
-      // Update ARIA attributes for accessibility
-      if (hamburgerButton) {
-        hamburgerButton.setAttribute('aria-expanded', isShown ? 'true' : 'false');
-      }
-    }
-    // Theme switching removed; background is static black now.
-  </script>
+  <!-- TODO: replace favicon with an actual file -->
 </head>
 
 <body class="bg-black text-white min-h-screen flex flex-col">
@@ -326,14 +30,7 @@
   <header class="relative z-50 bg-black/80 backdrop-blur-md border-b border-white theme-border">
 
     <!-- Mobile Menu Toggle Buttons -->
-    <button 
-      class="hamburgerButton" 
-      id="hamburgerButton" 
-      onclick="toggleFunction()" 
-      aria-controls="mobileNav" 
-      aria-expanded="false" 
-      aria-label="Open navigation menu"
-    >
+    <button class="hamburgerButton" id="hamburgerButton" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -341,12 +38,7 @@
       </svg>
     </button>
 
-    <button 
-      class="cross" 
-      id="cross" 
-      onclick="toggleFunction()" 
-      aria-label="Close navigation menu"
-    >
+    <button class="cross" id="cross" aria-label="Close navigation menu">
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
         <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
         <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
@@ -354,45 +46,20 @@
     </button>
 
     <!-- Main Navigation -->
-    <nav 
-      class="px-6 py-5 flex justify-center gap-10 text-lg mobileNav" 
-      id="mobileNav"
-      aria-label="Main navigation"
-    >
-      <a 
-        href="index.html" 
-        class="text-gray-400 hover:text-white transition" 
-        data-i18n="home"
-      >
+    <nav class="px-6 py-5 flex justify-center gap-10 text-lg mobileNav" id="mobileNav" aria-label="Main navigation">
+      <a href="index.html" class="text-gray-400 hover:text-white transition" data-i18n="home">
         Home
       </a>
-      <a 
-        href="about-me.html" 
-        class="text-cyan-400 theme-accent hover:text-white transition" 
-        data-i18n="aboutMe"
-        aria-current="page"
-      >
+      <a href="about-me.html" class="text-cyan-400 theme-accent hover:text-white transition" data-i18n="aboutMe" aria-current="page">
         About Me
       </a>
-      <!-- settings link removed; language toggle kept -->
-      <a 
-        href="#" 
-        class="mobile-lang-toggle text-gray-400 hover:text-white transition" 
-        onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en'); return false;"
-      >
+      <a href="#" class="mobile-lang-toggle text-gray-400 hover:text-white transition">
         En | Mn
       </a>
     </nav>
 
     <!-- Language Toggle (Desktop) -->
-    <div 
-      class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" 
-      id="langToggle" 
-      onclick="switchLanguage(document.documentElement.lang === 'en' ? 'mn' : 'en')" 
-      role="button" 
-      tabindex="0" 
-      aria-label="Switch language"
-    >
+    <div class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" id="langToggle" role="button" tabindex="0" aria-label="Switch language">
       <span class="text-cyan-400 theme-accent">En</span> | Mn
     </div>
   </header>
@@ -405,28 +72,27 @@
       
       <!-- Page Title -->
       <div class="boxForSpacing box1">
-        <h1  class="text-6xl md:text-8xl font-bold text-white">
+        <h1 class="text-6xl md:text-8xl font-bold text-white">
           2005.06.13
         </h1>
         <p>
           My name is Jargal, and I was born on June 13, 2005. I grew up in the countryside, where I spent most of my childhood enjoying nature, especially during holidays.
         </p>
-      <div class="image-row">
-        <picture>
-          <source srcset="/images/IMG_6919.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6919.jpeg" alt="Kindergarten photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/IMG_6923.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/IMG_6935.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6935.jpeg" alt="Moved to Baganuur photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
+        <div class="image-row">
+          <picture>
+            <source srcset="/images/IMG_6919.jpeg" type="image/jpeg" />
+            <img class="gallery" src="/images/IMG_6919.jpeg" alt="Kindergarten photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+          </picture>
+          <picture>
+            <source srcset="/images/IMG_6923.jpeg" type="image/jpeg" />
+            <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+          </picture>
+          <picture>
+            <source srcset="/images/IMG_6935.jpeg" type="image/jpeg" />
+            <img class="gallery" src="/images/IMG_6935.jpeg" alt="Moved to Baganuur photo 1" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
+          </picture>
+        </div>
       </div>
-      </div>
-
 
       <div class="boxForSpacing box1">
         <h3 class="text-6xl md:text-8xl font-bold text-white">
@@ -437,7 +103,6 @@
         </p>
       </div>
 
-
       <div class="boxForSpacing box1">
         <h3 class="text-6xl md:text-8xl font-bold text-white">
           <span class="year">2018</span>
@@ -446,7 +111,6 @@
           I moved to Baganuur, which is part of Ulaanbaatar. There, I attended <a href="https://www.bolovsrolts.edu.mn/#" target="_blank" class="text-cyan-400 hover:underline">Bolovsrol Complex School</a> and completed my high school education.
         </p>
       </div>
-
 
       <div class="boxForSpacing box1">
         <h3 class="text-6xl md:text-8xl font-bold text-white">
@@ -467,10 +131,8 @@
         <p>
           It feels exciting to be introducing myself.
         </p>
-
       </div>
     </div>
-
 
   </main>
 
@@ -486,19 +148,11 @@
       
       <!-- Social Links -->
       <nav class="flex justify-center gap-4" aria-label="Social media links">
-        <a 
-          href="https://instagram.com/j_rg_l_" 
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hover:text-cyan-400 transition"
-        >
+        <a href="https://instagram.com/j_rg_l_" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition">
           Instagram
         </a>
         <span aria-hidden="true">|</span>
-        <a 
-          href="mailto:jargal0660@gmail.com"
-          class="hover:text-cyan-400 transition"
-        >
+        <a href="mailto:jargal0660@gmail.com" class="hover:text-cyan-400 transition">
           Email
         </a>
       </nav>
