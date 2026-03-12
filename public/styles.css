@@ -21,7 +21,8 @@ html {
 
 body {
   background-color: var(--bg-theme) !important;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+  /* use Fira Code for main content, fallback to system fonts if unavailable */
+  font-family: 'Fira Code', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   letter-spacing: -0.5px;
   margin: 0;
@@ -91,10 +92,17 @@ footer {
 /* instagram-style gallery layout */
 .image-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  /* smaller base width makes each cell (and thus the images) appear smaller */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1px;
   margin-top: 2rem;
-  max-width: 1400px;
+  max-width: 1200px; /* slightly narrower overall container */
+}
+
+/* enforce a sensible max-height on gallery photos to avoid extremely tall images */
+.image-row img.gallery {
+  max-height: 300px;
+  object-fit: cover;
 }
 
 img.gallery {
