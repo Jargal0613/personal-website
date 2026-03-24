@@ -81,6 +81,10 @@ footer {
   background-color: #2b2f36;
 }
 
+.box1 p {
+  text-align: left;
+}
+
 .box2 {
   background-color: #3f444b;
   padding: 1.5rem 1.25rem;
@@ -95,8 +99,9 @@ footer {
   /* smaller base width makes each cell (and thus the images) appear smaller */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1px;
-  margin-top: 2rem;
-  max-width: 1200px; /* slightly narrower overall container */
+  margin: 2rem auto 0;
+  width: 100%;
+  max-width: 100%; /* match box1 width */
 }
 
 /* enforce a sensible max-height on gallery photos to avoid extremely tall images */
