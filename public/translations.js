@@ -19,52 +19,27 @@ const translations = {
   en: {
     home: 'Home',
     aboutMe: 'About Me',
-    settings: 'Settings',
     jargal: 'Jargal',
-    intro: "Hey, I'm Jargal.",
-    learning: "I'm currently learning web development",
-    requiredContent:
-      'I am required to add more content to this page because I have to check what happens when scrolling down',
-    developing: 'Developing website is actually interesting and challenging.',
-    learned:
-      'I learned a lot about HTML and CSS. Main thing is studying coding with full of enjoy.',
-    building:
-      'Building and developing my own website while learning web development this was a really good idea. I am so happy that come this far.',
-    testTitle: 'Test Content',
-    testContent: 'This is a test page to experiment something new. I am adding some text because my new changes didn\'t work as expected. test 2 it has been a few hours',
-    sophomore:
-      'I am a sophomore mechatronics student at GMIT. I started learning coding because I believe this skill is essential for reaching my goals. This website is my first coding project, and I created it to practice, learn, and share my journey.',
-    settingsHeader: 'Settings',
-    languageLabel: 'Language',
-    languageSet: 'Language set to',
-    settingsSaved: 'Settings saved',
-    settingsReset: 'Settings reset',
+    welcome: "I'm an engineering student at GMIT University with an interest in automation, robotics, and entrepreneurship.",
+    learning: "This website showcases my projects, skills, and learning journey. I built this website while learning web development and coding.",
+    intro: "My name is Jargal Boldbaatar. I was born on June 13, 2005. I grew up in the countryside, where I spent much of my childhood surrounded by nature, especially during holidays.",
+    learn: "2009 - My educational journey began at Kherlen 4th Kindergarten. In 2011, I continued my studies at Kherlen 4th School in Khentii Province.",
+    bolovsrolComplex: "2018 - I moved to Baganuur, a district of Ulaanbaatar, where I attended Bolovsrol Complex School and completed my high school education.",
+    GMIT: "2023 - I began my undergraduate studies at GMIT University, pursuing a degree in engineering. My interests focus on industrial automation, robotics, and innovation-driven entrepreneurship.",
+    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family. Riding horses is not just an activity for me—it is part of my roots.',
     copyright: '© 2025 Jargal. All rights reserved.'
   },
   mn: {
     home: 'Нүүр',
     aboutMe: 'Миний тухай',
-    settings: 'Тохиргоо',
     jargal: 'Жаргал',
-    intro: 'Сайн байна, би Жаргал.',
-    learning: 'Одоо вэб хөгжүүлэлт сурч байна',
-    requiredContent:
-      'Доош гүйлгэхэд юу болохыг шалгахаар энэ хуудсанд илүү их контент нэмэх шаардлагатай',
-    developing:
-      'Вэбсайт хөгжүүлэх нь үнэн хэрэгтээ сонирхолтой, хүнд цаг байна.',
-    learned:
-      'HTML, CSS-ийн талаар маш их суралцсан. Гол зүйл бол кодлогыг бүрэн хайрлаж сурах явдал юм.',
-    building:
-      'Вэб хөгжүүлэлт сурч байхад өөрийн вэбсайтыг хөгжүүлэх нь үнэхээр сайн санаа байсан. Би энд хүрсэнд маш сайн сэтгэл санаатай.',
-    testTitle: 'Туршилтын хуудас',
-    testContent: 'Энэ бол шинэ зүйл турших тест хуудас. Шинэ өөрчлөлт ажиллахгүй байгаа тул би зарим текст нэмэж байна. 2 дахь туршилт, хэдэн цаг болж байна.',
-    sophomore:
-      'Би GMIT-ийн хоёрдугаар курсын мехатроникс оюутан. Би кодлохыг сурахыг эхэлсэн нь энэ ур чадвар нь миний зорилгод хүрэхэд чухал гэж итгэдэг учраас юм. Энэ вэбсайт бол миний анхны кодлох төсөл бөгөөд би үүнийг дадлага хийх, сурах, аялалаа хуваалцах зорилгоор бүтээсэн.',
-    settingsHeader: 'Тохиргоо',
-    languageLabel: 'Хэл',
-    languageSet: 'Хэл тохирууллаа',
-    settingsSaved: 'Тохиргоо хадгалагдсан',
-    settingsReset: 'Тохиргоо анхны байдалд сэргээгдсэн',
+    welcome: "I'm an engineering student at GMIT University with an interest in automation, robotics, and entrepreneurship.",
+    learning: "This website showcases my projects, skills, and learning journey. I built this website while learning web development and coding.",
+    intro: "My name is Jargal Boldbaatar. I was born on June 13, 2005. I grew up in the countryside, where I spent much of my childhood surrounded by nature, especially during holidays.",
+    learn: "2009 - My educational journey began at Kherlen 4th Kindergarten. In 2011, I continued my studies at Kherlen 4th School in Khentii Province.",
+    bolovsrolComplex: "2018 - I moved to Baganuur, a district of Ulaanbaatar, where I attended Bolovsrol Complex School and completed my high school education.",
+    GMIT: "2023 - I began my undergraduate studies at GMIT University, pursuing a degree in engineering. My interests focus on industrial automation, robotics, and innovation-driven entrepreneurship.",
+    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family. Riding horses is not just an activity for me—it is part of my roots.',
     copyright: '© 2025 Жаргал. Бүх эрх хуулиар хамгаалагдсан.'
   }
 };
