@@ -26,7 +26,7 @@ const translations = {
     learn: "2009 - My educational journey began at Kherlen 4th Kindergarten. In 2011, I continued my studies at Kherlen 4th School in Khentii Province.",
     bolovsrolComplex: "2018 - I moved to Baganuur, a district of Ulaanbaatar, where I attended Bolovsrol Complex School and completed my high school education.",
     GMIT: "2023 - I began my undergraduate studies at GMIT University, pursuing a degree in engineering. My interests focus on industrial automation, robotics, and innovation-driven entrepreneurship.",
-    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family. Riding horses is not just an activity for me—it is part of my roots.',
+    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family.',
     copyright: '© 2025 Jargal. All rights reserved.'
   },
   mn: {
@@ -39,7 +39,7 @@ const translations = {
     learn: "2009 - My educational journey began at Kherlen 4th Kindergarten. In 2011, I continued my studies at Kherlen 4th School in Khentii Province.",
     bolovsrolComplex: "2018 - I moved to Baganuur, a district of Ulaanbaatar, where I attended Bolovsrol Complex School and completed my high school education.",
     GMIT: "2023 - I began my undergraduate studies at GMIT University, pursuing a degree in engineering. My interests focus on industrial automation, robotics, and innovation-driven entrepreneurship.",
-    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family. Riding horses is not just an activity for me—it is part of my roots.',
+    commentOnImages:'These images represent where I come from. From my school life in Khentii and Baganuur to the countryside, where I was raised in a nomadic family.',
     copyright: '© 2025 Жаргал. Бүх эрх хуулиар хамгаалагдсан.'
   }
 };
