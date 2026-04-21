@@ -93,30 +93,24 @@
         </p>
       </div>
       <div class="image-row">
-        <picture>
-          <source srcset="/images/IMG_6923.jpeg" type="image/jpeg" />
-          <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/imOfPrSch7.jpg" type="image/jpg" />
-          <img class="gallery" src="/images/imOfPrSch7.jpg" alt="image 7 of primary school " loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/imOfPrSch8.jpg" type="image/jpg" />
-          <img class="gallery" src="/images/imOfPrSch8.jpg" alt="image 8 of primary school " loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/imOfBa13.JPEG" type="image/JPEG" />
-          <img class="gallery" src="/images/imOfBa13.JPEG" alt="image 13 when I was in Baganuur " loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/imOfBa64.jpg" type="image/jpg" />
-          <img class="gallery" src="/images/imOfBa64.jpg" alt="image 64 when I was in Baganuur " loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
-        <picture>
-          <source srcset="/images/meWithHorse.jpeg" type="image/jpg" />
-          <img class="gallery" src="/images/meWithHorse.jpeg" alt="I am riding horse " loading="lazy" sizes="(max-width: 480px) 50vw, (max-width: 768px) 50vw, 33vw" />
-        </picture>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/IMG_6923.jpeg" alt="Kindergarten photo 2" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/imOfPrSch7.jpg" alt="image 7 of primary school" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/imOfPrSch8.jpg" alt="image 8 of primary school" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/imOfBa13.JPEG" alt="image 13 when I was in Baganuur" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/imOfBa64.jpg" alt="image 64 when I was in Baganuur" loading="lazy" />
+        </div>
+        <div class="gallery-item">
+          <img class="gallery" src="/images/meWithHorse.jpeg" alt="I am riding horse" loading="lazy" />
+        </div>
       </div>
       <div class="boxForSpacing box1">
       <p data-i18n="commentOnImages">
@@ -160,6 +154,18 @@
       </nav>
     </div>
   </footer>
+
+  <!-- =================================================================
+       LIGHTBOX MODAL FOR GALLERY
+       ================================================================= -->
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+      <button id="lightboxClose" class="lightbox-close" aria-label="Close lightbox">
+        ✕
+      </button>
+      <img id="lightboxImage" class="lightbox-image" src="" alt="" />
+    </div>
+  </div>
 
 </body>
 </html>

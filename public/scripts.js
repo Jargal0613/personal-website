@@ -73,6 +73,40 @@ function mobileLanguageToggle(event) {
   desktopLanguageToggle(event);
 }
 
+/**
+ * Open the lightbox modal with the clicked image at full size with true aspect ratio.
+ *
+ * @param {Event} event - click event object
+ * @returns {void}
+ */
+function openLightbox(event) {
+  const img = event.target;
+  if (!img.classList.contains('gallery')) return;
+  
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  
+  if (lightbox && lightboxImage) {
+    lightboxImage.src = img.src;
+    lightboxImage.alt = img.alt;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden'; /* prevent scrolling */
+  }
+}
+
+/**
+ * Close the lightbox modal.
+ *
+ * @returns {void}
+ */
+function closeLightbox() {
+  const lightbox = document.getElementById('lightbox');
+  if (lightbox) {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = ''; /* restore scrolling */
+  }
+}
+
 /* --------------------------------------------------------------------------
    EVENT LISTENERS
    -------------------------------------------------------------------------- */
@@ -82,6 +116,9 @@ function addEventListeners() {
   const cross = document.getElementById(CROSS_ID);
   const desktopLang = document.getElementById(LANG_TOGGLE_ID);
   const mobileLangItems = document.querySelectorAll(MOBILE_LANG_SELECTOR);
+  const galleryImages = document.querySelectorAll('img.gallery');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.getElementById('lightboxClose');
 
   if (hamburger) {
     hamburger.addEventListener('click', toggleMenu);
@@ -94,6 +131,23 @@ function addEventListeners() {
   }
   if (mobileLangItems.length) {
     mobileLangItems.forEach((el) => el.addEventListener('click', mobileLanguageToggle));
+  }
+  
+  /* lightbox functionality */
+  if (galleryImages.length) {
+    galleryImages.forEach((img) => {
+      img.addEventListener('click', openLightbox);
+    });
+  }
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
+  if (lightbox) {
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
   }
 }
 
