@@ -74,6 +74,9 @@ footer {
 /* helper boxes used on about-me page */
 .boxForSpacing {
   width: 100%;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
   display: block;
 }
 
