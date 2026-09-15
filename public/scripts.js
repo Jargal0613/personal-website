@@ -1,160 +1,182 @@
-/*
- * scripts.js
- *
- * Shared JavaScript utilities and initialization logic used across
- * the personal website. This file is intentionally small: its job is to
- * provide interactive behavior (mobile menu toggling, language toggles, etc.)
- * and wire event listeners rather than embedding script blocks in each HTML
- * page.  The structure follows a professional order: constants, functions,
- * event listeners, and initialization.
- */
+const MENU_BUTTON_ID = "menuButton";
+const NAV_ID = "siteNav";
+const LANG_TOGGLE_ID = "langToggle";
+const LIGHTBOX_ID = "lightbox";
+const LIGHTBOX_IMAGE_ID = "lightboxImage";
+const LIGHTBOX_CLOSE_ID = "lightboxClose";
+const MOBILE_BREAKPOINT = 760;
 
-/* --------------------------------------------------------------------------
-   CONSTANTS
-   -------------------------------------------------------------------------- */
-const MENU_ID = 'mobileNav'; // default mobile nav id used in most pages
-const ALT_MENU_ID = 'list'; // legacy id present in test.html before refactor
-const HAMBURGER_ID = 'hamburgerButton';
-const CROSS_ID = 'cross';
-const LANG_TOGGLE_ID = 'langToggle';
-const MOBILE_LANG_SELECTOR = '.mobile-lang-toggle';
+function getMenuElements() {
+  return {
+    header: document.querySelector(".site-header"),
+    button: document.getElementById(MENU_BUTTON_ID),
+    nav: document.getElementById(NAV_ID)
+  };
+}
 
-/* --------------------------------------------------------------------------
-   FUNCTIONS
-   -------------------------------------------------------------------------- */
+function setMenuState(isOpen) {
+  const { header, button, nav } = getMenuElements();
 
-/**
- * Generic helper: toggle the visibility of the mobile navigation menu.
- * It also swaps the hamburger/cross icons and updates aria-expanded.
- *
- * @returns {void}
- */
+  if (!button || !nav || !header) {
+    return;
+  }
+
+  button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  nav.classList.toggle("open", isOpen);
+  header.classList.toggle("menu-open-mobile", isOpen);
+  document.body.classList.toggle("menu-open", isOpen && window.innerWidth <= MOBILE_BREAKPOINT);
+}
+
 function toggleMenu() {
-  const menu = document.getElementById(MENU_ID) || document.getElementById(ALT_MENU_ID);
-  const hamburger = document.getElementById(HAMBURGER_ID);
-  const cross = document.getElementById(CROSS_ID);
+  const { button } = getMenuElements();
 
-  if (!menu || !hamburger || !cross) {
-    return; // nothing to toggle on this page
+  if (!button) {
+    return;
   }
 
-  const isShown = menu.classList.toggle('shown');
-  hamburger.classList.toggle('hidden');
-  cross.classList.toggle('shown');
-  hamburger.setAttribute('aria-expanded', isShown ? 'true' : 'false');
+  setMenuState(button.getAttribute("aria-expanded") !== "true");
 }
 
-/**
- * Handler for desktop language toggle button (top corner)
- * swaps languages using the switchLanguage exported by translations.js
- * and prevents default link behavior.
- *
- * @param {Event} event - click event object
- * @returns {void}
- */
-function desktopLanguageToggle(event) {
-  event.preventDefault();
-  const nextLang = document.documentElement.lang === 'en' ? 'mn' : 'en';
-  if (typeof switchLanguage === 'function') {
-    switchLanguage(nextLang);
+function closeMenuOnDesktop() {
+  if (window.innerWidth > MOBILE_BREAKPOINT) {
+    setMenuState(false);
   }
 }
 
-/**
- * Attach click handlers to elements that trigger the mobile language toggle
- * (the "En | Mn" item inside the mobile nav). Performs a similar action
- * to the desktop toggle above.
- *
- * @param {Event} event - click event object
- * @returns {void}
- */
-function mobileLanguageToggle(event) {
-  event.preventDefault();
-  desktopLanguageToggle(event);
+function updateLanguageToggle(language) {
+  const toggle = document.getElementById(LANG_TOGGLE_ID);
+
+  if (!toggle) {
+    return;
+  }
+
+  toggle.innerHTML =
+    language === "en"
+      ? '<span class="lang-pill active">EN</span><span class="lang-pill">MN</span>'
+      : '<span class="lang-pill">EN</span><span class="lang-pill active">MN</span>';
 }
 
-/**
- * Open the lightbox modal with the clicked image at full size with true aspect ratio.
- *
- * @param {Event} event - click event object
- * @returns {void}
- */
-function openLightbox(event) {
-  const img = event.target;
-  if (!img.classList.contains('gallery')) return;
-  
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightboxImage');
-  
-  if (lightbox && lightboxImage) {
-    lightboxImage.src = img.src;
-    lightboxImage.alt = img.alt;
-    lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden'; /* prevent scrolling */
+function handleLanguageToggle() {
+  const nextLanguage = document.documentElement.lang === "en" ? "mn" : "en";
+
+  if (typeof window.switchLanguage === "function") {
+    window.switchLanguage(nextLanguage);
   }
 }
 
-/**
- * Close the lightbox modal.
- *
- * @returns {void}
- */
+function applyCurrentYear() {
+  document.querySelectorAll("[data-year]").forEach((node) => {
+    node.textContent = `© ${new Date().getFullYear()}`;
+  });
+}
+
+function openLightbox(image) {
+  const lightbox = document.getElementById(LIGHTBOX_ID);
+  const lightboxImage = document.getElementById(LIGHTBOX_IMAGE_ID);
+
+  if (!lightbox || !lightboxImage) {
+    return;
+  }
+
+  lightboxImage.src = image.currentSrc || image.src;
+  lightboxImage.alt = image.alt;
+  lightbox.classList.add("active");
+  lightbox.setAttribute("aria-hidden", "false");
+  document.body.classList.add("menu-open");
+}
+
 function closeLightbox() {
-  const lightbox = document.getElementById('lightbox');
-  if (lightbox) {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = ''; /* restore scrolling */
+  const lightbox = document.getElementById(LIGHTBOX_ID);
+
+  if (!lightbox) {
+    return;
   }
+
+  lightbox.classList.remove("active");
+  lightbox.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("menu-open");
 }
 
-/* --------------------------------------------------------------------------
-   EVENT LISTENERS
-   -------------------------------------------------------------------------- */
+function setupRevealAnimations() {
+  const revealNodes = document.querySelectorAll(".reveal");
+
+  if (!("IntersectionObserver" in window)) {
+    revealNodes.forEach((node) => node.classList.add("visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.18 }
+  );
+
+  revealNodes.forEach((node) => observer.observe(node));
+}
 
 function addEventListeners() {
-  const hamburger = document.getElementById(HAMBURGER_ID);
-  const cross = document.getElementById(CROSS_ID);
-  const desktopLang = document.getElementById(LANG_TOGGLE_ID);
-  const mobileLangItems = document.querySelectorAll(MOBILE_LANG_SELECTOR);
-  const galleryImages = document.querySelectorAll('img.gallery');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxClose = document.getElementById('lightboxClose');
+  const { button, nav } = getMenuElements();
+  const langToggle = document.getElementById(LANG_TOGGLE_ID);
+  const lightbox = document.getElementById(LIGHTBOX_ID);
+  const lightboxClose = document.getElementById(LIGHTBOX_CLOSE_ID);
 
-  if (hamburger) {
-    hamburger.addEventListener('click', toggleMenu);
+  if (button) {
+    button.addEventListener("click", toggleMenu);
   }
-  if (cross) {
-    cross.addEventListener('click', toggleMenu);
-  }
-  if (desktopLang) {
-    desktopLang.addEventListener('click', desktopLanguageToggle);
-  }
-  if (mobileLangItems.length) {
-    mobileLangItems.forEach((el) => el.addEventListener('click', mobileLanguageToggle));
-  }
-  
-  /* lightbox functionality */
-  if (galleryImages.length) {
-    galleryImages.forEach((img) => {
-      img.addEventListener('click', openLightbox);
+
+  if (nav) {
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth <= MOBILE_BREAKPOINT) {
+          setMenuState(false);
+        }
+      });
     });
   }
-  if (lightboxClose) {
-    lightboxClose.addEventListener('click', closeLightbox);
+
+  if (langToggle) {
+    langToggle.addEventListener("click", handleLanguageToggle);
   }
+
+  document.querySelectorAll("[data-lightbox]").forEach((image) => {
+    image.addEventListener("click", () => openLightbox(image));
+  });
+
+  if (lightboxClose) {
+    lightboxClose.addEventListener("click", closeLightbox);
+  }
+
   if (lightbox) {
-    lightbox.addEventListener('click', (event) => {
+    lightbox.addEventListener("click", (event) => {
       if (event.target === lightbox) {
         closeLightbox();
       }
     });
   }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeLightbox();
+      setMenuState(false);
+    }
+  });
+
+  window.addEventListener("resize", closeMenuOnDesktop);
+  window.updateLanguageToggle = updateLanguageToggle;
 }
 
-/* --------------------------------------------------------------------------
-   INITIALIZATION
-   -------------------------------------------------------------------------- */
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
+  applyCurrentYear();
   addEventListeners();
+  setupRevealAnimations();
+
+  if (document.documentElement.lang) {
+    updateLanguageToggle(document.documentElement.lang);
+  }
 });

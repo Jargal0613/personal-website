@@ -1,102 +1,213 @@
 <!DOCTYPE html>
-<!--
-  index.html
-  
-  Home page for Jargal's personal website. Contains introduction,
-  profile picture, and links to other sections. Styling and behavior are
-  pulled into external files (`styles.css`, `translations.js`, `scripts.js`)
-  to maintain separation of concerns.
--->
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
-  <!-- Meta Information -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Jargal's personal website - Mechatronics student learning web development and coding" />
-  <meta name="author" content="Jargal" />
-  <title>Jargal - Home</title>
-
-  <!-- External resources -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Fira Code font for main content -->
+  <meta
+    name="description"
+    content="Jargal Boldbaatar's personal website. Engineering student exploring automation, robotics, and entrepreneurship."
+  />
+  <meta name="author" content="Jargal Boldbaatar" />
+  <title>Jargal | Personal Website</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
   <script defer src="translations.js"></script>
   <script defer src="scripts.js"></script>
-  <link rel="icon" href="data:," />
-  <!-- TODO: replace favicon with an actual file -->
 </head>
-<body class="bg-black text-white min-h-screen flex flex-col">
+<body class="site-body home-page">
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Jargal home">JB</a>
 
-  <!-- =================================================================
-       HEADER / NAVIGATION
-       ================================================================= -->
-  <header role="banner" class="relative z-50">
-    <!-- Toggle buttons (mobile) -->
-    <button id="hamburgerButton" class="hamburgerButton" aria-controls="mobileNav" aria-expanded="false" aria-label="Open navigation menu">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-        <line x1="4" y1="7" x2="20" y2="7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-        <line x1="4" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-        <line x1="4" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-      </svg>
-    </button>
+      <button
+        id="menuButton"
+        class="menu-button"
+        type="button"
+        aria-controls="siteNav"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span></span>
+        <span></span>
+      </button>
 
-    <button id="cross" class="cross hidden" aria-label="Close navigation menu">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
-        <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-        <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
-      </svg>
-    </button>
+      <nav id="siteNav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" data-i18n="home" aria-current="page">Home</a>
+        <a href="about-me.html" data-i18n="aboutMe">Journey</a>
+        <a href="#contact" data-i18n="contact">Contact</a>
+      </nav>
 
-    <nav id="mobileNav" class="mobileNav px-6 py-5 flex justify-center gap-10 text-lg" aria-label="Main navigation">
-      <a href="index.html" class="text-cyan-400 theme-accent hover:text-white transition" data-i18n="home" aria-current="page">Home</a>
-      <a href="about-me.html" class="text-gray-400 hover:text-white transition" data-i18n="aboutMe">About Me</a>
-      <a href="#" class="mobile-lang-toggle text-gray-400 hover:text-white transition" data-i18n="languageLabel">En | Mn</a>
-    </nav>
+      <button
+        id="langToggle"
+        class="lang-toggle"
+        type="button"
+        aria-label="Switch language"
+      >
+        <span class="lang-pill active">EN</span>
+        <span class="lang-pill">MN</span>
+      </button>
+    </header>
 
-    <div id="langToggle" class="absolute right-6 top-5 flex items-center gap-2 text-sm cursor-pointer hover:text-cyan-400 transition" role="button" tabindex="0" aria-label="Switch language">
-      <span class="text-cyan-400 theme-accent">En</span> | Mn
-    </div>
-  </header>
+    <main>
+      <section class="hero section">
+        <div class="hero-copy reveal">
+          <p class="eyebrow" data-i18n="heroEyebrow">Personal website</p>
+          <h1 data-i18n="heroTitle">Engineering ideas into motion.</h1>
+          <p class="hero-lead" data-i18n="heroLead">
+            I am Jargal Boldbaatar, a mechatronics student building at the intersection of automation, robotics, and curiosity.
+          </p>
+          <p class="hero-detail" data-i18n="heroDetail">
+            This space is where I collect the things I am learning, the values that shape me, and the direction I want my work to go next.
+          </p>
 
-  <!-- =================================================================
-       MAIN CONTENT
-       ================================================================= -->
-  <main role="main" class="flex-1 flex flex-col items-center justify-center px-6 py-32 pt-40">
-    <div class="text-center space-y-12">
-      <img src="/images/image1.png" alt="Portrait of Jargal" class="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover border-2 border-gray-400 mx-auto profile-image" loading="lazy" sizes="(max-width: 768px) 16rem, 20rem" />
+          <div class="hero-actions">
+            <a class="button button-primary" href="about-me.html" data-i18n="exploreJourney">Explore my journey</a>
+            <a class="button button-secondary" href="mailto:jargal0660@gmail.com" data-i18n="sendEmail">Send email</a>
+          </div>
 
-      <h1 class="text-4xl sm:text-6xl md:text-8xl font-bold text-white" data-i18n="hi">Jargal</h1>
+          <div class="stats-grid">
+            <article class="stat-card">
+              <span class="stat-value">GMIT</span>
+              <p class="stat-label" data-i18n="statUniversity">Engineering student in Mongolia</p>
+            </article>
+            <article class="stat-card">
+              <span class="stat-value" data-i18n="statFocusValue">3 Focuses</span>
+              <p class="stat-label" data-i18n="statFocusLabel">Automation, robotics, entrepreneurship</p>
+            </article>
+            <article class="stat-card">
+              <span class="stat-value" data-i18n="statBuildValue">Learning by building</span>
+              <p class="stat-label" data-i18n="statBuildLabel">Web, systems thinking, and real-world problem solving</p>
+            </article>
+          </div>
+        </div>
 
-      <section class="space-y-6 text-gray-300">
-        <h2 class="sr-only">Introduction</h2>
-        <p class="text-base md:text-lg leading-relaxed" data-i18n="welcome">
-          I'm an engineering student at GMIT University with an interest in automation, robotics, and entrepreneurship.
-        </p>
-        <p class="text-base md:text-lg leading-relaxed" data-i18n="learning">
-          This website showcases my projects, skills, and learning journey. I built it while learning web development and programming. Throughout the process, I leveraged AI tools to accelerate development and solve problems efficiently. At the same time, I focused on understanding the core principles of how websites work, including programming languages, their features, and underlying concepts.
-        </p>
+        <div class="hero-visual reveal">
+          <div class="portrait-frame">
+            <img src="images/image1.png" alt="Portrait of Jargal Boldbaatar" />
+          </div>
+
+          <div class="floating-note note-top">
+            <span class="note-kicker" data-i18n="noteOriginLabel">Origin</span>
+            <strong data-i18n="noteOriginValue">Khentii to Ulaanbaatar</strong>
+          </div>
+
+          <div class="floating-note note-bottom">
+            <span class="note-kicker" data-i18n="noteMissionLabel">Mission</span>
+            <strong data-i18n="noteMissionValue">Build useful things and keep growing</strong>
+          </div>
+        </div>
       </section>
 
-      <nav class="flex gap-10 justify-center mt-12" aria-label="Social media links">
-        <a href="https://instagram.com/j_rg_l_" target="_blank" rel="noopener noreferrer" class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80">
-          Instagram
-        </a>
-        <a href="mailto:jargal0660@gmail.com" target="_blank" rel="noopener noreferrer" class="text-gray-400 theme-accent transition text-lg md:text-xl font-medium hover:opacity-80">
-          Email
-        </a>
-      </nav>
-    </div>
-  </main>
+      <section class="signal-band reveal" aria-label="Areas of interest">
+        <span>Automation</span>
+        <span>Robotics</span>
+        <span>Engineering</span>
+        <span>Entrepreneurship</span>
+        <span>Web Development</span>
+      </section>
 
-  <!-- =================================================================
-       FOOTER
-       ================================================================= -->
-  <footer class="py-10 text-center text-gray-500 text-sm">
-    <p data-i18n="copyright">© 2025 Jargal. All rights reserved.</p>
-  </footer>
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow" data-i18n="focusEyebrow">Current direction</p>
+          <h2 data-i18n="focusTitle">The work I want to grow into</h2>
+        </div>
 
+        <div class="feature-grid">
+          <article class="feature-card reveal">
+            <p class="feature-index">01</p>
+            <h3 data-i18n="featureAutomationTitle">Automation</h3>
+            <p data-i18n="featureAutomationBody">
+              I am drawn to systems that reduce friction, improve reliability, and turn repetitive work into something smarter.
+            </p>
+          </article>
+          <article class="feature-card reveal">
+            <p class="feature-index">02</p>
+            <h3 data-i18n="featureRoboticsTitle">Robotics</h3>
+            <p data-i18n="featureRoboticsBody">
+              Robotics excites me because it combines hardware, software, and engineering design into one living problem.
+            </p>
+          </article>
+          <article class="feature-card reveal">
+            <p class="feature-index">03</p>
+            <h3 data-i18n="featureEntrepreneurshipTitle">Entrepreneurship</h3>
+            <p data-i18n="featureEntrepreneurshipBody">
+              I want to build ideas that matter in the real world, not just in theory, and learn how to turn them into value.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section story-panel">
+        <div class="story-copy reveal">
+          <p class="eyebrow" data-i18n="storyEyebrow">Where I come from</p>
+          <h2 data-i18n="storyTitle">A countryside childhood shaped how I think.</h2>
+          <p data-i18n="storyBodyOne">
+            I grew up in a nomadic family and spent much of my childhood close to nature. That background taught me patience, adaptability, and respect for practical work.
+          </p>
+          <p data-i18n="storyBodyTwo">
+            Later, school in Khentii and Baganuur expanded my world, and university gave that curiosity a technical direction.
+          </p>
+          <a class="text-link" href="about-me.html" data-i18n="readFullStory">Read the full story</a>
+        </div>
+
+        <div class="story-gallery reveal">
+          <img src="images/meWithHorse.jpeg" alt="Jargal with a horse in the countryside" class="gallery-panel tall" data-lightbox />
+          <img src="images/IMG_2135.jpeg" alt="Green Mongolian landscape" class="gallery-panel" data-lightbox />
+          <img src="images/IMG_2162.jpeg" alt="Open field in the countryside" class="gallery-panel" data-lightbox />
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow" data-i18n="timelineEyebrow">Milestones</p>
+          <h2 data-i18n="timelineTitle">A short timeline of the path so far</h2>
+        </div>
+
+        <div class="timeline-preview">
+          <article class="timeline-card reveal">
+            <span class="timeline-year">2005</span>
+            <h3 data-i18n="timelineOneTitle">Born and raised close to nature</h3>
+            <p data-i18n="timelineOneBody">My early years were shaped by the countryside, family, and the rhythm of a nomadic life.</p>
+          </article>
+          <article class="timeline-card reveal">
+            <span class="timeline-year">2018</span>
+            <h3 data-i18n="timelineTwoTitle">A bigger world in Baganuur</h3>
+            <p data-i18n="timelineTwoBody">Moving for school gave me new environments, new discipline, and a broader view of what I could become.</p>
+          </article>
+          <article class="timeline-card reveal">
+            <span class="timeline-year">2023</span>
+            <h3 data-i18n="timelineThreeTitle">Engineering at GMIT</h3>
+            <p data-i18n="timelineThreeBody">University turned my interest in how things work into a serious commitment to engineering and innovation.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact-panel reveal">
+        <p class="eyebrow" data-i18n="contactEyebrow">Let's connect</p>
+        <h2 data-i18n="contactTitle">I'm building this chapter in public.</h2>
+        <p data-i18n="contactBody">
+          If you want to talk about engineering, projects, learning, or future collaboration, I would be happy to hear from you.
+        </p>
+        <div class="contact-actions">
+          <a class="button button-primary" href="mailto:jargal0660@gmail.com">jargal0660@gmail.com</a>
+          <a class="button button-secondary" href="https://instagram.com/j_rg_l_" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><span data-year></span> <span data-i18n="footerText">Jargal Boldbaatar. Built with curiosity and consistency.</span></p>
+    </footer>
+  </div>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Close image viewer">Close</button>
+    <img id="lightboxImage" class="lightbox-image" src="" alt="" />
+  </div>
 </body>
 </html>
