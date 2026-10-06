@@ -109,7 +109,6 @@ main,
 
 .brand,
 .menu-button,
-.lang-toggle,
 .site-nav {
   background: rgba(10, 16, 18, 0.74);
   border: 1px solid var(--line);
@@ -136,8 +135,7 @@ main,
   border-radius: 999px;
 }
 
-.site-nav a,
-.lang-toggle {
+.site-nav a {
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 
@@ -151,29 +149,6 @@ main,
 .site-nav a[aria-current="page"] {
   color: var(--text);
   background: rgba(255, 255, 255, 0.06);
-}
-
-.lang-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem;
-  border-radius: 999px;
-  cursor: pointer;
-  color: var(--muted);
-}
-
-.lang-pill {
-  padding: 0.55rem 0.8rem;
-  border-radius: 999px;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 0.76rem;
-  letter-spacing: 0.14em;
-}
-
-.lang-pill.active {
-  background: rgba(216, 121, 74, 0.16);
-  color: var(--text);
 }
 
 .menu-button {
@@ -714,8 +689,7 @@ h3 {
     background: rgba(10, 16, 18, 0.74);
   }
 
-  .site-nav,
-  .lang-toggle {
+  .site-nav {
     display: none;
   }
 
@@ -733,13 +707,6 @@ h3 {
   .site-nav.open a {
     padding: 0.95rem 1rem;
     border-radius: 1rem;
-  }
-
-  .site-header.menu-open-mobile .lang-toggle {
-    display: inline-flex;
-    position: absolute;
-    right: 0;
-    top: calc(100% + 13.5rem);
   }
 
   .section {

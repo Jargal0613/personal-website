@@ -1,6 +1,5 @@
 const MENU_BUTTON_ID = "menuButton";
 const NAV_ID = "siteNav";
-const LANG_TOGGLE_ID = "langToggle";
 const LIGHTBOX_ID = "lightbox";
 const LIGHTBOX_IMAGE_ID = "lightboxImage";
 const LIGHTBOX_CLOSE_ID = "lightboxClose";
@@ -40,27 +39,6 @@ function toggleMenu() {
 function closeMenuOnDesktop() {
   if (window.innerWidth > MOBILE_BREAKPOINT) {
     setMenuState(false);
-  }
-}
-
-function updateLanguageToggle(language) {
-  const toggle = document.getElementById(LANG_TOGGLE_ID);
-
-  if (!toggle) {
-    return;
-  }
-
-  toggle.innerHTML =
-    language === "en"
-      ? '<span class="lang-pill active">EN</span><span class="lang-pill">MN</span>'
-      : '<span class="lang-pill">EN</span><span class="lang-pill active">MN</span>';
-}
-
-function handleLanguageToggle() {
-  const nextLanguage = document.documentElement.lang === "en" ? "mn" : "en";
-
-  if (typeof window.switchLanguage === "function") {
-    window.switchLanguage(nextLanguage);
   }
 }
 
@@ -122,7 +100,6 @@ function setupRevealAnimations() {
 
 function addEventListeners() {
   const { button, nav } = getMenuElements();
-  const langToggle = document.getElementById(LANG_TOGGLE_ID);
   const lightbox = document.getElementById(LIGHTBOX_ID);
   const lightboxClose = document.getElementById(LIGHTBOX_CLOSE_ID);
 
@@ -138,10 +115,6 @@ function addEventListeners() {
         }
       });
     });
-  }
-
-  if (langToggle) {
-    langToggle.addEventListener("click", handleLanguageToggle);
   }
 
   document.querySelectorAll("[data-lightbox]").forEach((image) => {
@@ -168,15 +141,10 @@ function addEventListeners() {
   });
 
   window.addEventListener("resize", closeMenuOnDesktop);
-  window.updateLanguageToggle = updateLanguageToggle;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   applyCurrentYear();
   addEventListeners();
   setupRevealAnimations();
-
-  if (document.documentElement.lang) {
-    updateLanguageToggle(document.documentElement.lang);
-  }
 });
