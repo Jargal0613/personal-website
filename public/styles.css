@@ -797,8 +797,7 @@ h3 {
   }
 
   .note-top {
-    top: auto;
-    bottom: 4rem;
+    top: 0;
     left: 0.75rem;
   }
 
