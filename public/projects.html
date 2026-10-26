@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <meta
+    name="description"
+    content="Projects by Jargal Boldbaatar: hardware, startup, software, and academic engineering work."
+  />
+  <meta name="author" content="Jargal Boldbaatar" />
+  <title>Jargal | Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="scripts.js"></script>
+</head>
+<body class="site-body projects-page">
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Jargal home">JB</a>
+
+      <button
+        id="menuButton"
+        class="menu-button"
+        type="button"
+        aria-controls="siteNav"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav id="siteNav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about-me.html">Journey</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero section">
+        <div class="page-hero-copy reveal">
+          <p class="eyebrow">Projects</p>
+          <h1>Things I am building and learning from.</h1>
+          <p class="hero-lead">
+            Hardware, a startup, software tools, and academic engineering work.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Current work</p>
+          <h2>Personal and startup projects</h2>
+        </div>
+        <div class="project-grid">
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Design stage · since Oct 2026</span>
+            <h3>Semi-Automated Microgreens Grow System</h3>
+            <p>A 4-tier, 8-tray rack. An ESP32 drives a relay that switches timed LED lighting, a flood-and-drain pump, and a fan. A DHT22 sensor reads temperature and humidity, and a float switch checks the water level. The system is designed to be monitored by phone over Wi-Fi, with mains power protected by an RCD breaker.</p>
+            <p>Role: project owner, setting the requirements.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Research &amp; pilot phase · since Oct 2026</span>
+            <h3>Microgreens &amp; Hydroponics Startup</h3>
+            <p>Founder &amp; CEO of an early-stage venture. I lead a team of AI assistants covering growing, finance, sourcing, and sales.</p>
+            <p>Work so far: market research, cost and break-even analysis, seed-sourcing research, and planning a hydroponic vegetable pilot at university.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Paper trading</span>
+            <h3>AI-Assisted EUR/USD Trading System</h3>
+            <p>A Python system for paper trading on a cTrader demo account, governed by deterministic risk rules.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Live · since Nov 2025</span>
+            <h3>jargal.me</h3>
+            <p>A student resource hub with course notes and study guides for engineering students. Built in plain HTML, CSS, and JavaScript and hosted on Vercel.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Live</span>
+            <h3>LearnScroll</h3>
+            <p>A personal textbook study app with an AI tutor grounded in my own textbooks, running on a Vercel serverless backend.</p>
+            <a class="text-link" href="https://learn.jargal.me" target="_blank" rel="noopener noreferrer">learn.jargal.me</a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">University</p>
+          <h2>Academic projects at GMIT</h2>
+        </div>
+        <div class="project-grid">
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Academic · GMIT</span>
+            <h3>Thermodynamics</h3>
+            <p>Role: Team Coordinator.</p>
+            <p>A biofuel solution for replacing coal-fired power plants in Ulaanbaatar.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Academic · GMIT</span>
+            <h3>Scientific Method</h3>
+            <p>Role: Team Coordinator &amp; IDA ICE contributor.</p>
+            <p>An energy performance simulation of the main academic building.</p>
+          </article>
+          <article class="feature-card project-card reveal">
+            <span class="status-tag">Academic · GMIT</span>
+            <h3>CAD</h3>
+            <p>Role: CAD Designer.</p>
+            <p>A LEGO-inspired modular extension lead socket.</p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><span data-year></span> <span>Jargal Boldbaatar. Built with curiosity and consistency.</span></p>
+    </footer>
+  </div>
+</body>
+</html>
