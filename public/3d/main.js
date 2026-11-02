@@ -3,7 +3,7 @@ import * as THREE from 'three';
 // ---- Content (copied from ../index.html, ../about-me.html, ../projects.html) ----
 const ROOMS = {
   lobby: { name: 'Lobby', page: '../index.html', pos: [0, 0], doors: { n: 'journey', e: 'projects', w: 'contact' },
-    photos: [['image1.png', 'Portrait of Jargal Boldbaatar'], ['meWithHorse.jpeg', 'Jargal with a horse in the countryside'], ['IMG_2135.jpeg', 'Green Mongolian landscape'], ['IMG_2162.jpeg', 'Open field in the countryside']],
+    photos: [['image1.jpg', 'Portrait of Jargal Boldbaatar'], ['meWithHorse.jpg', 'Jargal with a horse in the countryside'], ['IMG_2135.jpg', 'Green Mongolian landscape'], ['IMG_2162.jpg', 'Open field in the countryside']],
     panels: [
       { meta: 'Personal website', title: 'Engineering ideas into motion.', body: 'I am Jargal Boldbaatar, a mechatronics student building at the intersection of automation, robotics, and curiosity.\nThis space is where I collect the things I am learning, the values that shape me, and the direction I want my work to go next.' },
       { meta: 'At a glance', title: 'GMIT · 3 Focuses', body: 'GMIT — Engineering student in Mongolia\n3 Focuses — Automation, robotics, entrepreneurship\nLearning by building — Web, systems thinking, and real-world problem solving\nOrigin — Khentii to Ulaanbaatar\nMission — Build useful things and keep growing' },
@@ -14,7 +14,7 @@ const ROOMS = {
       { meta: 'Milestones', title: 'A short timeline of the path so far', body: '2005 — Born and raised close to nature. My early years were shaped by the countryside, family, and the rhythm of a nomadic life.\n2018 — A bigger world in Baganuur. Moving for school gave me new environments, new discipline, and a broader view of what I could become.\n2023 — Engineering at GMIT. University turned my interest in how things work into a serious commitment to engineering and innovation.' },
     ] },
   journey: { name: 'Journey', page: '../about-me.html', pos: [0, -30], doors: { s: 'lobby' },
-    photos: [['meWithHorse.jpeg', 'Jargal in the countryside with a horse'], ['imOfPrSch7.jpg', 'Primary school memory'], ['imOfPrSch8.jpg', 'Primary school group photo'], ['imOfBa64.jpg', 'Baganuur memory'], ['imOfBa13.JPEG', 'Portrait from Baganuur years'], ['IMG_6923.jpeg', 'Kindergarten photo'], ['IMG_6931.jpeg', 'Mountain landscape'], ['IMG_2135.jpeg', 'Green field in the countryside'], ['IMG_2162.jpeg', 'Open countryside landscape']],
+    photos: [['meWithHorse.jpg', 'Jargal in the countryside with a horse'], ['imOfPrSch7.jpg', 'Primary school memory'], ['imOfPrSch8.jpg', 'Primary school group photo'], ['imOfBa64.jpg', 'Baganuur memory'], ['imOfBa13.jpg', 'Portrait from Baganuur years'], ['IMG_6923.jpg', 'Kindergarten photo'], ['IMG_6931.jpg', 'Mountain landscape'], ['IMG_2135.jpg', 'Green field in the countryside'], ['IMG_2162.jpg', 'Open countryside landscape']],
     panels: [
       { meta: 'Personal journey', title: 'From the countryside to engineering.', body: 'My story begins in Khentii, moves through Baganuur, and continues today at GMIT University.' },
       { meta: '2005', title: 'Childhood in the countryside', body: 'I was born on June 13, 2005. I grew up surrounded by open land, animals, and the pace of rural life, especially during school holidays.' },
@@ -127,7 +127,7 @@ function captionTexture(text) {
 function loadPhotos(id) {
   if (loadedRooms.has(id) || !photoJobs[id]) return; loadedRooms.add(id);
   for (const { ph: [file, alt], s } of photoJobs[id]) {
-    loadImage('../images/' + file).then(bmp => {
+    loadImage('img/' + file).then(bmp => {
       const a = bmp.width / bmp.height; let w = 3.6, h = w / a; if (h > 2.5) { h = 2.5; w = h * a; }
       const tex = new THREE.Texture(bmp); tex.colorSpace = THREE.SRGBColorSpace; tex.flipY = false; tex.needsUpdate = true;
       const g = new THREE.Group(); g.position.set(s.px, 6.05, s.pz); g.rotation.y = s.rot;
