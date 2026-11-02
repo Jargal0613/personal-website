@@ -3,6 +3,7 @@ import * as THREE from 'three';
 // ---- Content (copied from ../index.html, ../about-me.html, ../projects.html) ----
 const ROOMS = {
   lobby: { name: 'Lobby', page: '../index.html', pos: [0, 0], doors: { n: 'journey', e: 'projects', w: 'contact' },
+    photos: [['image1.png', 'Portrait of Jargal Boldbaatar'], ['meWithHorse.jpeg', 'Jargal with a horse in the countryside'], ['IMG_2135.jpeg', 'Green Mongolian landscape'], ['IMG_2162.jpeg', 'Open field in the countryside']],
     panels: [
       { meta: 'Personal website', title: 'Engineering ideas into motion.', body: 'I am Jargal Boldbaatar, a mechatronics student building at the intersection of automation, robotics, and curiosity.\nThis space is where I collect the things I am learning, the values that shape me, and the direction I want my work to go next.' },
       { meta: 'At a glance', title: 'GMIT · 3 Focuses', body: 'GMIT — Engineering student in Mongolia\n3 Focuses — Automation, robotics, entrepreneurship\nLearning by building — Web, systems thinking, and real-world problem solving\nOrigin — Khentii to Ulaanbaatar\nMission — Build useful things and keep growing' },
@@ -13,6 +14,7 @@ const ROOMS = {
       { meta: 'Milestones', title: 'A short timeline of the path so far', body: '2005 — Born and raised close to nature. My early years were shaped by the countryside, family, and the rhythm of a nomadic life.\n2018 — A bigger world in Baganuur. Moving for school gave me new environments, new discipline, and a broader view of what I could become.\n2023 — Engineering at GMIT. University turned my interest in how things work into a serious commitment to engineering and innovation.' },
     ] },
   journey: { name: 'Journey', page: '../about-me.html', pos: [0, -30], doors: { s: 'lobby' },
+    photos: [['meWithHorse.jpeg', 'Jargal in the countryside with a horse'], ['imOfPrSch7.jpg', 'Primary school memory'], ['imOfPrSch8.jpg', 'Primary school group photo'], ['imOfBa64.jpg', 'Baganuur memory'], ['imOfBa13.JPEG', 'Portrait from Baganuur years'], ['IMG_6923.jpeg', 'Kindergarten photo'], ['IMG_6931.jpeg', 'Mountain landscape'], ['IMG_2135.jpeg', 'Green field in the countryside'], ['IMG_2162.jpeg', 'Open countryside landscape']],
     panels: [
       { meta: 'Personal journey', title: 'From the countryside to engineering.', body: 'My story begins in Khentii, moves through Baganuur, and continues today at GMIT University.' },
       { meta: '2005', title: 'Childhood in the countryside', body: 'I was born on June 13, 2005. I grew up surrounded by open land, animals, and the pace of rural life, especially during school holidays.' },
@@ -28,11 +30,10 @@ const ROOMS = {
       { meta: 'University', title: 'Academic projects at GMIT', body: 'Thermodynamics, Scientific Method, and CAD — see the pedestals in this room.' },
     ],
     pedestals: [
-      { meta: 'Design stage · since Oct 2026', title: 'Semi-Automated Microgreens Grow System', body: 'A 4-tier, 8-tray rack. An ESP32 drives a relay that switches timed LED lighting, a flood-and-drain pump, and a fan. A DHT22 sensor reads temperature and humidity, and a float switch checks the water level. The system is designed to be monitored by phone over Wi-Fi, with mains power protected by an RCD breaker.\nRole: project owner, setting the requirements.' },
-      { meta: 'Research & pilot phase · since Oct 2026', title: 'Microgreens & Hydroponics Startup', body: 'Founder & CEO of an early-stage venture. I lead a team of AI assistants covering growing, finance, sourcing, and sales.\nWork so far: market research, cost and break-even analysis, seed-sourcing research, and planning a hydroponic vegetable pilot at university.' },
       { meta: 'Paper trading', title: 'AI-Assisted EUR/USD Trading System', body: 'A Python system for paper trading on a cTrader demo account, governed by deterministic risk rules.' },
       { meta: 'Live · since Nov 2025', title: 'jargal.me', body: 'A student resource hub with course notes and study guides for engineering students. Built in plain HTML, CSS, and JavaScript and hosted on Vercel.' },
       { meta: 'Live', title: 'LearnScroll', body: 'A personal textbook study app with an AI tutor grounded in my own textbooks, running on a Vercel serverless backend.', link: ['learn.jargal.me', 'https://learn.jargal.me'] },
+      { meta: 'Live · Nov 2026', title: '3D jargal.me', body: 'A walkable 3D version of this website built with three.js. You control a character and walk between rooms, where each page is a room with its content on the walls.', link: ['jargal.me/3d', 'https://jargal.me/3d/'] },
       { meta: 'Academic · GMIT', title: 'Thermodynamics', body: 'Role: Team Coordinator.\nA biofuel solution for replacing coal-fired power plants in Ulaanbaatar.' },
       { meta: 'Academic · GMIT', title: 'Scientific Method', body: 'Role: Team Coordinator & IDA ICE contributor.\nAn energy performance simulation of the main academic building.' },
       { meta: 'Academic · GMIT', title: 'CAD', body: 'Role: CAD Designer.\nA LEGO-inspired modular extension lead socket.' },
@@ -46,7 +47,7 @@ const ROOMS = {
     ] },
 };
 
-const ACCENT = 0x00e676, H = 9, WALL_H = 4.5, DOOR = 2.2, T = 0.4;
+const ACCENT = 0x00e676, H = 9, WALL_H = 7.5, DOOR = 2.2, T = 0.4;
 
 // ---- Setup ----
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -110,6 +111,34 @@ function signTexture(text) {
 
 // ---- Build world ----
 const readables = []; // {pos: Vector3, data}
+const photoJobs = {}, loadedRooms = new Set();
+const frameMat = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.6 });
+async function loadImage(url, maxW = 1024) {
+  const blob = await (await fetch(url)).blob();
+  try { return await createImageBitmap(blob, { resizeWidth: maxW, resizeQuality: 'high', imageOrientation: 'flipY' }); }
+  catch { return await createImageBitmap(blob, { imageOrientation: 'flipY' }); }
+}
+function captionTexture(text) {
+  const c = document.createElement('canvas'); c.width = 768; c.height = 80;
+  const g = c.getContext('2d'); g.fillStyle = '#000'; g.fillRect(0, 0, 768, 80);
+  g.fillStyle = '#ffffff'; g.font = '30px system-ui, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, 384, 42);
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t;
+}
+function loadPhotos(id) {
+  if (loadedRooms.has(id) || !photoJobs[id]) return; loadedRooms.add(id);
+  for (const { ph: [file, alt], s } of photoJobs[id]) {
+    loadImage('../images/' + file).then(bmp => {
+      const a = bmp.width / bmp.height; let w = 3.6, h = w / a; if (h > 2.5) { h = 2.5; w = h * a; }
+      const tex = new THREE.Texture(bmp); tex.colorSpace = THREE.SRGBColorSpace; tex.flipY = false; tex.needsUpdate = true;
+      const g = new THREE.Group(); g.position.set(s.px, 6.05, s.pz); g.rotation.y = s.rot;
+      const fr = new THREE.Mesh(new THREE.BoxGeometry(w + 0.24, h + 0.24, 0.08), frameMat); g.add(fr);
+      const edge = new THREE.Mesh(new THREE.PlaneGeometry(w + 0.1, h + 0.1), accentMat); edge.position.z = 0.045; g.add(edge);
+      const pic = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ map: tex })); pic.position.z = 0.05; g.add(pic);
+      const cap = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 0.375), new THREE.MeshBasicMaterial({ map: captionTexture(alt) })); cap.position.set(0, -h / 2 - 0.42, 0.05); g.add(cap);
+      scene.add(g);
+    }).catch(e => console.warn('photo failed', file, e));
+  }
+}
 const SIDES = { n: [0, -1], s: [0, 1], e: [1, 0], w: [-1, 0] };
 function sign(text, x, z, rotY) {
   const m = new THREE.Mesh(new THREE.PlaneGeometry(3, 0.75), new THREE.MeshBasicMaterial({ map: signTexture(text) }));
@@ -129,12 +158,12 @@ for (const [id, r] of Object.entries(ROOMS)) {
     const door = r.doors[s];
     if (dz) { // north/south wall along x
       const z = cz + dz * H, z0 = z - T / 2, z1 = z + T / 2;
-      if (door) { box(cx - H, cx - DOOR, z0, z1); box(cx + DOOR, cx + H, z0, z1); box(cx - DOOR, cx + DOOR, z0, z1, 1, wallMat, WALL_H - 1, false);
+      if (door) { box(cx - H, cx - DOOR, z0, z1); box(cx + DOOR, cx + H, z0, z1); box(cx - DOOR, cx + DOOR, z0, z1, WALL_H - 3.8, wallMat, 3.8, false);
         sign(ROOMS[door].name + (dz < 0 ? ' ↑' : ' ↓'), cx, z - dz * 0.25, dz < 0 ? 0 : Math.PI);
       } else box(cx - H, cx + H, z0, z1);
     } else {
       const x = cx + dx * H, x0 = x - T / 2, x1 = x + T / 2;
-      if (door) { box(x0, x1, cz - H, cz - DOOR); box(x0, x1, cz + DOOR, cz + H); box(x0, x1, cz - DOOR, cz + DOOR, 1, wallMat, WALL_H - 1, false);
+      if (door) { box(x0, x1, cz - H, cz - DOOR); box(x0, x1, cz + DOOR, cz + H); box(x0, x1, cz - DOOR, cz + DOOR, WALL_H - 3.8, wallMat, 3.8, false);
         sign(ROOMS[door].name, x - dx * 0.25, cz, dx > 0 ? -Math.PI / 2 : Math.PI / 2);
       } else box(x0, x1, cz - H, cz + H);
     }
@@ -153,6 +182,13 @@ for (const [id, r] of Object.entries(ROOMS)) {
     m.position.set(s.px, 2.3, s.pz); m.rotation.y = s.rot; scene.add(m);
     readables.push({ pos: new THREE.Vector3(s.px + s.nx * 1.5, 0, s.pz + s.nz * 1.5), data: p });
   });
+  // framed photos above the panels (lazy-loaded per room)
+  const pslots = [];
+  for (const s of ['n', 'e', 'w', 's']) for (const o of [-6, 0, 6]) {
+    const [dx, dz] = SIDES[s];
+    pslots.push({ px: dz ? cx + o : cx + dx * (H - T / 2 - 0.08), pz: dz ? cz + dz * (H - T / 2 - 0.08) : cz + o, rot: Math.atan2(-dx, -dz) });
+  }
+  if (r.photos) photoJobs[id] = r.photos.map((ph, i) => ({ ph, s: pslots[i] }));
   // pedestals (projects)
   (r.pedestals || []).forEach((p, i) => {
     const col = i % 4, row = Math.floor(i / 4);
@@ -174,13 +210,13 @@ for (const [id, r] of Object.entries(ROOMS)) for (const [s, to] of Object.entrie
   const [dx, dz] = SIDES[s], [cx, cz] = r.pos, [tx, tz] = ROOMS[to].pos;
   if (dz) {
     const za = Math.min(cz + dz * H, tz - dz * H), zb = Math.max(cz + dz * H, tz - dz * H);
-    box(cx - DOOR - T, cx - DOOR, za, zb); box(cx + DOOR, cx + DOOR + T, za, zb);
+    box(cx - DOOR - T, cx - DOOR, za, zb, 4.5); box(cx + DOOR, cx + DOOR + T, za, zb, 4.5);
     const f = new THREE.Mesh(new THREE.PlaneGeometry(2 * DOOR, zb - za), floorMat); f.rotation.x = -Math.PI / 2; f.position.set(cx, 0, (za + zb) / 2); scene.add(f);
     box(cx - 0.05, cx + 0.05, za, zb, 0.02, accentMat, 0.01, false);
     const l = new THREE.PointLight(0xffffff, 6, 10); l.position.set(cx, 3, (za + zb) / 2); scene.add(l);
   } else {
     const xa = Math.min(cx + dx * H, tx - dx * H), xb = Math.max(cx + dx * H, tx - dx * H);
-    box(xa, xb, cz - DOOR - T, cz - DOOR); box(xa, xb, cz + DOOR, cz + DOOR + T);
+    box(xa, xb, cz - DOOR - T, cz - DOOR, 4.5); box(xa, xb, cz + DOOR, cz + DOOR + T, 4.5);
     const f = new THREE.Mesh(new THREE.PlaneGeometry(xb - xa, 2 * DOOR), floorMat); f.rotation.x = -Math.PI / 2; f.position.set((xa + xb) / 2, 0, cz); scene.add(f);
     box(xa, xb, cz - 0.05, cz + 0.05, 0.02, accentMat, 0.01, false);
     const l = new THREE.PointLight(0xffffff, 6, 10); l.position.set((xa + xb) / 2, 3, cz); scene.add(l);
@@ -213,6 +249,7 @@ function setRoom(id) {
   const r = ROOMS[id]; roomNameEl.textContent = r.name; origLink.href = r.page; origLink.textContent = 'Original ' + r.name + ' page';
   if (location.hash.slice(1) !== id) history.replaceState(null, '', id === 'lobby' ? location.pathname : '#' + id);
   document.title = 'Jargal | 3D · ' + r.name;
+  loadPhotos(id); for (const n of Object.values(r.doors)) loadPhotos(n);
 }
 function teleport(id) {
   const r = ROOMS[id] || ROOMS.lobby; player.position.set(r.pos[0], 0, r.pos[1] + 1); yaw = 0; setRoom(ROOMS[id] ? id : 'lobby');
@@ -251,7 +288,7 @@ const cvs = renderer.domElement;
 cvs.addEventListener('pointerdown', e => { lookId = e.pointerId; lx = e.clientX; ly = e.clientY; cvs.setPointerCapture(e.pointerId); });
 cvs.addEventListener('pointermove', e => {
   if (e.pointerId !== lookId) return;
-  yaw -= (e.clientX - lx) * 0.005; pitch = Math.min(1.2, Math.max(-0.1, pitch + (e.clientY - ly) * 0.004)); lx = e.clientX; ly = e.clientY;
+  yaw -= (e.clientX - lx) * 0.005; pitch = Math.min(1.2, Math.max(-0.5, pitch + (e.clientY - ly) * 0.004)); lx = e.clientX; ly = e.clientY;
 });
 cvs.addEventListener('pointerup', e => { if (e.pointerId === lookId) lookId = null; });
 joy.addEventListener('pointerdown', e => { joyId = e.pointerId; joy.setPointerCapture(e.pointerId); moveJoy(e); });
