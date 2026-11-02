@@ -50,7 +50,7 @@ async function loadProjects() {
       for (const art of sec.querySelectorAll('article')) {
         const link = art.querySelector('a[href]');
         r.pedestals.push({ meta: txt(art.querySelector('.status-tag')), title: txt(art.querySelector('h3')),
-          body: [...art.querySelectorAll('p')].map(txt).join('\n'), link: link ? [txt(link), link.getAttribute('href')] : undefined });
+          body: [...art.querySelectorAll('p')].map(txt).join('\n'), link: link ? [txt(link), new URL(link.getAttribute('href'), res.url).href] : undefined });
       }
     }
   } catch (e) {

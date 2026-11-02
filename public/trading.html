@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="AI-Assisted EUR/USD Trading System: the plan, how it worked, the real backtest and paper-trading results, why it failed, and the source code." />
+  <meta name="author" content="Jargal Boldbaatar" />
+  <title>Jargal | AI-Assisted EUR/USD Trading System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/styles/github-dark.min.css" />
+  <script defer src="scripts.js"></script>
+  <style>
+    .trading-page .feature-card { margin-bottom: 1.25rem; }
+    .trading-page h3 { margin: 0 0 .5rem; }
+    .trading-page ul { margin: .5rem 0 0; padding-left: 1.2rem; line-height: 1.6; color: var(--muted, #cfcfcf); }
+    .disclaimer { border: 1px solid var(--accent); border-radius: 16px; padding: 1rem 1.25rem; background: var(--accent-soft); }
+    .disclaimer strong { color: var(--accent); }
+    .table-wrap { overflow-x: auto; margin-top: .75rem; }
+    .table-wrap table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+    .table-wrap th, .table-wrap td { border-bottom: 1px solid var(--line, #222); padding: .45rem .6rem; text-align: left; white-space: nowrap; }
+    .table-wrap th { font-family: "IBM Plex Mono", monospace; font-size: .75rem; color: var(--accent); text-transform: uppercase; letter-spacing: .05em; }
+    blockquote { margin: .75rem 0; padding: .5rem 1rem; border-left: 3px solid var(--accent); color: #ddd; }
+    .source-note { font-family: "IBM Plex Mono", monospace; font-size: .75rem; color: #9a9a9a; }
+    code { font-family: "IBM Plex Mono", monospace; font-size: .9em; }
+    pre { overflow: auto; border-radius: 12px; border: 1px solid var(--line, #222); }
+    .viewer { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 1rem; }
+    .file-list { max-height: 640px; overflow: auto; border: 1px solid var(--line, #222); border-radius: 12px; padding: .5rem; }
+    .file-list button { display: block; width: 100%; text-align: left; background: none; border: 0; color: #ddd; font: .8rem "IBM Plex Mono", monospace; padding: .35rem .5rem; border-radius: 8px; cursor: pointer; }
+    .file-list button:hover, .file-list button[aria-current="true"] { background: var(--accent-soft); color: var(--accent); }
+    .code-pane pre { margin: 0; max-height: 640px; }
+    .code-pane .file-name { font: .8rem "IBM Plex Mono", monospace; color: var(--accent); margin-bottom: .5rem; }
+    @media (max-width: 760px) { .viewer { grid-template-columns: 1fr; } .file-list { max-height: 240px; } }
+  </style>
+</head>
+<body class="site-body projects-page trading-page">
+  <div class="site-shell">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Jargal home">JB</a>
+      <button id="menuButton" class="menu-button" type="button" aria-controls="siteNav" aria-expanded="false" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="siteNav" class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="about-me.html">Journey</a>
+        <a href="projects.html" aria-current="page">Projects</a>
+        <a href="3d/">3D</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero section">
+        <div class="page-hero-copy reveal">
+          <p class="eyebrow">Project · Failed · Paper trading only</p>
+          <h1>AI-Assisted EUR/USD Trading System</h1>
+          <p class="hero-lead">The plan, how it worked, the real test results, why it failed, and the full source code.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="downloads/eurusd-trading-system.zip" download>Download the code (zip)</a>
+            <a class="button button-secondary" href="#source">View the source</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="disclaimer reveal">
+          <p><strong>Educational demo. Not financial advice.</strong> This system was only ever paper-traded: simulated trades with fake money, using a cTrader <em>demo</em> data feed and free public price data. No real money was traded. Every strategy here lost money or failed its tests. Do not use it to trade real money.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">The plan</p>
+          <h2>Grow a $10 paper account with strict rules</h2>
+        </div>
+        <article class="feature-card reveal">
+          <p>The goal, in the words of the project's program README:</p>
+          <blockquote>"Goal: find and validate a repeatable, net-positive process, judged only by forward paper results after costs, starting from a $10 paper account. No orders of any kind (no live, no demo). Read-only cTrader demo API. No profit is promised."</blockquote>
+          <p class="source-note">Source: program/README.md</p>
+          <p>The first version was a single EUR/USD rule, described in the main README:</p>
+          <blockquote>"'Large 5m range': on each completed M1 candle, if range_5m (high-low of the last 5 candles) &gt; 0.000326, go SHORT at the next candle's open. 0.01 lot, 5-pip stop, 120-minute maximum hold, one position at a time, $10 virtual account."</blockquote>
+          <p class="source-note">Source: README.md</p>
+          <p>A second, simpler simulator (newbot-paper) tested an EMA(20)/EMA(50) crossover on 1-hour EUR/USD bars with a 2×ATR stop and 4×ATR target, also from a $10 fake balance.</p>
+          <p class="source-note">Source: newbot-paper/README.md</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">How it worked</p>
+          <h2>Architecture and risk rules</h2>
+        </div>
+        <article class="feature-card reveal">
+          <h3>Architecture</h3>
+          <ul>
+            <li><code>ctrader/market.py</code>: builds 1-minute candles from live spot quotes on the cTrader Open API <em>demo</em> host (read-only requests only).</li>
+            <li><code>trading/live_paper.py</code>: the first live paper trader. It simulated trades in memory and logged them to CSV.</li>
+            <li><code>program/engine.py</code>: the long-running paper engine for the 21-day program: quotes, fill simulation, risk limits, plug-in strategy modules, review cycles.</li>
+            <li><code>program/hypotheses/&lt;ID&gt;.py</code>: plug-in rule modules, each pre-registered in an append-only journal before its backtest.</li>
+            <li><code>program/risk.py</code>: the hard limits in code, checked against <code>RISK_LIMITS.md</code> by a SHA-256 hash. The engine refuses to start if the file changes.</li>
+            <li><code>program/stats.py</code>, <code>daily_summary.py</code>, <code>final_report.py</code>: forward statistics and the promotion test.</li>
+            <li><code>ops/</code>: supervisor scripts (single instance lock, crash restart with backoff, heartbeat watchdog).</li>
+            <li><code>program/backtests/</code>: pre-registration, backtests and screening scripts.</li>
+            <li><code>newbot-paper/</code>: a standalone EUR/USD paper simulator using only the Python standard library and Yahoo Finance hourly data.</li>
+          </ul>
+        </article>
+        <article class="feature-card reveal">
+          <h3>The deterministic risk rules (from RISK_LIMITS.md)</h3>
+          <ul>
+            <li><strong>Paper only:</strong> no live or demo orders. The engine refuses to start if any program file references an order, amend or close-position API message.</li>
+            <li><strong>Account and sizing:</strong> paper equity starts at $10.00. Size is the symbol's minimum volume (0.01 lot FX) while equity &lt; $20.</li>
+            <li><strong>Per-trade risk:</strong> every trade has a hard stop set at entry that is never moved further away. Max risk per trade $1.10 while equity ≤ $11.00, then min($1.10, 10% of equity). No entry if the spread is &gt; 3× normal. Used margin ≤ 70% of equity.</li>
+            <li><strong>Portfolio:</strong> at most 2 open positions; total open risk ≤ 15% of equity; flat by Friday 20:45 UTC.</li>
+            <li><strong>Daily loss limit:</strong> no new entries for the day if equity falls to ≤ 80% of the start-of-day equity.</li>
+            <li><strong>Kill switch:</strong> halt everything if equity &lt; $4.00 or drawdown from peak &gt; 50%. The program never resumes after a halt.</li>
+            <li><strong>Per-hypothesis kill:</strong> after ≥ 15 forward trades with profit factor &lt; 0.8, or 8 losses in a row.</li>
+            <li><strong>Costs always applied:</strong> fills at live bid/ask, slippage, $3.00 per lot per side commission on FX, swap; if a stop and a target are hit by the same quote, the stop wins.</li>
+            <li><strong>Promotion rule:</strong> ≥ 30 closed trades and ≥ 14 days, net P&amp;L &gt; 0 after costs, profit factor ≥ 1.3, beats a random-direction control at the 95th percentile, t-stat ≥ 2.0, max drawdown &lt; 35%. Even then, no orders; a human decides.</li>
+          </ul>
+          <p class="source-note">Source: program/RISK_LIMITS.md (full text in the source viewer below)</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Results</p>
+          <h2>Tests and backtests, exactly as recorded</h2>
+        </div>
+
+        <article class="feature-card reveal">
+          <h3>1. Frozen backtest of "Large 5m range" (EUR/USD)</h3>
+          <p>Columns as in the file. Cost is in percent; returns are in percent.</p>
+          <div class="table-wrap"><table>
+            <tr><th>Cost %</th><th>Trades</th><th>Win rate %</th><th>Total return</th><th>Profit factor</th><th>Max drawdown</th></tr>
+            <tr><td>0.0</td><td>319</td><td>50.16</td><td>2.354</td><td>1.268</td><td>-1.253</td></tr>
+            <tr><td>0.005</td><td>319</td><td>47.65</td><td>0.759</td><td>1.079</td><td>-1.522</td></tr>
+            <tr><td>0.01</td><td>319</td><td>43.89</td><td>-0.836</td><td>0.920</td><td>-2.102</td></tr>
+            <tr><td>0.015</td><td>319</td><td>38.87</td><td>-2.431</td><td>0.787</td><td>-3.483</td></tr>
+            <tr><td>0.02</td><td>319</td><td>35.74</td><td>-4.026</td><td>0.675</td><td>-4.966</td></tr>
+          </table></div>
+          <p class="source-note">Source: data/reference/nonoverlap_frozen_results.csv (rounded to 3 decimals)</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <h3>2. Live paper trading of "Large 5m range" (2026-10-05 to 2026-10-06 UTC)</h3>
+          <div class="table-wrap"><table>
+            <tr><th>Closed trades</th><th>Winners</th><th>Exits</th><th>Net pips</th><th>Net P&amp;L</th><th>Profit factor</th><th>Equity</th></tr>
+            <tr><td>29</td><td>6</td><td>22 stop, 7 time</td><td>-41.65</td><td>-$4.17</td><td>0.63</td><td>$10.00 → $5.84</td></tr>
+          </table></div>
+          <p>Commission was not modelled in this trader ("commission (~0.6 pip round trip on this Pepperstone raw demo) is <strong>not</strong> modelled"). The trader was then stopped (README: "the old short-only paper trader is STOPPED").</p>
+          <p class="source-note">Source: data/live_paper_trades.csv (totals computed from the file), README.md</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <h3>3. newbot-paper sanity backtest (EMA crossover, EUR/USD 1h, $10 start)</h3>
+          <div class="table-wrap"><table>
+            <tr><th>Window</th><th>Trades</th><th>Win rate</th><th>Profit factor</th><th>Final equity</th><th>Return</th><th>Max drawdown</th></tr>
+            <tr><td>3 months</td><td>5</td><td>0.0%</td><td>0.00</td><td>$1.59</td><td>-84.07%</td><td>84.07%</td></tr>
+            <tr><td>6 months</td><td>22</td><td>27.3%</td><td>0.70</td><td>$1.34</td><td>-86.56%</td><td>92.27%</td></tr>
+            <tr><td>12 months</td><td>98</td><td>32.7%</td><td>1.03</td><td>$14.83</td><td>+48.34%</td><td>82.74%</td></tr>
+          </table></div>
+          <p>Its forward paper account: 1 closed trade (stop loss, -$2.95), balance $7.05 from $10.00, with one position still open at the last run on 2026-10-08.</p>
+          <p class="source-note">Source: newbot-paper/backtest_results.txt, newbot-paper/data/trades.csv, newbot-paper/data/run.log</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <h3>4. 21-day paper program: forward trades</h3>
+          <p>Strategy LBO v1 (GBPUSD London opening-range breakout) was the only hypothesis that reached forward testing. 16 other hypotheses were rejected by the pre-forward screen.</p>
+          <div class="table-wrap"><table>
+            <tr><th>Trade</th><th>Symbol</th><th>Direction</th><th>Exit</th><th>Net P&amp;L</th><th>Equity after</th></tr>
+            <tr><td>3</td><td>GBPUSD</td><td>short</td><td>take profit</td><td>+$1.94</td><td>$11.94</td></tr>
+            <tr><td>6</td><td>GBPUSD</td><td>long</td><td>stop loss</td><td>-$1.09</td><td>$10.85</td></tr>
+          </table></div>
+          <p class="source-note">Source: program/journal/trades.csv, program/reports/daily_2026-10-14.txt, program/journal/hypotheses.jsonl</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <h3>5. LBO v1 history backtest (2022-01-03 to 2026-10-06, real bid/ask ticks)</h3>
+          <div class="table-wrap"><table>
+            <tr><th>Set</th><th>Trades</th><th>Win %</th><th>Net $</th><th>PF</th><th>t</th><th>Max DD $</th></tr>
+            <tr><td>Out-of-sample 2022-01-03 to 2023-08-30</td><td>416</td><td>29.6</td><td>-86.35</td><td>0.73</td><td>-3.04</td><td>88.17</td></tr>
+            <tr><td>In-sample 2023-08-31 to 2026-10-06</td><td>714</td><td>36.3</td><td>-18.07</td><td>0.96</td><td>-0.46</td><td>43.94</td></tr>
+            <tr><td>All 2022-01-03 to 2026-10-06</td><td>1130</td><td>33.8</td><td>-104.42</td><td>0.87</td><td>-2.15</td><td>125.47</td></tr>
+          </table></div>
+          <p class="source-note">Source: program/backtests/lbo_history_100plus.md (fixed 0.01 lot; equity may go negative on paper)</p>
+        </article>
+
+        <article class="feature-card reveal">
+          <h3>6. The strategy search</h3>
+          <p>After the first rules failed, the AI-assisted research moved to a continuous loop of testing new strategy ideas, each written down before its backtest was run.</p>
+          <ul>
+            <li><strong>Early rounds (to 2026-10-06):</strong> EUR/USD, other FX pairs and symbols, and a fixed bracket (10-pip stop / 20-pip target, about -$1 / +$2 per trade at 0.01 lot). "None of the 7 candidates is good enough to deploy." The bracket: "no variant has an edge." Other symbols: "44 pre-declared symbol-variant tests. None reaches significance." Including news-time strategies, the early rounds reached 80 tests: "Even so, no strategy becomes significant."</li>
+            <li><strong>Later rounds (2026-10-18 to 2026-10-19):</strong> the search ledger records 167 more research rounds (Rounds 7 to 171), 316 variants in all, covering FX, stock indices, gold and other commodities, crypto, rates and calendar effects.</li>
+            <li><strong>Method:</strong> historical backtests with in-sample / out-of-sample splits, after costs, against a random-direction control. The pass bar was a two-sided Bonferroni t-stat over the cumulative number of variants tested (at least 2.5); it rose to |t| ≥ 3.74 after Round 142.</li>
+            <li><strong>Rule:</strong> paper trade only strategies that first pass a historical backtest (the LBO history test used 100+ trades).</li>
+            <li><strong>Result:</strong> every round in the ledger is marked FAIL or NOT CONFIRMED. None passed every test.</li>
+          </ul>
+          <h3>The closest candidates (all failed)</h3>
+          <div class="table-wrap"><table>
+            <tr><th>Round</th><th>Idea</th><th>Best out-of-sample result</th><th>Why it still failed</th></tr>
+            <tr><td>R70</td><td>US500, weekly: implied correlation (COR3M) above its 1-year median</td><td>309 trades, PF 1.52, t 3.02</td><td>Below the t bar; 82% overlap with a simple "VIX above 1-year median" regime; not confirmed on other indices (R71)</td></tr>
+            <tr><td>R114</td><td>Pre-holiday long on the Hang Seng (HK50) and French (FRA40) indices</td><td>B: 534 trades, PF 1.37, t 3.13</td><td>Below the t bar; the edge was strong only in 1988-93 and 1998-2003 and weak since 2008; lost money in 2023-26</td></tr>
+            <tr><td>R163</td><td>HK50 after mainland Stock Connect buying</td><td>393 trades, PF 1.07, t 0.77</td><td>Weak; lost money in 2023-09 to 2026-10 (PF 0.85)</td></tr>
+            <tr><td>R124</td><td>Pooled commodity calendar seasonals</td><td>A: PF 0.94, t -0.15</td><td>Lost money after costs</td></tr>
+          </table></div>
+          <p class="source-note">Sources: research/README.md, research/SEARCH_LEDGER.md</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Why it failed</p>
+          <h2>The edge did not survive costs</h2>
+        </div>
+        <article class="feature-card reveal">
+          <ul>
+            <li><strong>Costs erased the backtest edge.</strong> "Large 5m range" had a profit factor of 1.27 with zero costs, but it fell to 0.92 at 0.01% cost per trade.</li>
+            <li><strong>It lost in live paper trading.</strong> 22 of 29 trades hit the 5-pip stop, and the $10 account fell to $5.84 in two days, without commission even being charged.</li>
+            <li><strong>The best candidate failed on untouched data.</strong> The LBO backtest verdict: "LBO v1 does NOT survive the backtest." Out-of-sample: "Win rate 29.6% vs a 36.4% break-even, PF 0.73, net -$86.35, t = -3.04." The program was then stopped: "2026-10-18: program STOPPED at B's request after LBO v1 failed the 2022-2026 history backtest."</li>
+            <li><strong>$10 is too small to manage risk.</strong> From the LBO report: "In both periods the account freezes after its first 3-6 trades (from $10 to ~$6.4-6.6), so it could not even trade its way back." From newbot-paper: "The 1% risk target is not achievable at $10 … True 1% risk needs roughly $200+ of equity."</li>
+            <li><strong>Nothing else passed.</strong> Every later research round in the search ledger is marked FAIL or NOT CONFIRMED.</li>
+            <li><strong>The decision.</strong> On 2026-10-20 the project was stopped because no strategy showed a robust out-of-sample edge. No real-money orders were ever placed.</li>
+          </ul>
+          <p class="source-note">Sources: data/reference/nonoverlap_frozen_results.csv, data/live_paper_trades.csv, program/backtests/lbo_history_100plus.md, program/README.md, newbot-paper/README.md, research/SEARCH_LEDGER.md</p>
+        </article>
+      </section>
+
+      <section class="section" id="try">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Try it</p>
+          <h2>Download and run</h2>
+        </div>
+        <article class="feature-card reveal">
+          <p><a class="text-link" href="downloads/eurusd-trading-system.zip" download>eurusd-trading-system.zip</a>: a sanitized copy with two folders, <code>newbot-paper/</code> and <code>eurusd-trading-system/</code>. Credentials and account numbers were removed; see <code>PUBLIC_COPY.md</code>.</p>
+          <h3>Easiest: newbot-paper (Python 3, no packages, no account)</h3>
+<pre><code class="language-bash">unzip eurusd-trading-system.zip
+cd newbot-paper
+python3 backtest.py 6mo        # backtest on Yahoo Finance EURUSD=X hourly data
+python3 run.py                 # start a fake $10 paper account in ./data</code></pre>
+          <p>Its README uses absolute paths from the original machine; run the commands from inside the folder instead.</p>
+          <h3>Full system: eurusd-trading-system (needs a cTrader demo account)</h3>
+<pre><code class="language-bash">cd eurusd-trading-system
+python3 -m venv .venv &amp;&amp; .venv/bin/pip install -r requirements.txt
+cp .env.example .env           # fill in your own cTrader Open API DEMO credentials
+.venv/bin/python ops/demo_connection_test.py   # read-only demo check
+python3 program/risk.py --selftest            # check the risk limits</code></pre>
+          <p>Some scripts expect data files and paths from the original machine (<code>/workspace/...</code>) that are not included, so not everything will run as-is.</p>
+          <p><strong>Paper trading only. Educational demo, not financial advice.</strong></p>
+        </article>
+      </section>
+
+      <section class="section" id="source">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Source code</p>
+          <h2>Browse the code</h2>
+        </div>
+        <div class="viewer reveal">
+          <div class="file-list" id="fileList" role="list"></div>
+          <div class="code-pane"><div class="file-name" id="fileName"></div><pre><code id="code">Loading…</code></pre></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <a class="text-link" href="projects.html">← Back to projects</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p><span data-year></span> <span>Jargal Boldbaatar. Built with curiosity and consistency.</span></p>
+    </footer>
+  </div>
+  <script type="module">
+    import hljs from 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.9.0/es/highlight.min.js';
+    document.querySelectorAll('pre code[class^="language-"]').forEach(el => hljs.highlightElement(el));
+    const list = document.getElementById('fileList'), codeEl = document.getElementById('code'), nameEl = document.getElementById('fileName');
+    const lang = f => f.endsWith('.py') ? 'python' : f.endsWith('.sh') ? 'bash' : f.endsWith('.md') ? 'markdown' : 'plaintext';
+    async function show(f, btn) {
+      list.querySelectorAll('button').forEach(b => b.removeAttribute('aria-current')); btn.setAttribute('aria-current', 'true');
+      nameEl.textContent = f.replace('env.example', '.env.example'); codeEl.textContent = 'Loading…';
+      const r = await fetch('trading-src/' + f); const t = r.ok ? await r.text() : 'Could not load this file.';
+      codeEl.className = 'language-' + lang(f); codeEl.removeAttribute('data-highlighted'); codeEl.textContent = t;
+      if (t.length < 200000) hljs.highlightElement(codeEl);
+    }
+    try {
+      const files = await (await fetch('trading-src/manifest.json')).json();
+      files.forEach((f, i) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = f.replace('env.example', '.env.example'); b.onclick = () => show(f, b); list.appendChild(b); if (i === 0) show(f, b); });
+    } catch { codeEl.textContent = 'Could not load the file list. Download the zip instead.'; }
+  </script>
+</body>
+</html>

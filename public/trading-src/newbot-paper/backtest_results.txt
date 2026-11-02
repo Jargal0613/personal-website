@@ -1,0 +1,24 @@
+BACKTEST EURUSD=X 1h, range=3mo: 2026-07-06 20:00 UTC+8 -> 2026-10-06 19:00 UTC+8, 1571 bars (first 150 = warm-up)
+  config: start $10.00, 1:500, min lot 0.01, step 0.01, target risk 1.0%, stop-out 50%
+  closed trades: 5  wins: 0  win rate: 0.0%  profit factor: 0.00
+  final equity: $1.59  (-84.07%)   max drawdown (bar closes): 84.07%
+  actual risk per trade (% of equity at entry): median 23.9%, min 15.4%, max 54.9%;  5/5 trades floored to min lot
+  margin stop-outs: 0 []
+  wiped out (can't afford min lot): 2026-07-28 23:00 UTC+8;  signals skipped for margin: 12
+  exits: {'stop loss': 5}   open at end: False
+BACKTEST EURUSD=X 1h, range=6mo: 2026-04-06 20:00 UTC+8 -> 2026-10-06 19:00 UTC+8, 3111 bars (first 150 = warm-up)
+  config: start $10.00, 1:500, min lot 0.01, step 0.01, target risk 1.0%, stop-out 50%
+  closed trades: 22  wins: 6  win rate: 27.3%  profit factor: 0.70
+  final equity: $1.34  (-86.56%)   max drawdown (bar closes): 92.27%
+  actual risk per trade (% of equity at entry): median 22.0%, min 11.4%, max 65.8%;  22/22 trades floored to min lot
+  margin stop-outs: 0 []
+  wiped out (can't afford min lot): 2026-06-05 20:00 UTC+8;  signals skipped for margin: 29
+  exits: {'stop loss': 13, 'take profit': 6, 'opposite EMA crossover': 3}   open at end: False
+BACKTEST EURUSD=X 1h, range=1y: 2025-10-06 20:00 UTC+8 -> 2026-10-06 19:00 UTC+8, 6145 bars (first 150 = warm-up)
+  config: start $10.00, 1:500, min lot 0.01, step 0.01, target risk 1.0%, stop-out 50%
+  closed trades: 98  wins: 32  win rate: 32.7%  profit factor: 1.03
+  final equity: $14.83  (+48.34%)   max drawdown (bar closes): 82.74%
+  actual risk per trade (% of equity at entry): median 7.6%, min 3.5%, max 27.0%;  98/98 trades floored to min lot
+  margin stop-outs: 0 []
+  wiped out (can't afford min lot): no;  signals skipped for margin: 0
+  exits: {'take profit': 32, 'opposite EMA crossover': 11, 'stop loss': 55}   open at end: False
