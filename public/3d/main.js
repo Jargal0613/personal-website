@@ -14,7 +14,7 @@ const ROOMS = {
       { meta: 'Milestones', title: 'A short timeline of the path so far', body: '2005 — Born and raised close to nature. My early years were shaped by the countryside, family, and the rhythm of a nomadic life.\n2018 — A bigger world in Baganuur. Moving for school gave me new environments, new discipline, and a broader view of what I could become.\n2023 — Engineering at GMIT. University turned my interest in how things work into a serious commitment to engineering and innovation.' },
     ] },
   journey: { name: 'Journey', page: '../about-me.html', pos: [0, -30], doors: { s: 'lobby' },
-    photos: [['meWithHorse.jpg', 'Jargal in the countryside with a horse'], ['imOfPrSch7.jpg', 'Primary school memory'], ['imOfPrSch8.jpg', 'Primary school group photo'], ['imOfBa64.jpg', 'Baganuur memory'], ['imOfBa13.jpg', 'Portrait from Baganuur years'], ['IMG_6923.jpg', 'Kindergarten photo'], ['IMG_6931.jpg', 'Mountain landscape'], ['IMG_2135.jpg', 'Green field in the countryside'], ['IMG_2162.jpg', 'Open countryside landscape']],
+    photos: [['meWithHorse.jpg', 'Jargal in the countryside with a horse'], ['imOfPrSch7.jpg', 'Primary school memory'], ['imOfPrSch8.jpg', 'Primary school group photo'], ['imOfBa64.jpg', 'Baganuur memory'], ['imOfBa13.jpg', 'Portrait from Baganuur years'], ['IMG_6923.jpg', 'Image from countryside'], ['IMG_6931.jpg', 'Mountain landscape'], ['IMG_2135.jpg', 'Green field in the countryside'], ['IMG_2162.jpg', 'Open countryside landscape']],
     panels: [
       { meta: 'Personal journey', title: 'From the countryside to engineering.', body: 'My story begins in Khentii, moves through Baganuur, and continues today at GMIT University.' },
       { meta: '2005', title: 'Childhood in the countryside', body: 'I was born on June 13, 2005. I grew up surrounded by open land, animals, and the pace of rural life, especially during school holidays.' },
@@ -24,28 +24,41 @@ const ROOMS = {
       { meta: 'Roots', title: 'The places that shaped me still travel with me.', body: 'These photos represent more than memories. They reflect school life in Khentii and Baganuur, time in the countryside, and the background that continues to shape my perspective.\nI carry that sense of place into how I learn, how I work, and how I imagine the future.' },
       { meta: 'What stays with me', title: 'The qualities I want my work to reflect', body: '01 Curiosity — I like understanding why things work, not only how to use them.\n02 Consistency — Progress matters most when it is built through steady effort over time.\n03 Practical ambition — I want to aim high while staying grounded in useful, real-world outcomes.' },
     ] },
-  projects: { name: 'Projects', page: '../projects.html', pos: [30, 0], doors: { w: 'lobby' },
-    panels: [
-      { meta: 'Projects', title: 'Things I am building and learning from.', body: 'Hardware, a startup, software tools, and academic engineering work.' },
-      { meta: 'University', title: 'Academic projects at GMIT', body: 'Thermodynamics, Scientific Method, and CAD — see the pedestals in this room.' },
-    ],
-    pedestals: [
-      { meta: 'Paper trading', title: 'AI-Assisted EUR/USD Trading System', body: 'A Python system for paper trading on a cTrader demo account, governed by deterministic risk rules.' },
-      { meta: 'Live · since Nov 2025', title: 'jargal.me', body: 'A student resource hub with course notes and study guides for engineering students. Built in plain HTML, CSS, and JavaScript and hosted on Vercel.' },
-      { meta: 'Live', title: 'LearnScroll', body: 'A personal textbook study app with an AI tutor grounded in my own textbooks, running on a Vercel serverless backend.', link: ['learn.jargal.me', 'https://learn.jargal.me'] },
-      { meta: 'Live · Nov 2026', title: '3D jargal.me', body: 'A walkable 3D version of this website built with three.js. You control a character and walk between rooms, where each page is a room with its content on the walls.', link: ['jargal.me/3d', 'https://jargal.me/3d/'] },
-      { meta: 'Academic · GMIT', title: 'Thermodynamics', body: 'Role: Team Coordinator.\nA biofuel solution for replacing coal-fired power plants in Ulaanbaatar.' },
-      { meta: 'Academic · GMIT', title: 'Scientific Method', body: 'Role: Team Coordinator & IDA ICE contributor.\nAn energy performance simulation of the main academic building.' },
-      { meta: 'Academic · GMIT', title: 'CAD', body: 'Role: CAD Designer.\nA LEGO-inspired modular extension lead socket.' },
-    ] },
+  // Projects content is read at runtime from ../projects.html (single source); see loadProjects().
+  projects: { name: 'Projects', page: '../projects.html', pos: [30, 0], doors: { w: 'lobby' }, panels: [], pedestals: [] },
   contact: { name: 'Contact', page: '../index.html#contact', pos: [-30, 0], doors: { e: 'lobby' },
     panels: [
-      { meta: "Let's connect", title: "I'm building this chapter in public.", body: 'If you want to talk about engineering, projects, learning, or future collaboration, I would be happy to hear from you.' },
+      { meta: "Let's connect", title: "I'm building this chapter in public.", body: '' },
       { meta: 'Email', title: 'jargal0660@gmail.com', body: 'jargal0660@gmail.com', link: ['Send email', 'mailto:jargal0660@gmail.com'] },
       { meta: 'Instagram', title: 'Instagram', body: 'instagram.com/j_rg_l_', link: ['Instagram', 'https://instagram.com/j_rg_l_'] },
       { meta: 'Jargal Boldbaatar', title: 'Built with curiosity and consistency.', body: '' },
     ] },
 };
+
+async function loadProjects() {
+  const r = ROOMS.projects;
+  try {
+    const res = await fetch('../projects.html', { cache: 'no-cache' });
+    if (!res.ok) throw new Error(res.status);
+    const doc = new DOMParser().parseFromString(await res.text(), 'text/html');
+    const txt = el => (el ? el.textContent.replace(/\s+/g, ' ').trim() : '');
+    const hero = doc.querySelector('.page-hero-copy');
+    if (hero) r.panels.push({ meta: txt(hero.querySelector('.eyebrow')), title: txt(hero.querySelector('h1')), body: txt(hero.querySelector('.hero-lead')) });
+    for (const sec of doc.querySelectorAll('main section')) {
+      const head = sec.querySelector('.section-heading'); if (!head) continue;
+      r.panels.push({ meta: txt(head.querySelector('.eyebrow')), title: txt(head.querySelector('h2')), body: '' });
+      for (const art of sec.querySelectorAll('article')) {
+        const link = art.querySelector('a[href]');
+        r.pedestals.push({ meta: txt(art.querySelector('.status-tag')), title: txt(art.querySelector('h3')),
+          body: [...art.querySelectorAll('p')].map(txt).join('\n'), link: link ? [txt(link), link.getAttribute('href')] : undefined });
+      }
+    }
+  } catch (e) {
+    console.warn('Could not load projects.html', e);
+    r.panels.push({ meta: 'Projects', title: 'Projects', body: 'Open the original Projects page to read them.' });
+  }
+}
+await loadProjects();
 
 const ACCENT = 0x00e676, H = 9, WALL_H = 7.5, DOOR = 2.2, T = 0.4;
 
@@ -230,7 +243,8 @@ const body = new THREE.Mesh(new THREE.CapsuleGeometry(0.35, 0.8, 4, 12), bodyMat
 const visor = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.12, 0.1), accentMat); visor.position.set(0, 1.2, -0.32); player.add(visor);
 scene.add(player);
 const RAD = 0.4;
-let yaw = 0, pitch = 0.35;
+let yaw = 0, pitch = 0.35, vy = 0, grounded = true;
+const jump = () => { if (grounded && overlay.hidden) { vy = 7; grounded = false; } };
 
 function collide(x, z) {
   for (const c of colliders) if (x > c.x0 - RAD && x < c.x1 + RAD && z > c.z0 - RAD && z < c.z1 + RAD) return true;
@@ -252,7 +266,7 @@ function setRoom(id) {
   loadPhotos(id); for (const n of Object.values(r.doors)) loadPhotos(n);
 }
 function teleport(id) {
-  const r = ROOMS[id] || ROOMS.lobby; player.position.set(r.pos[0], 0, r.pos[1] + 1); yaw = 0; setRoom(ROOMS[id] ? id : 'lobby');
+  const r = ROOMS[id] || ROOMS.lobby; player.position.set(r.pos[0], 0, r.pos[1] + 1); vy = 0; grounded = true; yaw = 0; setRoom(ROOMS[id] ? id : 'lobby');
 }
 addEventListener('hashchange', () => { const id = location.hash.slice(1) || 'lobby'; if (id !== current) teleport(id); });
 teleport(location.hash.slice(1) || 'lobby');
@@ -272,9 +286,11 @@ const closeOverlay = () => { overlay.hidden = true; };
 document.getElementById('closeOv').onclick = closeOverlay;
 overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
 readBtn.onclick = () => near && openOverlay(near.data);
+document.getElementById('jumpBtn').addEventListener('pointerdown', e => { e.preventDefault(); jump(); });
 addEventListener('keydown', e => {
   if (e.code === 'KeyE') { if (!overlay.hidden) closeOverlay(); else if (near) openOverlay(near.data); }
   if (e.code === 'Escape') closeOverlay();
+  if (e.code === 'Space') { e.preventDefault(); jump(); }
   keys[e.code] = true;
   if (e.code.startsWith('Arrow')) e.preventDefault();
 });
@@ -315,14 +331,16 @@ function tick() {
   }
   const len = Math.hypot(f, s);
   if (len > 0.05) {
-    const sp = 5.5 * dt * Math.min(1, len) / len;
+    const sp = 5.5 * ((keys.ShiftLeft || keys.ShiftRight) ? 1.8 : 1) * dt * Math.min(1, len) / len;
     const vx = (-Math.sin(yaw) * f + Math.cos(yaw) * s) * sp, vz = (-Math.cos(yaw) * f - Math.sin(yaw) * s) * sp;
     const p = player.position;
     if (!collide(p.x + vx, p.z)) p.x += vx;
     if (!collide(p.x, p.z + vz)) p.z += vz;
     player.rotation.y = Math.atan2(-vx, -vz);
-    body.position.y = 0.75 + Math.abs(Math.sin(clock.elapsedTime * 10)) * 0.06;
+    if (grounded) body.position.y = 0.75 + Math.abs(Math.sin(clock.elapsedTime * 10)) * 0.06;
   }
+  vy -= 20 * dt; player.position.y += vy * dt;
+  if (player.position.y <= 0) { player.position.y = 0; vy = 0; grounded = true; }
   const id = roomAt(player.position.x, player.position.z); if (id) setRoom(id);
   near = null; let best = 1e9;
   for (const r of readables) { const d = r.pos.distanceTo(new THREE.Vector3(player.position.x, 0, player.position.z)); if (d < (r.r || 2.6) && d < best) { best = d; near = r; } }
@@ -332,7 +350,7 @@ function tick() {
   const tx = player.position.x, tz = player.position.z;
   for (let d = 0.6; d <= 5; d += 0.2) { if (collide(tx + Math.sin(yaw) * d * Math.cos(pitch), tz + Math.cos(yaw) * d * Math.cos(pitch))) { dist = Math.max(0.6, d - 0.4); break; } }
   camPos.set(tx + Math.sin(yaw) * dist * Math.cos(pitch), 1.4 + Math.sin(pitch) * dist, tz + Math.cos(yaw) * dist * Math.cos(pitch));
-  camera.position.copy(camPos); camera.lookAt(tx, 1.4, tz);
+  camera.position.copy(camPos); camera.position.y += player.position.y * 0.6; camera.lookAt(tx, 1.4 + player.position.y * 0.6, tz);
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }

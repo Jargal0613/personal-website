@@ -19,4 +19,5 @@ canvas{display:block}
 #joy{display:none;position:fixed;left:24px;bottom:70px;width:120px;height:120px;border-radius:50%;border:2px solid rgba(0,230,118,.5);background:rgba(0,0,0,.3);z-index:6}
 #knob{position:absolute;left:35px;top:35px;width:50px;height:50px;border-radius:50%;background:rgba(0,230,118,.7)}
 #readBtn{position:fixed;right:24px;bottom:100px;width:72px;height:72px;border-radius:50%;background:var(--accent);color:#000;border:0;font:700 14px monospace;z-index:6}
-@media (pointer:coarse){#joy{display:block}#hint{font-size:11px}}
+#jumpBtn{display:none;position:fixed;right:24px;bottom:190px;width:72px;height:72px;border-radius:50%;background:rgba(0,0,0,.6);color:#00e676;border:2px solid #00e676;font:700 14px monospace;z-index:6}
+@media (pointer:coarse){#joy{display:block}#jumpBtn{display:block}#hint{font-size:11px}}
