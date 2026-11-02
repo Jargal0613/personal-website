@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Jargal | 3D</title>
+<meta name="description" content="Jargal Boldbaatar's personal website as a walkable 3D space." />
+<link rel="stylesheet" href="style.css" />
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+</head>
+<body>
+<div id="loading"><div class="brand">JB</div><div>Loading…</div></div>
+<div id="hud">
+  <div id="room"><span class="eyebrow">Room</span><strong id="roomName">Lobby</strong></div>
+  <div id="links"><a id="origLink" href="../index.html">Original page</a><a href="../index.html">Back to normal site</a></div>
+</div>
+<div id="hint">WASD / arrows: move · drag mouse: look · E: read nearby panel · walk through doorways to change room</div>
+<div id="prompt" hidden>Press E to read</div>
+<div id="overlay" hidden><div class="card"><button id="closeOv" aria-label="Close">×</button><div id="ovBody"></div></div></div>
+<div id="joy"><div id="knob"></div></div>
+<button id="readBtn" hidden>Read</button>
+<script type="module" src="main.js"></script>
+</body>
+</html>
