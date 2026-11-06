@@ -30,7 +30,7 @@ const ROOMS = {
     panels: [
       { meta: "Let's connect", title: "I'm building this chapter in public.", body: '' },
       { meta: 'Email', title: 'jargal0660@gmail.com', body: 'jargal0660@gmail.com', link: ['Send email', 'https://mail.google.com/mail/?view=cm&to=jargal0660@gmail.com'] },
-      { meta: 'Instagram', title: 'Instagram', body: 'instagram.com/ja_g_l_', link: ['Instagram', 'https://instagram.com/ja_g_l_'] },
+      { meta: 'Instagram', title: 'ja_g_l_', body: 'instagram.com/ja_g_l_', link: ['ja_g_l_', 'https://www.instagram.com/ja_g_l_/'] },
       { meta: 'Jargal Boldbaatar', title: 'Built with curiosity and consistency.', body: '' },
     ] },
 };
